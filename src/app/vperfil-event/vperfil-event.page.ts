@@ -145,7 +145,7 @@ Atras(){
   this.navCtrl.navigateRoot('/perfiles'); 
 }
 EditarActive(){
-this.Editar=false;
+  this.Editar=false;
 }
 
 ToggleD(i){
