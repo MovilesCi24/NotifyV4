@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class VperfilEventPage implements OnInit {
   Data;
   Id_Perfil;
+  Datos;
   constructor(
     public global:GlobalService,
     public Post:PostService,
@@ -30,6 +31,22 @@ export class VperfilEventPage implements OnInit {
   }
 
   ngOnInit() {
+    let data={
+      Option:"EventProfile",
+      Id_ProfileEvent:this.Id_Perfil
+    };
+    this.Post.Event(data,(err,data)=>{
+      console.log(data) ;
+      if(err==null){
+        this.Datos=JSON.parse(data.data);
+        this.OrganizarData(this.Datos);
+      }else{
+        this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
+      }
+  });
   }
 
+  OrganizarData(data){
+
+  }
 }

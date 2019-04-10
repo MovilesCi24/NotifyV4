@@ -164,6 +164,7 @@ let v=0;
                 this.Enviado[p]=true;
               }else{
                 this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
+                // hi perry How R U ------ very good re todo nice---------------------
               }
           });
           p=p+1;

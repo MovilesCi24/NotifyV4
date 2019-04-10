@@ -7,5 +7,30 @@
   </ion-header>
 
 <ion-content>
-
+    <ion-list>
+        <ion-item-group style="width: 100%" *ngFor="let item of Dispositivo;let i=index;">
+            <ion-item-divider (click)=ToggleD(i)>
+              <ion-label color="danger" text-uppercase>{{item.NameDevices}}</ion-label>
+              <ion-icon *ngIf="TDisp[i]==false" slot=end name="arrow-dropdown"></ion-icon>
+              <ion-icon *ngIf="TDisp[i]==true" slot=end name="remove"></ion-icon>
+            </ion-item-divider>
+            <div *ngIf="TDisp[i]==true">
+            <ion-item *ngFor="let comp of Componentes[i];let j=index;">
+                <ion-item-group style="width: 100%">
+                    <ion-item-divider (click)=ToggleC(i,j)>
+                      <ion-label text-uppercase>{{comp.NameComponent}}</ion-label>
+                      <ion-icon *ngIf="Tcomp[i][j]==false" slot=end name="arrow-dropdown"></ion-icon>
+                      <ion-icon *ngIf="Tcomp[i][j]==true" slot=end name="remove"></ion-icon>
+                    </ion-item-divider>
+                    <div *ngIf="Tcomp[i][j]==true">
+                        <ion-item *ngFor="let event of Eventos[i][j];let k=index;">
+                        {{event.NameEvent}}
+                        <ion-toggle slot=end color="danger" [(ngModel)]="Vevent[i][j][k]"></ion-toggle>
+                      </ion-item>
+                    </div>
+                  </ion-item-group>
+            </ion-item>
+            </div>
+          </ion-item-group>
+    </ion-list>
 </ion-content>
