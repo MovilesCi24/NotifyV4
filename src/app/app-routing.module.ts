@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'ajustes-v', loadChildren: './ajustes-v/ajustes-v.module#AjustesVPageModule' },
   { path: 'new-perfil', loadChildren: './new-perfil/new-perfil.module#NewPerfilPageModule' },
   { path: 'perfil-events/:Id', loadChildren: './perfil-events/perfil-events.module#PerfilEventsPageModule' },
+  { path: 'vperfil-event/:Id', loadChildren: './vperfil-event/vperfil-event.module#VperfilEventPageModule' },
 ];
 
 @NgModule({

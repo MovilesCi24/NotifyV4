@@ -35,6 +35,7 @@ Id_Perfil;
     this.Data=Data1.split('.');
     console.log(this.Data);
     this.Id_Perfil=this.Data[0];
+    console.log(this.Id_Perfil)
    }
 
   ngOnInit() {
@@ -100,6 +101,7 @@ Id_Perfil;
                 NameComponent: item.NameComponent,
                 Id_EventComponent: item.Id_EventComponent,
                 NameEvent: item.NameEvent,
+                Id_DeviceComponent: item.Id_DeviceComponent
               });
               this.Vevent[i][j].push(false);
 
@@ -127,6 +129,7 @@ ToggleC(i,j){
 }
 
 Asociar(){
+this.Loading.LoadingNormal('Asociando Eventos...')
 console.log(this.Vevent);
 let v=0;
   for(let i=0;i<this.Dispositivo.length;i++){
@@ -140,7 +143,8 @@ let v=0;
     }
   }
   if(v==0){
-    this.Loading.LoadingNormal('Seleccione al menos un evento')
+    this.Loading.HideLoading();
+    this.Loading.LoadingNormal('Seleccione al menos un evento',2)
   }else{
     let p=0;
     for(let i=0;i<this.Dispositivo.length;i++){
@@ -167,6 +171,10 @@ let v=0;
         }
       }
     }
+    setTimeout(()=>{
+      this.Loading.HideLoading();
+      this.navCtrl.navigateRoot('/perfiles');
+    },2000);
   }
 }
 }

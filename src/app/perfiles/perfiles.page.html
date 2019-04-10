@@ -23,7 +23,7 @@
         <ion-item-options side="start">
           <ion-item-option color="danger" (click)="DeleteProfile(Per.Id_ProfileEvent)">Eliminar</ion-item-option>
         </ion-item-options>
-        <ion-item>
+        <ion-item (click)="DataPerfil(Per.Id_ProfileEvent,Per.Name)">
             <ion-avatar slot="start">
                 <img *ngIf="i%2==0" src="./assets/imgs/Group.png">
                 <img *ngIf="i%2!=0" src="./assets/imgs/Group2.png">
