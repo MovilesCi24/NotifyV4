@@ -21,6 +21,7 @@ Eventos=new Array();
 TDisp=new Array();
 Tcomp=new Array();
 Vevent=new Array();
+Enviado=new Array();
 Id_Perfil;
   constructor(
     public global:GlobalService,
@@ -101,6 +102,7 @@ Id_Perfil;
                 NameEvent: item.NameEvent,
               });
               this.Vevent[i][j].push(false);
+
           }
       }
     }
@@ -126,10 +128,43 @@ ToggleC(i,j){
 
 Asociar(){
 console.log(this.Vevent);
+let v=0;
   for(let i=0;i<this.Dispositivo.length;i++){
     for(let j=0;j<this.Componentes[i].length;j++){
       for(let k=0;k<this.Eventos[i][j].length;k++){
-        
+        if(this.Vevent[i][j][k]==true){
+          v=v+1;
+          this.Enviado.push(false);
+        }
+      }
+    }
+  }
+  if(v==0){
+    this.Loading.LoadingNormal('Seleccione al menos un evento')
+  }else{
+    let p=0;
+    for(let i=0;i<this.Dispositivo.length;i++){
+      for(let j=0;j<this.Componentes[i].length;j++){
+        for(let k=0;k<this.Eventos[i][j].length;k++){
+          if(this.Vevent[i][j][k]==true){
+            let data={
+              Option:"AsociateEvent",
+              Id_ProfileEvent:this.Id_Perfil,
+              Id_DeviceComponent:this.Eventos[i][j][k].Id_DeviceComponent,
+              Id_DeviceType:this.Eventos[i][j][k].Id_DeviceType,
+              Id_EventComponent:this.Eventos[i][j][k].Id_EventComponent,
+            };
+            this.Post.Event(data,(err,data)=>{
+              console.log(data) ;
+              if(err==null){
+                this.Enviado[p]=true;
+              }else{
+                this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
+              }
+          });
+          p=p+1;
+          }
+        }
       }
     }
   }
