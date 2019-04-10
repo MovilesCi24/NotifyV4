@@ -1,0 +1,46 @@
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+//@import "colors";
+:root{    
+
+.Contenido{
+    --background: -webkit-linear-gradient(#434549, #a7a8ac,#434549);
+    .item-native {
+        --background: transparent;
+        --color: white;
+    }
+}
+.itemm {
+    --background: transparent;
+    --color: white;
+    font-size:large;
+  
+}
+
+.ion-color-blue {
+    --ion-color-base: var(--ion-color-blue) !important;
+    --ion-color-base-rgb: var(--ion-color-blue-rgb) !important;
+    --ion-color-contrast: var(--ion-color-blue-contrast) !important;
+    --ion-color-contrast-rgb: var(--ion-color-blue-contrast-rgb) !important;
+    --ion-color-shade: var(--ion-color-blue-shade) !important;
+    --ion-color-tint: var(--ion-color-blue-tint) !important;
+    }
+
+    .ion-color-white {
+        --ion-color-base: var(--ion-color-white) !important;
+        --ion-color-base-rgb: var(--ion-color-white-rgb) !important;
+        --ion-color-contrast: var(--ion-color-white-contrast) !important;
+        --ion-color-contrast-rgb: var(--ion-color-white-contrast-rgb) !important;
+        --ion-color-shade: var(--ion-color-white-shade) !important;
+        --ion-color-tint: var(--ion-color-white-tint) !important;
+        }
+}

@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-menu-toggle menu="first" slot="start">
+          <ion-menu-button color="medium" menumenu="first"></ion-menu-button>
+        </ion-menu-toggle>
+      <ion-title style="text-align: center" text-uppercase>
+        Usuarios 
+      </ion-title>
+      <ion-button slot=end color="white" fill="clear"></ion-button>
+    </ion-toolbar>
+    <ion-searchbar  [(ngModel)]="searchQuery" placeholder="Buscar" (ionInput)="getItems($event)" animated="true" color="medium"></ion-searchbar>
+  </ion-header>
+
+<ion-content class="Contenido">
+
+</ion-content>

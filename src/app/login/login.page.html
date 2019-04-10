@@ -1,0 +1,26 @@
+<ion-content class="Contenido">
+<ion-img src="./assets/imgs/Logo_CI24.png" style="width:90%;padding: 20% 10% 0% 10%;margin: auto"></ion-img>
+<div style="padding:0px 5%">
+  <ion-item class="itemm" style="margin-top:20px">
+    <ion-label position="fixed">Usuario: </ion-label>
+    <ion-input type="text" [(ngModel)]="User"></ion-input>
+  </ion-item>
+  <ion-item class="itemm">
+    <ion-label position="fixed">Contraseña: </ion-label>
+    <ion-input type="password" [(ngModel)]="Pass"></ion-input>
+  </ion-item>
+  <ion-button expand="block" color="medium" style="font-size:large;margin-top: 5px" (click)="Login()">
+    LOGIN
+  </ion-button>
+</div>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="Settings()">
+  <ion-fab-button color="medium">
+    <ion-icon name="settings"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+</ion-content>
+<ion-footer>
+<ion-button expand="block" fill="outline" color="medium">
+  Version 1.0.0
+</ion-button>
+</ion-footer>

@@ -1,0 +1,20 @@
+<ion-app>
+    <ion-menu side="start" menuId="first">
+        <ion-header>
+          <ion-toolbar>
+            <ion-title style="text-align: center">Menu</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content style="--background:white">
+          <ion-list>
+            <ion-menu-toggle *ngFor="let p of pages" >
+                <ion-button  fill="clear" color="medium" size="default" (click)="OpenPage(p.ruta)"><ion-icon name="arrow-dropright"> </ion-icon> {{p.title}}</ion-button>
+            </ion-menu-toggle>
+            <ion-menu-toggle>
+              <ion-button fill="outline" color="danger" expand="block" (click)="CerrarSesion()">Cerrar Sesion</ion-button>
+            </ion-menu-toggle>
+          </ion-list>
+        </ion-content>
+      </ion-menu>
+  <ion-router-outlet main></ion-router-outlet>
+</ion-app>
