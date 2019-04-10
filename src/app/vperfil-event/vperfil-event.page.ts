@@ -23,7 +23,7 @@ export class VperfilEventPage implements OnInit {
   Tcomp=new Array();
   Vevent=new Array();
   Enviado=new Array();
-  Editar=false;
+  Editar=true;
   constructor(
     public global:GlobalService,
     public Post:PostService,
@@ -122,7 +122,9 @@ export class VperfilEventPage implements OnInit {
     }
   }
   console.log(this.Eventos);
-  this.VerificarExis();
+  setTimeout(()=>{
+    this.VerificarExis();
+  },1000);
 }
 
 VerificarExis(){
@@ -141,6 +143,9 @@ VerificarExis(){
 
 Atras(){
   this.navCtrl.navigateRoot('/perfiles'); 
+}
+EditarActive(){
+this.Editar=false;
 }
 
 ToggleD(i){
