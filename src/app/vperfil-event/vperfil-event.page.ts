@@ -14,8 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 export class VperfilEventPage implements OnInit {
   Data;
   Id_Perfil;
-  Datos;
-  Devices;
+  Datos=new Array();
+  Devices=new Array();
   Dispositivo=new Array();
   Componentes=new Array();
   Eventos=new Array();
@@ -121,6 +121,7 @@ export class VperfilEventPage implements OnInit {
     }
   }
   console.log(this.Eventos);
+  this.VerificarExis();
 }
 
 VerificarExis(){
@@ -135,6 +136,10 @@ VerificarExis(){
       }
     }
   }
+}
+
+Atras(){
+  this.navCtrl.navigateRoot('/perfiles'); 
 }
 
 ToggleD(i){
