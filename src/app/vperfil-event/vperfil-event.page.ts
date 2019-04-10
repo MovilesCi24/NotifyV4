@@ -23,6 +23,7 @@ export class VperfilEventPage implements OnInit {
   Tcomp=new Array();
   Vevent=new Array();
   Enviado=new Array();
+  Editar=false;
   constructor(
     public global:GlobalService,
     public Post:PostService,
