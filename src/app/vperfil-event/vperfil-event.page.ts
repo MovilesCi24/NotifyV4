@@ -67,6 +67,7 @@ export class VperfilEventPage implements OnInit {
   }
 
   OrganizarData(Disp){
+    this.Dispositivo=new Array();
     let map = new Map();
     for (let item of Disp) {
         if(!map.has(item.Id_DeviceType)){
@@ -75,7 +76,7 @@ export class VperfilEventPage implements OnInit {
               Id_DeviceType: item.Id_DeviceType,
               NameDevices: item.NameDevices
             });
-            this.TDisp.push(false);
+            this.TDisp.push(true);
         }
     }
     this.Componentes=new Array(this.Dispositivo.length);
@@ -91,7 +92,7 @@ export class VperfilEventPage implements OnInit {
               Id_Component: item.Id_Component,
               NameComponent: item.NameComponent
             });
-            this.Tcomp[i].push(false);
+            this.Tcomp[i].push(true);
         }
     }
     }
@@ -163,4 +164,78 @@ ToggleC(i,j){
     this.Tcomp[i][j]=false;
   }
 }
+
+    Guardar(){
+      let data1={
+        Option:"BlankProfile",
+        Id_ProfileEvent:this.Id_Perfil
+      };
+      this.Post.Event(data1,(err,data)=>{
+        console.log(data) ;
+        if(err==null){
+          this.Asociar();
+        }else{
+          this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
+        }
+    });
+    }
+
+
+    Asociar(){
+      this.Loading.LoadingNormal('Asociando Eventos...')
+      console.log(this.Vevent);
+      let v=0;
+        for(let i=0;i<this.Dispositivo.length;i++){
+          for(let j=0;j<this.Componentes[i].length;j++){
+            for(let k=0;k<this.Eventos[i][j].length;k++){
+              if(this.Vevent[i][j][k]==true){
+                v=v+1;
+                this.Enviado.push(false);
+              }
+            }
+          }
+        }
+        if(v==0){
+          this.Loading.HideLoading();
+          this.Loading.LoadingNormal('Seleccione al menos un evento',2)
+        }else{
+          let p=0;
+          for(let i=0;i<this.Dispositivo.length;i++){
+            for(let j=0;j<this.Componentes[i].length;j++){
+              for(let k=0;k<this.Eventos[i][j].length;k++){
+                if(this.Vevent[i][j][k]==true){
+                  let data={
+                    Option:"AsociateEvent",
+                    Id_ProfileEvent:this.Id_Perfil,
+                    Id_DeviceComponent:this.Eventos[i][j][k].Id_DeviceComponent,
+                    Id_DeviceType:this.Eventos[i][j][k].Id_DeviceType,
+                    Id_EventComponent:this.Eventos[i][j][k].Id_EventComponent,
+                  };
+                  this.Post.Event(data,(err,data)=>{
+                    console.log(data) ;
+                    if(err==null){
+                      this.Enviado[p]=true;
+                    }else{
+                      this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
+                      // hi perry How R U ------ very good re todo nice---------------------
+                    }
+                });
+                p=p+1;
+                }
+              }
+            }
+          }
+          setTimeout(()=>{
+            this.Loading.HideLoading();
+            this.Editar=true;
+            this.ngOnInit();
+          },2000);
+        }
+      }
+
+
+
+
+
+
 }

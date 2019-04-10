@@ -11,6 +11,30 @@
     <ion-searchbar  [(ngModel)]="searchQuery" placeholder="Buscar" (ionInput)="getItems($event)" animated="true" color="medium"></ion-searchbar>
   </ion-header>
 
-<ion-content class="Contenido">
-
+  <ion-content class="Contenido">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="md-arrow-dropdown"
+    pullingText="Desliza para Actualizar"
+    refreshingSpinner="lines"
+    refreshingText="Actualizando..."></ion-refresher-content>
+  </ion-refresher>
+<ion-list>
+    <ion-item-sliding #item *ngFor="let User of Usuarios;let i=index">
+        <ion-item-options side="start">
+          <ion-item-option color="danger">Eliminar</ion-item-option>
+        </ion-item-options>
+        <ion-item>
+            <ion-avatar slot="start">
+                <img *ngIf="i%2==0" src="./assets/imgs/People1.png">
+                <img *ngIf="i%2!=0" src="./assets/imgs/People2.png">
+              </ion-avatar>
+            <ion-label>
+                <h2 text-uppercase>{{User.UserName}}</h2>
+                <p>{{User.Company}}</p>
+              </ion-label>
+              <ion-badge *ngIf="User.IsActive==1" color="success" slot=end>Activo</ion-badge>
+              <ion-badge *ngIf="User.IsActive==0" color="danger" slot=end>Inactivo</ion-badge>
+        </ion-item>
+      </ion-item-sliding>
+</ion-list>
 </ion-content>
