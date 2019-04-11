@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'user-perfil/:Id', loadChildren: './user-perfil/user-perfil.module#UserPerfilPageModule' },
   { path: 'asociate-events/:Id', loadChildren: './asociate-events/asociate-events.module#AsociateEventsPageModule' },
   { path: 'prueba', loadChildren: './prueba/prueba.module#PruebaPageModule' },
+  { path: 'alerta', loadChildren: './alerta/alerta.module#AlertaPageModule' },
 ];
 
 @NgModule({

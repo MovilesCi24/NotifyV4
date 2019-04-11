@@ -31,6 +31,10 @@ export class PruebaPage implements OnInit {
 
   }
 
+  MostrarPag(){
+    this.navCtrl.navigateRoot('/alerta');
+  }
+
   Mostrar(){
     this.POP.presentPopover(PopComponent);
   }
