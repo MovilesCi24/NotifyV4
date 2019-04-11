@@ -78,7 +78,7 @@ NewPerfil(){
   this.navCtrl.navigateRoot('/new-perfil');
 }
 DataPerfil(i,name){
-  let id=i+'.'+name;
+  let id=i+'.'+name+'.perfiles';
   this.navCtrl.navigateRoot('/vperfil-event/'+id); 
 }
 

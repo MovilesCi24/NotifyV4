@@ -76,4 +76,41 @@ export class UsuariosPage implements OnInit {
     });
     }, 1000);
   }
+
+  VerData(Id_User,UserName){
+    let id=Id_User+'.'+UserName;
+    this.navCtrl.navigateRoot('/user-perfil/'+id); 
+  }
+
+  Inactive(id){
+    let data={
+      Option:"InactiveUser",
+      Id_User:id
+    };
+    this.Post.Event(data,(err,data)=>{
+      console.log(data) ;
+      if(err==null){
+        this.ngOnInit();
+        event
+      }else{
+        this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
+      }
+  });
+  }
+
+  Active(id){
+    let data={
+      Option:"ActiveUser",
+      Id_User:id
+    };
+    this.Post.Event(data,(err,data)=>{
+      console.log(data) ;
+      if(err==null){
+        this.ngOnInit();
+        event
+      }else{
+        this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
+      }
+  });
+  }
 }

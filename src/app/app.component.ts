@@ -21,7 +21,8 @@ export class AppComponent {
       {title:'Página Principal',ruta:'/home'},
       {title:'Perfiles de Notificación',ruta:'/perfiles'},
       {title:'Usuarios',ruta:'/usuarios'},
-      {title:'Ajustes Visuales',ruta:'/ajustes-v'}
+      {title:'Ajustes Visuales',ruta:'/ajustes-v'},
+      {title:'Prueba',ruta:'/prueba'}
     ]
   }
 

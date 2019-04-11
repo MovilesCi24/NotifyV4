@@ -43,4 +43,10 @@
         --ion-color-shade: var(--ion-color-white-shade) !important;
         --ion-color-tint: var(--ion-color-white-tint) !important;
         }
+        .item.sc-ion-label-md-h, .item .sc-ion-label-md-h {
+            width: 100%;
+        }
+        .popover-content.sc-ion-popover-md {
+            top: 25%!important;
+        }
 }

@@ -92,7 +92,7 @@ export class VperfilEventPage implements OnInit {
               Id_Component: item.Id_Component,
               NameComponent: item.NameComponent
             });
-            this.Tcomp[i].push(true);
+            this.Tcomp[i].push(false);
         }
     }
     }
@@ -143,7 +143,13 @@ VerificarExis(){
 }
 
 Atras(){
-  this.navCtrl.navigateRoot('/perfiles'); 
+  let ruta
+  if(this.Data[2]=='user-perfil'){
+    ruta='/'+this.Data[2]+'/'+this.Data[3]+'.'+this.Data[4]
+  }else{
+    ruta='/'+this.Data[2]
+  }
+  this.navCtrl.navigateRoot(ruta); 
 }
 EditarActive(){
   this.Editar=false;

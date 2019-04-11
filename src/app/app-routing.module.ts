@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { PopComponent } from './pop/pop.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -13,6 +14,9 @@ const routes: Routes = [
   { path: 'new-perfil', loadChildren: './new-perfil/new-perfil.module#NewPerfilPageModule' },
   { path: 'perfil-events/:Id', loadChildren: './perfil-events/perfil-events.module#PerfilEventsPageModule' },
   { path: 'vperfil-event/:Id', loadChildren: './vperfil-event/vperfil-event.module#VperfilEventPageModule' },
+  { path: 'user-perfil/:Id', loadChildren: './user-perfil/user-perfil.module#UserPerfilPageModule' },
+  { path: 'asociate-events/:Id', loadChildren: './asociate-events/asociate-events.module#AsociateEventsPageModule' },
+  { path: 'prueba', loadChildren: './prueba/prueba.module#PruebaPageModule' },
 ];
 
 @NgModule({

@@ -21,8 +21,8 @@
 <ion-list>
     <ion-item-sliding #item *ngFor="let User of Usuarios;let i=index">
         <ion-item-options side="start">
-          <ion-item-option *ngIf="User.IsActive==1" color="danger">Desactivar</ion-item-option>
-          <ion-item-option *ngIf="User.IsActive==0" color="success">Activar</ion-item-option>
+          <ion-item-option *ngIf="User.IsActive==1" color="danger" (click)="Inactive(User.Id_User)">Desactivar</ion-item-option>
+          <ion-item-option *ngIf="User.IsActive==0" color="success" (click)="Active(User.Id_User)">Activar</ion-item-option>
         </ion-item-options>
         <ion-item>
             <ion-avatar slot="start">
@@ -36,6 +36,9 @@
               <ion-badge *ngIf="User.IsActive==1" color="success" slot=end>Activo</ion-badge>
               <ion-badge *ngIf="User.IsActive==0" color="danger" slot=end>Inactivo</ion-badge>
         </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="tertiary"(click)="VerData(User.Id_User,User.UserName)">Perfiles</ion-item-option>
+        </ion-item-options>
       </ion-item-sliding>
 </ion-list>
 </ion-content>

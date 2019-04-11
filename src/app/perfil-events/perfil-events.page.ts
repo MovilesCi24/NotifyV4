@@ -62,7 +62,7 @@ Id_Perfil;
               Id_DeviceType: item.Id_DeviceType,
               NameDevices: item.NameDevices
             });
-            this.TDisp.push(false);
+            this.TDisp.push(true);
         }
     }
     this.Componentes=new Array(this.Dispositivo.length);

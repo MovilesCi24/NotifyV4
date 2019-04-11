@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button slot=start color="danger" fill="clear" (click)="this.navCtrl.navigateRoot('/usuarios');"> <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon></ion-button>    
+    <ion-title style="text-align: center" text-uppercase>{{Data[1]}}</ion-title>
+    <ion-button *ngIf="Editar==true" slot=end color="blue" fill="clear" (click)="EditarActive()"> <ion-icon slot="icon-only" name="create"></ion-icon></ion-button>
+    <ion-button *ngIf="Editar==false" slot=end color="success" fill="clear" (click)="GuardarActive()"> <ion-icon slot="icon-only" name="checkmark-circle-outline"></ion-icon></ion-button>
+  </ion-toolbar>
+  <ion-button *ngIf="Editar==false" color=medium expand=block fill=outline>Editando...</ion-button>
+</ion-header>
+
+<ion-content class="Contenido">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="md-arrow-dropdown"
+    pullingText="Desliza para Actualizar"
+    refreshingSpinner="lines"
+    refreshingText="Actualizando..."></ion-refresher-content>
+  </ion-refresher>
+<ion-list>
+    <ion-item-sliding #item *ngFor="let Per of Perfiles;let i=index">
+        <ion-item-options side="start" *ngIf="Editar==true">
+          <ion-item-option *ngIf="Per.IsActive==1" color="danger" (click)="Inactive(Per.Id_ProfileEvent)">Desactivar</ion-item-option>
+          <ion-item-option *ngIf="Per.IsActive==0" color="success" (click)="Active(Per.Id_ProfileEvent)">Activar</ion-item-option>
+        </ion-item-options>
+        <ion-item>
+            <ion-avatar slot="start">
+                <img *ngIf="i%2==0" src="./assets/imgs/Group3.png">
+                <img *ngIf="i%2!=0" src="./assets/imgs/Group4.png">
+              </ion-avatar>
+            <ion-label>
+                <h2 text-uppercase>{{Per.Name}}</h2>
+              </ion-label>
+              <ion-badge *ngIf="Per.IsActive==1&&Editar==true" color="success" slot=end>Activo</ion-badge>
+              <ion-badge *ngIf="Per.IsActive==0&&Editar==true" color="danger" slot=end>Inactivo</ion-badge>
+              <ion-button *ngIf="Editar==false" slot=end color="danger" fill="clear" (click)="Delete(Per.Id_ProfileEvent)"> <ion-icon slot="icon-only" size="large" name="close-circle-outline"></ion-icon></ion-button>
+        </ion-item>
+        <ion-item-options side="end" *ngIf="Editar==true">
+          <ion-item-option color="tertiary" (click)="DataPerfil(Per.Id_ProfileEvent,Per.Name)">Eventos</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+</ion-list>
+</ion-content>
+<ion-footer  *ngIf="Editar==false">
+  <ion-button expand="block" fill="outline" color="medium" (click)="Asociar()">
+      Asociar Perfiles
+  </ion-button>
+</ion-footer>
