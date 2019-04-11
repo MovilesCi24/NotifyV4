@@ -7,6 +7,7 @@ export class GlobalService {
 Servidor:any;
 User:string;
 Pass:string;
+AlertaData;
 public IsLoggin:boolean=false;
 public RestDefinitions:any;
   constructor() {

@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
 import { LoadingService } from '../loading.service';
 import { AlertService } from '../alert.service';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -19,7 +20,8 @@ Pass:string;
     private storage: Storage,
     public navCtrl:NavController,
     public Loading:LoadingService,
-    public Alert:AlertService
+    public Alert:AlertService,
+    public splashScreen:SplashScreen
   ) { 
     this.storage.get('Usuario').then((val) => {
       if(val==''||val==' '||val==null){
@@ -41,6 +43,7 @@ Pass:string;
 
   ngOnInit() {
     this.Loading.HideLoading();
+    this.splashScreen.hide();
   }
 
   public Login(){

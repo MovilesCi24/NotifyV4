@@ -60,7 +60,15 @@
   "cordova-plugin-firebase": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-firebase@2.0.5"
+      "id": "cordova-plugin-firebase@latest"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-support-google-services": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-support-google-services"
     },
     "is_top_level": true,
     "variables": {}

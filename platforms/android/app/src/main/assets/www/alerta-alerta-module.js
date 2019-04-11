@@ -58,7 +58,7 @@ var AlertaPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-button slot=start color=\"white\" fill=\"clear\"></ion-button>\n      <ion-title style=\"text-align: center\" color=danger text-uppercase>\n        Alerta \n      </ion-title>\n    <ion-button slot=end color=\"white\" fill=\"clear\"></ion-button>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"Contenido\">\n  <ion-list>\n      <ion-slides pager=\"true\" [options]=\"slideOpts\">\n          <ion-slide>\n            <ion-list>\n              <ion-item>\n                  <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n              </ion-item>\n            </ion-list>\n          </ion-slide>\n          <ion-slide>\n              <ion-list>\n                  <ion-item>\n                      <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n                  </ion-item>\n                </ion-list>\n          </ion-slide>\n          <ion-slide>\n              <ion-list>\n                  <ion-item>\n                      <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n                  </ion-item>\n                </ion-list>\n          </ion-slide>\n        </ion-slides>\n        <div style=\"padding:0px 5%\">\n            <ion-button expand=\"block\" color=\"medium\">Alerta Recibida</ion-button>\n            <ion-button expand=\"block\" color=\"medium\">Responder Alerta</ion-button>\n            <ion-button expand=\"block\" color=\"danger\" fill=\"outline\" (click)=\"Cancel()\">Cancelar</ion-button>\n        </div>\n  </ion-list>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-button slot=start color=\"white\" fill=\"clear\"></ion-button>\n      <ion-title style=\"text-align: center\" color=danger text-uppercase>\n        Alerta \n      </ion-title>\n    <ion-button slot=end color=\"white\" fill=\"clear\"></ion-button>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"Contenido\">\n  <ion-list>\n      <ion-slides pager=\"true\" [options]=\"slideOpts\">\n          <ion-slide>\n            <ion-list>\n              <ion-item>\n                  <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n              </ion-item>\n            </ion-list>\n          </ion-slide>\n          <ion-slide>\n              <ion-list>\n                  <ion-item>\n                      <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n                  </ion-item>\n                </ion-list>\n          </ion-slide>\n          <ion-slide>\n              <ion-list>\n                  <ion-item>\n                      <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n                  </ion-item>\n                </ion-list>\n          </ion-slide>\n        </ion-slides>\n        <div style=\"padding:0px 5%\">\n            <ion-button *ngFor=\"let button of Botones\" expand=\"block\" color=\"medium\" (click)=\"console.log(button.value)\">{{button.Text}}</ion-button>\n            <ion-button expand=\"block\" color=\"danger\" fill=\"outline\">Cancelar</ion-button>\n        </div>\n  </ion-list>\n</ion-content>\n"
 
 /***/ }),
 
@@ -85,15 +85,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AlertaPage", function() { return AlertaPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
+/* harmony import */ var _global_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../global.service */ "./src/app/global.service.ts");
+
+
 
 
 var AlertaPage = /** @class */ (function () {
-    function AlertaPage() {
+    function AlertaPage(global, splashScreen) {
+        this.global = global;
+        this.splashScreen = splashScreen;
         this.slideOpts = {
             effect: 'flip'
         };
+        this.splashScreen.hide();
     }
     AlertaPage.prototype.ngOnInit = function () {
+        //this.Botones=.split(';');
+        var predata = this.global.AlertaData.button.replace(/'/g, '"');
+        console.log(predata);
+        this.Botones = JSON.parse(predata);
+        console.log(this.Botones);
     };
     AlertaPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -101,7 +113,8 @@ var AlertaPage = /** @class */ (function () {
             template: __webpack_require__(/*! ./alerta.page.html */ "./src/app/alerta/alerta.page.html"),
             styles: [__webpack_require__(/*! ./alerta.page.scss */ "./src/app/alerta/alerta.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_global_service__WEBPACK_IMPORTED_MODULE_3__["GlobalService"],
+            _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_2__["SplashScreen"]])
     ], AlertaPage);
     return AlertaPage;
 }());

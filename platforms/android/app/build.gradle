@@ -90,7 +90,8 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
-apply from: "../cordova-plugin-firebase/new-build.gradle"
+apply from: "../cordova-plugin-firebase/ci24-build.gradle"
+apply from: "../cordova-support-google-services/ci24-build.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -229,7 +230,6 @@ android {
     }
 
     compileOptions {
-        ext.enableCrashlytics = false
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -246,7 +246,6 @@ android {
         }
         buildTypes {
             release {
-                ext.enableCrashlytics = false
                 signingConfig signingConfigs.release
             }
         }

@@ -1012,20 +1012,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
-/* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
+/* harmony import */ var _ionic_native_firebase_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/firebase/ngx */ "./node_modules/@ionic-native/firebase/ngx/index.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
+/* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
+/* harmony import */ var _global_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./global.service */ "./src/app/global.service.ts");
+
+
 
 
 
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, navCtrl) {
+    function AppComponent(platform, splashScreen, statusBar, navCtrl, firebase, global) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
         this.navCtrl = navCtrl;
+        this.firebase = firebase;
+        this.global = global;
         this.pages = new Array();
         this.initializeApp();
         this.pages = [
@@ -1039,8 +1045,20 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
         this.platform.ready().then(function () {
-            _this.statusBar.styleDefault();
-            _this.splashScreen.hide();
+            _this.statusBar.styleLightContent();
+            _this.statusBar.backgroundColorByHexString('434549');
+            _this.firebase.getToken()
+                .then(function (token) { return console.log("The token is " + token); }) // save the token server-side and use it to push notifications to this device
+                .catch(function (error) { return console.error('Error getting token', error); });
+            _this.firebase.onNotificationOpen()
+                .subscribe(function (data) {
+                console.log('User opened a notification' + JSON.stringify(data));
+                console.log(data);
+                if (data.alerta == true || data.alerta == "true") {
+                    _this.global.AlertaData = data;
+                    _this.navCtrl.navigateForward('/alerta');
+                }
+            });
         });
     };
     AppComponent.prototype.OpenPage = function (ruta) {
@@ -1054,10 +1072,12 @@ var AppComponent = /** @class */ (function () {
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html")
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
-            _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__["SplashScreen"],
-            _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["Platform"],
+            _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_4__["SplashScreen"],
+            _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_5__["StatusBar"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"],
+            _ionic_native_firebase_ngx__WEBPACK_IMPORTED_MODULE_2__["Firebase"],
+            _global_service__WEBPACK_IMPORTED_MODULE_6__["GlobalService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -1122,6 +1142,40 @@ var AppModule = /** @class */ (function () {
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/global.service.ts":
+/*!***********************************!*\
+  !*** ./src/app/global.service.ts ***!
+  \***********************************/
+/*! exports provided: GlobalService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GlobalService", function() { return GlobalService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var GlobalService = /** @class */ (function () {
+    function GlobalService() {
+        this.IsLoggin = false;
+        this.RestDefinitions = {
+            Success: 100
+        };
+    }
+    GlobalService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], GlobalService);
+    return GlobalService;
 }());
 
 
@@ -1234,6 +1288,9 @@ __webpack_require__.r(__webpack_exports__);
 var PopComponent = /** @class */ (function () {
     function PopComponent(POP) {
         this.POP = POP;
+        this.slideOpts = {
+            effect: 'flip'
+        };
     }
     PopComponent.prototype.ngOnInit = function () {
     };

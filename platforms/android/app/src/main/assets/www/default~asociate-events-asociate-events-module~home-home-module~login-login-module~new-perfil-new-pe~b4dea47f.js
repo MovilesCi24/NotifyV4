@@ -160,40 +160,6 @@ var AlertService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/global.service.ts":
-/*!***********************************!*\
-  !*** ./src/app/global.service.ts ***!
-  \***********************************/
-/*! exports provided: GlobalService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GlobalService", function() { return GlobalService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-var GlobalService = /** @class */ (function () {
-    function GlobalService() {
-        this.IsLoggin = false;
-        this.RestDefinitions = {
-            Success: 100
-        };
-    }
-    GlobalService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], GlobalService);
-    return GlobalService;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/loading.service.ts":
 /*!************************************!*\
   !*** ./src/app/loading.service.ts ***!

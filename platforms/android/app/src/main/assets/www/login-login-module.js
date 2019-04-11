@@ -91,6 +91,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _loading_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../loading.service */ "./src/app/loading.service.ts");
 /* harmony import */ var _alert_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../alert.service */ "./src/app/alert.service.ts");
+/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
+
 
 
 
@@ -100,7 +102,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LoginPage = /** @class */ (function () {
-    function LoginPage(global, Post, storage, navCtrl, Loading, Alert) {
+    function LoginPage(global, Post, storage, navCtrl, Loading, Alert, splashScreen) {
         var _this = this;
         this.global = global;
         this.Post = Post;
@@ -108,6 +110,7 @@ var LoginPage = /** @class */ (function () {
         this.navCtrl = navCtrl;
         this.Loading = Loading;
         this.Alert = Alert;
+        this.splashScreen = splashScreen;
         this.storage.get('Usuario').then(function (val) {
             if (val == '' || val == ' ' || val == null) {
             }
@@ -127,6 +130,7 @@ var LoginPage = /** @class */ (function () {
     }
     LoginPage.prototype.ngOnInit = function () {
         this.Loading.HideLoading();
+        this.splashScreen.hide();
     };
     LoginPage.prototype.Login = function () {
         var _this = this;
@@ -197,7 +201,8 @@ var LoginPage = /** @class */ (function () {
             _ionic_storage__WEBPACK_IMPORTED_MODULE_4__["Storage"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["NavController"],
             _loading_service__WEBPACK_IMPORTED_MODULE_6__["LoadingService"],
-            _alert_service__WEBPACK_IMPORTED_MODULE_7__["AlertService"]])
+            _alert_service__WEBPACK_IMPORTED_MODULE_7__["AlertService"],
+            _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_8__["SplashScreen"]])
     ], LoginPage);
     return LoginPage;
 }());
