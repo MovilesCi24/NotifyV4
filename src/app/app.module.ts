@@ -10,14 +10,17 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { PopComponent } from './pop/pop.component';
+import { Firebase } from '@ionic-native/firebase/ngx';  
 
 @NgModule({
   declarations: [AppComponent,PopComponent],
   entryComponents: [PopComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,IonicStorageModule.forRoot()],
+  imports: [
+    BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,IonicStorageModule.forRoot()],
   providers: [
     StatusBar,
     SplashScreen,
+    Firebase,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],exports:[PopComponent]

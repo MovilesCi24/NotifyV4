@@ -47,6 +47,9 @@
             width: 100%;
         }
         .popover-content.sc-ion-popover-md {
-            top: 25%!important;
+            top: 20%!important;
+        }
+        .swiper-pagination-bullet-active {
+            background: var(--ion-color-medium);
         }
 }

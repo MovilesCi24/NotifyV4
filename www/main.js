@@ -837,25 +837,83 @@ module.exports = webpackAsyncContext;
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./ajustes-v/ajustes-v.module": [
+		"./src/app/ajustes-v/ajustes-v.module.ts",
+		"ajustes-v-ajustes-v-module"
+	],
+	"./alerta/alerta.module": [
+		"./src/app/alerta/alerta.module.ts",
+		"alerta-alerta-module"
+	],
+	"./asociate-events/asociate-events.module": [
+		"./src/app/asociate-events/asociate-events.module.ts",
+		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
+		"common",
+		"asociate-events-asociate-events-module"
+	],
 	"./home/home.module": [
 		"./src/app/home/home.module.ts",
+		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
+		"common",
 		"home-home-module"
 	],
 	"./login/login.module": [
 		"./src/app/login/login.module.ts",
+		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
+		"common",
 		"login-login-module"
+	],
+	"./new-perfil/new-perfil.module": [
+		"./src/app/new-perfil/new-perfil.module.ts",
+		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
+		"common",
+		"new-perfil-new-perfil-module"
 	],
 	"./notify-detail/notify-detail.module": [
 		"./src/app/notify-detail/notify-detail.module.ts",
 		"notify-detail-notify-detail-module"
 	],
+	"./perfil-events/perfil-events.module": [
+		"./src/app/perfil-events/perfil-events.module.ts",
+		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
+		"common",
+		"perfil-events-perfil-events-module"
+	],
 	"./perfiles/perfiles.module": [
 		"./src/app/perfiles/perfiles.module.ts",
+		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
+		"common",
 		"perfiles-perfiles-module"
+	],
+	"./prueba/prueba.module": [
+		"./src/app/prueba/prueba.module.ts",
+		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
+		"common",
+		"prueba-prueba-module"
 	],
 	"./settings/settings.module": [
 		"./src/app/settings/settings.module.ts",
+		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
+		"common",
 		"settings-settings-module"
+	],
+	"./user-perfil/user-perfil.module": [
+		"./src/app/user-perfil/user-perfil.module.ts",
+		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
+		"common",
+		"user-perfil-user-perfil-module"
+	],
+	"./usuarios/usuarios.module": [
+		"./src/app/usuarios/usuarios.module.ts",
+		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
+		"common",
+		"usuarios-usuarios-module"
+	],
+	"./vperfil-event/vperfil-event.module": [
+		"./src/app/vperfil-event/vperfil-event.module.ts",
+		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
+		"common",
+		"vperfil-event-vperfil-event-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -867,7 +925,7 @@ function webpackAsyncContext(req) {
 			throw e;
 		});
 	}
-	return __webpack_require__.e(ids[1]).then(function() {
+	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
 		var id = ids[0];
 		return __webpack_require__(id);
 	});
@@ -903,6 +961,15 @@ var routes = [
     { path: 'notify-detail', loadChildren: './notify-detail/notify-detail.module#NotifyDetailPageModule' },
     { path: 'perfiles', loadChildren: './perfiles/perfiles.module#PerfilesPageModule' },
     { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
+    { path: 'usuarios', loadChildren: './usuarios/usuarios.module#UsuariosPageModule' },
+    { path: 'ajustes-v', loadChildren: './ajustes-v/ajustes-v.module#AjustesVPageModule' },
+    { path: 'new-perfil', loadChildren: './new-perfil/new-perfil.module#NewPerfilPageModule' },
+    { path: 'perfil-events/:Id', loadChildren: './perfil-events/perfil-events.module#PerfilEventsPageModule' },
+    { path: 'vperfil-event/:Id', loadChildren: './vperfil-event/vperfil-event.module#VperfilEventPageModule' },
+    { path: 'user-perfil/:Id', loadChildren: './user-perfil/user-perfil.module#UserPerfilPageModule' },
+    { path: 'asociate-events/:Id', loadChildren: './asociate-events/asociate-events.module#AsociateEventsPageModule' },
+    { path: 'prueba', loadChildren: './prueba/prueba.module#PruebaPageModule' },
+    { path: 'alerta', loadChildren: './alerta/alerta.module#AlertaPageModule' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -929,7 +996,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-router-outlet></ion-router-outlet>\n</ion-app>\n"
+module.exports = "<ion-app>\n    <ion-menu side=\"start\" menuId=\"first\">\n        <ion-header>\n          <ion-toolbar>\n            <ion-title style=\"text-align: center\">Menu</ion-title>\n          </ion-toolbar>\n        </ion-header>\n        <ion-content style=\"--background:white\">\n          <ion-list>\n            <ion-menu-toggle *ngFor=\"let p of pages\" >\n                <ion-button  fill=\"clear\" color=\"medium\" size=\"default\" (click)=\"OpenPage(p.ruta)\"><ion-icon name=\"arrow-dropright\"> </ion-icon> {{p.title}}</ion-button>\n            </ion-menu-toggle>\n            <ion-menu-toggle>\n              <ion-button fill=\"outline\" color=\"danger\" expand=\"block\" (click)=\"CerrarSesion()\">Cerrar Sesion</ion-button>\n            </ion-menu-toggle>\n          </ion-list>\n        </ion-content>\n      </ion-menu>\n  <ion-router-outlet main></ion-router-outlet>\n</ion-app>\n"
 
 /***/ }),
 
@@ -954,11 +1021,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar) {
+    function AppComponent(platform, splashScreen, statusBar, navCtrl) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
+        this.navCtrl = navCtrl;
+        this.pages = new Array();
         this.initializeApp();
+        this.pages = [
+            { title: 'Página Principal', ruta: '/home' },
+            { title: 'Perfiles de Notificación', ruta: '/perfiles' },
+            { title: 'Usuarios', ruta: '/usuarios' },
+            { title: 'Ajustes Visuales', ruta: '/ajustes-v' },
+            { title: 'Prueba', ruta: '/prueba' }
+        ];
     }
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
@@ -967,6 +1043,12 @@ var AppComponent = /** @class */ (function () {
             _this.splashScreen.hide();
         });
     };
+    AppComponent.prototype.OpenPage = function (ruta) {
+        this.navCtrl.navigateRoot(ruta);
+    };
+    AppComponent.prototype.CerrarSesion = function () {
+        this.navCtrl.navigateRoot('/login');
+    };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-root',
@@ -974,7 +1056,8 @@ var AppComponent = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__["SplashScreen"],
-            _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"]])
+            _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -1004,6 +1087,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _pop_pop_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pop/pop.component */ "./src/app/pop/pop.component.ts");
+/* harmony import */ var _ionic_native_firebase_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/firebase/ngx */ "./node_modules/@ionic-native/firebase/ngx/index.js");
+
+
 
 
 
@@ -1020,18 +1107,148 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
-            entryComponents: [],
-            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_10__["HttpClientModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["IonicStorageModule"].forRoot()],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"], _pop_pop_component__WEBPACK_IMPORTED_MODULE_11__["PopComponent"]],
+            entryComponents: [_pop_pop_component__WEBPACK_IMPORTED_MODULE_11__["PopComponent"]],
+            imports: [
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_10__["HttpClientModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["IonicStorageModule"].forRoot()
+            ],
             providers: [
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
+                _ionic_native_firebase_ngx__WEBPACK_IMPORTED_MODULE_12__["Firebase"],
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] }
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]], exports: [_pop_pop_component__WEBPACK_IMPORTED_MODULE_11__["PopComponent"]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pop-over.service.ts":
+/*!*************************************!*\
+  !*** ./src/app/pop-over.service.ts ***!
+  \*************************************/
+/*! exports provided: PopOverService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopOverService", function() { return PopOverService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
+
+var PopOverService = /** @class */ (function () {
+    function PopOverService(popoverController) {
+        this.popoverController = popoverController;
+    }
+    PopOverService.prototype.presentPopover = function (PopComponent) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var _a;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.popoverController.create({
+                                component: PopComponent,
+                                translucent: true,
+                                backdropDismiss: false
+                            })];
+                    case 1:
+                        _a.popover = _b.sent();
+                        return [4 /*yield*/, this.popover.present()];
+                    case 2: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
+    PopOverService.prototype.Dismiss = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.popover.dismiss()];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    PopOverService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root',
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"]])
+    ], PopOverService);
+    return PopOverService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pop/pop.component.html":
+/*!****************************************!*\
+  !*** ./src/app/pop/pop.component.html ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-button slot=start color=\"white\" fill=\"clear\"></ion-button>\n        <ion-title style=\"text-align: center\" color=danger text-uppercase>\n          Alerta \n        </ion-title>\n      <ion-button slot=end color=\"white\" fill=\"clear\"></ion-button>\n    </ion-toolbar>\n  </ion-header>\n  \n  <ion-content class=\"Contenido\">\n    <ion-list>\n        <ion-slides pager=\"true\" [options]=\"slideOpts\">\n            <ion-slide>\n              <ion-list>\n                <ion-item>\n                    <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n                </ion-item>\n              </ion-list>\n            </ion-slide>\n            <ion-slide>\n                <ion-list>\n                    <ion-item>\n                        <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n                    </ion-item>\n                  </ion-list>\n            </ion-slide>\n            <ion-slide>\n                <ion-list>\n                    <ion-item>\n                        <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n                    </ion-item>\n                  </ion-list>\n            </ion-slide>\n          </ion-slides>\n          <div style=\"padding:0px 5%\">\n              <ion-button expand=\"block\" color=\"medium\">Alerta Recibida</ion-button>\n              <ion-button expand=\"block\" color=\"medium\">Responder Alerta</ion-button>\n              <ion-button expand=\"block\" color=\"danger\" fill=\"outline\" (click)=\"Cancel()\">Cancelar</ion-button>\n          </div>\n    </ion-list>\n  </ion-content>"
+
+/***/ }),
+
+/***/ "./src/app/pop/pop.component.scss":
+/*!****************************************!*\
+  !*** ./src/app/pop/pop.component.scss ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BvcC9wb3AuY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/pop/pop.component.ts":
+/*!**************************************!*\
+  !*** ./src/app/pop/pop.component.ts ***!
+  \**************************************/
+/*! exports provided: PopComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopComponent", function() { return PopComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _pop_over_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pop-over.service */ "./src/app/pop-over.service.ts");
+
+
+
+var PopComponent = /** @class */ (function () {
+    function PopComponent(POP) {
+        this.POP = POP;
+    }
+    PopComponent.prototype.ngOnInit = function () {
+    };
+    PopComponent.prototype.Cancel = function () {
+        this.POP.Dismiss();
+    };
+    PopComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-pop',
+            template: __webpack_require__(/*! ./pop.component.html */ "./src/app/pop/pop.component.html"),
+            styles: [__webpack_require__(/*! ./pop.component.scss */ "./src/app/pop/pop.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_pop_over_service__WEBPACK_IMPORTED_MODULE_2__["PopOverService"]])
+    ], PopComponent);
+    return PopComponent;
 }());
 
 

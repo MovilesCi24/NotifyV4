@@ -7,7 +7,9 @@ import { PopOverService } from '../pop-over.service';
   styleUrls: ['./pop.component.scss'],
 })
 export class PopComponent implements OnInit {
-
+  slideOpts = {
+    effect: 'flip'
+  };
   constructor(public POP:PopOverService) { }
 
   ngOnInit() {
