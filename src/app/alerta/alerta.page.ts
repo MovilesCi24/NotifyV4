@@ -11,6 +11,8 @@ export class AlertaPage implements OnInit {
   slideOpts = {
     effect: 'flip'
   };
+  Imagenes;
+  Bimagen;
   Botones;
   Campos;
   Texto;
@@ -23,7 +25,13 @@ export class AlertaPage implements OnInit {
    }
 
   ngOnInit() {
+    if(this.global.AlertaData.button.replace=="null"||this.global.AlertaData.button.replace==null){
+      this.Bimagen=false;
+    }else{
+      this.Bimagen=true;
+    }
     //this.Botones=.split(';');
+    console.log(this.Bimagen);
     let predata=this.global.AlertaData.button.replace(/'/g,'"');
     console.log(predata)
     this.Botones=JSON.parse(predata)

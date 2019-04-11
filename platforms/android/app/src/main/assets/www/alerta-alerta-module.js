@@ -101,7 +101,14 @@ var AlertaPage = /** @class */ (function () {
         this.splashScreen.hide();
     }
     AlertaPage.prototype.ngOnInit = function () {
+        if (this.global.AlertaData.button.replace == "null" || this.global.AlertaData.button.replace == null) {
+            this.Bimagen = false;
+        }
+        else {
+            this.Bimagen = true;
+        }
         //this.Botones=.split(';');
+        console.log(this.Bimagen);
         var predata = this.global.AlertaData.button.replace(/'/g, '"');
         console.log(predata);
         this.Botones = JSON.parse(predata);
