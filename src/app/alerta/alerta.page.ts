@@ -25,7 +25,7 @@ export class AlertaPage implements OnInit {
    }
 
   ngOnInit() {
-    if(this.global.AlertaData.button.replace=="null"||this.global.AlertaData.button.replace==null){
+    if(this.global.AlertaData.url=="null"||this.global.AlertaData.url==null){
       this.Bimagen=false;
     }else{
       this.Bimagen=true;
