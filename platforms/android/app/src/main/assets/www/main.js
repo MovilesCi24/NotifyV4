@@ -847,25 +847,22 @@ var map = {
 	],
 	"./asociate-events/asociate-events.module": [
 		"./src/app/asociate-events/asociate-events.module.ts",
-		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
 		"common",
 		"asociate-events-asociate-events-module"
 	],
 	"./home/home.module": [
 		"./src/app/home/home.module.ts",
-		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
 		"common",
 		"home-home-module"
 	],
 	"./login/login.module": [
 		"./src/app/login/login.module.ts",
-		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
+		"default~login-login-module~settings-settings-module",
 		"common",
 		"login-login-module"
 	],
 	"./new-perfil/new-perfil.module": [
 		"./src/app/new-perfil/new-perfil.module.ts",
-		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
 		"common",
 		"new-perfil-new-perfil-module"
 	],
@@ -875,43 +872,37 @@ var map = {
 	],
 	"./perfil-events/perfil-events.module": [
 		"./src/app/perfil-events/perfil-events.module.ts",
-		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
 		"common",
 		"perfil-events-perfil-events-module"
 	],
 	"./perfiles/perfiles.module": [
 		"./src/app/perfiles/perfiles.module.ts",
-		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
 		"common",
 		"perfiles-perfiles-module"
 	],
 	"./prueba/prueba.module": [
 		"./src/app/prueba/prueba.module.ts",
-		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
 		"common",
 		"prueba-prueba-module"
 	],
 	"./settings/settings.module": [
 		"./src/app/settings/settings.module.ts",
-		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
+		"default~login-login-module~settings-settings-module",
 		"common",
 		"settings-settings-module"
 	],
 	"./user-perfil/user-perfil.module": [
 		"./src/app/user-perfil/user-perfil.module.ts",
-		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
 		"common",
 		"user-perfil-user-perfil-module"
 	],
 	"./usuarios/usuarios.module": [
 		"./src/app/usuarios/usuarios.module.ts",
-		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
 		"common",
 		"usuarios-usuarios-module"
 	],
 	"./vperfil-event/vperfil-event.module": [
 		"./src/app/vperfil-event/vperfil-event.module.ts",
-		"default~asociate-events-asociate-events-module~home-home-module~login-login-module~new-perfil-new-pe~b4dea47f",
 		"common",
 		"vperfil-event-vperfil-event-module"
 	]
@@ -1017,6 +1008,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
 /* harmony import */ var _global_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./global.service */ "./src/app/global.service.ts");
+/* harmony import */ var _pop_over_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pop-over.service */ "./src/app/pop-over.service.ts");
+/* harmony import */ var _pop_pop_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pop/pop.component */ "./src/app/pop/pop.component.ts");
+/* harmony import */ var _post_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./post.service */ "./src/app/post.service.ts");
+
+
+
 
 
 
@@ -1025,13 +1022,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, navCtrl, firebase, global) {
+    function AppComponent(platform, splashScreen, statusBar, navCtrl, firebase, global, POP, Post) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
         this.navCtrl = navCtrl;
         this.firebase = firebase;
         this.global = global;
+        this.POP = POP;
+        this.Post = Post;
         this.pages = new Array();
         this.initializeApp();
         this.pages = [
@@ -1048,7 +1047,10 @@ var AppComponent = /** @class */ (function () {
             _this.statusBar.styleLightContent();
             _this.statusBar.backgroundColorByHexString('434549');
             _this.firebase.getToken()
-                .then(function (token) { return console.log("The token is " + token); }) // save the token server-side and use it to push notifications to this device
+                .then(function (token) {
+                console.log("The token is " + token);
+                _this.global.UserToken = token;
+            }) // save the token server-side and use it to push notifications to this device
                 .catch(function (error) { return console.error('Error getting token', error); });
             _this.firebase.onNotificationOpen()
                 .subscribe(function (data) {
@@ -1056,7 +1058,12 @@ var AppComponent = /** @class */ (function () {
                 console.log(data);
                 if (data.alerta == true || data.alerta == "true") {
                     _this.global.AlertaData = data;
-                    _this.navCtrl.navigateForward('/alerta');
+                    if (_this.global.AlertaData.url == "null" || _this.global.AlertaData.url == null) {
+                        _this.POP.presentPopover(_pop_pop_component__WEBPACK_IMPORTED_MODULE_8__["PopComponent"]);
+                    }
+                    else {
+                        _this.navCtrl.navigateForward('/alerta');
+                    }
                 }
             });
         });
@@ -1077,7 +1084,9 @@ var AppComponent = /** @class */ (function () {
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_5__["StatusBar"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"],
             _ionic_native_firebase_ngx__WEBPACK_IMPORTED_MODULE_2__["Firebase"],
-            _global_service__WEBPACK_IMPORTED_MODULE_6__["GlobalService"]])
+            _global_service__WEBPACK_IMPORTED_MODULE_6__["GlobalService"],
+            _pop_over_service__WEBPACK_IMPORTED_MODULE_7__["PopOverService"],
+            _post_service__WEBPACK_IMPORTED_MODULE_9__["PostService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -1254,7 +1263,7 @@ var PopOverService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-button slot=start color=\"white\" fill=\"clear\"></ion-button>\n        <ion-title style=\"text-align: center\" color=danger text-uppercase>\n          Alerta \n        </ion-title>\n      <ion-button slot=end color=\"white\" fill=\"clear\"></ion-button>\n    </ion-toolbar>\n  </ion-header>\n  \n  <ion-content class=\"Contenido\">\n    <ion-list>\n        <ion-slides pager=\"true\" [options]=\"slideOpts\">\n            <ion-slide>\n              <ion-list>\n                <ion-item>\n                    <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n                </ion-item>\n              </ion-list>\n            </ion-slide>\n            <ion-slide>\n                <ion-list>\n                    <ion-item>\n                        <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n                    </ion-item>\n                  </ion-list>\n            </ion-slide>\n            <ion-slide>\n                <ion-list>\n                    <ion-item>\n                        <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n                    </ion-item>\n                  </ion-list>\n            </ion-slide>\n          </ion-slides>\n          <div style=\"padding:0px 5%\">\n              <ion-button expand=\"block\" color=\"medium\">Alerta Recibida</ion-button>\n              <ion-button expand=\"block\" color=\"medium\">Responder Alerta</ion-button>\n              <ion-button expand=\"block\" color=\"danger\" fill=\"outline\" (click)=\"Cancel()\">Cancelar</ion-button>\n          </div>\n    </ion-list>\n  </ion-content>"
+module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-button slot=start color=\"white\" fill=\"clear\"></ion-button>\n        <ion-title style=\"text-align: center\" color=danger text-uppercase>\n          Alerta \n        </ion-title>\n      <ion-button slot=end color=\"white\" fill=\"clear\"></ion-button>\n    </ion-toolbar>\n  </ion-header>\n  \n  <ion-content class=\"Contenido\">\n      <ion-list>\n            <div style=\"padding:0px 5%\">\n                <ion-item *ngIf=\"Blabel==true\">\n                  <ion-label style=\"text-align:center\" text-uppercase>{{Texto}}</ion-label>\n                </ion-item>\n                <ion-item *ngIf=\"Binput==true\">\n                    <ion-input placeholder=\"Respuesta\"></ion-input>\n                  </ion-item>\n                <ion-button *ngIf=\"Binput==true\" expand=\"block\" color=\"medium\">Enviar Respuesta</ion-button>\n                <ion-button *ngFor=\"let button of Botones\" expand=\"block\" color=\"medium\" (click)=\"console.log(button.value)\">{{button.Text}}</ion-button>\n                <ion-button expand=\"block\" color=\"danger\" fill=\"outline\" (click)=\"Cancel()\">Cancelar</ion-button>\n            </div>\n      </ion-list>\n    </ion-content>\n    "
 
 /***/ }),
 
@@ -1282,17 +1291,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _pop_over_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pop-over.service */ "./src/app/pop-over.service.ts");
+/* harmony import */ var _global_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../global.service */ "./src/app/global.service.ts");
+
 
 
 
 var PopComponent = /** @class */ (function () {
-    function PopComponent(POP) {
+    function PopComponent(POP, global) {
         this.POP = POP;
+        this.global = global;
         this.slideOpts = {
             effect: 'flip'
         };
+        this.Imagenes = new Array();
+        this.Bimagen = false;
+        this.Binput = false;
+        this.Blabel = false;
+        this.Botones = new Array();
     }
+    ;
     PopComponent.prototype.ngOnInit = function () {
+        if (this.global.AlertaData.url == "null" || this.global.AlertaData.url == null) {
+            this.Bimagen = false;
+        }
+        else {
+            this.Bimagen = true;
+        }
+        console.log(this.global.AlertaData.url);
+        this.Imagenes = JSON.parse(this.global.AlertaData.url.replace(/'/g, '"'));
+        console.log(this.Imagenes);
+        //this.Botones=.split(';');
+        console.log(this.Bimagen);
+        if (this.global.AlertaData.input == "true" || this.global.AlertaData.url == true) {
+            this.Binput = true;
+        }
+        else {
+            this.Binput = false;
+        }
+        console.log(this.Binput);
+        if (this.global.AlertaData.label == "null" || this.global.AlertaData.url == null) {
+            this.Blabel = false;
+        }
+        else {
+            this.Blabel = true;
+            this.Texto = this.global.AlertaData.label;
+        }
+        console.log(this.Blabel, this.Texto);
+        var predata = this.global.AlertaData.button.replace(/'/g, '"');
+        console.log(predata);
+        this.Botones = JSON.parse(predata);
+        console.log(this.Botones);
     };
     PopComponent.prototype.Cancel = function () {
         this.POP.Dismiss();
@@ -1303,9 +1351,102 @@ var PopComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./pop.component.html */ "./src/app/pop/pop.component.html"),
             styles: [__webpack_require__(/*! ./pop.component.scss */ "./src/app/pop/pop.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_pop_over_service__WEBPACK_IMPORTED_MODULE_2__["PopOverService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_pop_over_service__WEBPACK_IMPORTED_MODULE_2__["PopOverService"],
+            _global_service__WEBPACK_IMPORTED_MODULE_3__["GlobalService"]])
     ], PopComponent);
     return PopComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/post.service.ts":
+/*!*********************************!*\
+  !*** ./src/app/post.service.ts ***!
+  \*********************************/
+/*! exports provided: PostService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PostService", function() { return PostService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _global_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./global.service */ "./src/app/global.service.ts");
+
+
+
+
+
+var PostService = /** @class */ (function () {
+    function PostService(http, storage, global) {
+        this.http = http;
+        this.storage = storage;
+        this.global = global;
+        this.Refresh(function (datos) {
+            console.log('Datos Actualizados');
+        });
+    }
+    PostService.prototype.Login = function (data, callback) {
+        var _this = this;
+        this.Refresh(function (datos) {
+            _this.http.post(_this.ControllersAPI.Login, data).subscribe(function (res) {
+                callback(null, res);
+            }, function (err) {
+                callback(err);
+            });
+        });
+    };
+    PostService.prototype.Event = function (data, callback) {
+        var _this = this;
+        this.Refresh(function (datos) {
+            _this.http.post(_this.ControllersAPI.Events, data).subscribe(function (res) {
+                callback(null, res);
+            }, function (err) {
+                callback(err);
+            });
+        });
+    };
+    PostService.prototype.Prueba = function (Query, callback) {
+        var data = {
+            Query: Query,
+        };
+        this.http.post(this.ControllersAPI.Prueba, data).subscribe(function (res) {
+            callback(null, res);
+            console.log(res);
+        }, function (err) {
+            callback(err);
+            console.log(err);
+        });
+    };
+    PostService.prototype.Refresh = function (cb) {
+        var _this = this;
+        this.storage.get('Ruta').then(function (val) {
+            if (val == '' || val == ' ' || val == null) {
+            }
+            else {
+                _this.global.Servidor = val;
+                _this.ControllersAPI = {
+                    Prueba: val + "/Prueba",
+                    Login: val + "/LoginController",
+                    Events: val + "/EventController",
+                };
+                cb(_this.ControllersAPI);
+            }
+        });
+    };
+    PostService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"],
+            _global_service__WEBPACK_IMPORTED_MODULE_4__["GlobalService"]])
+    ], PostService);
+    return PostService;
 }());
 
 

@@ -6,6 +6,7 @@ import { NavController } from '@ionic/angular';
 import { LoadingService } from '../loading.service';
 import { AlertService } from '../alert.service';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { NotifyService } from '../notify.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -21,7 +22,8 @@ Pass:string;
     public navCtrl:NavController,
     public Loading:LoadingService,
     public Alert:AlertService,
-    public splashScreen:SplashScreen
+    public splashScreen:SplashScreen,
+    public Noty:NotifyService
   ) { 
     this.storage.get('Usuario').then((val) => {
       if(val==''||val==' '||val==null){
@@ -68,6 +70,15 @@ Pass:string;
                   this.storage.set('Contraseña',this.Pass);
                   this.Loading.LoadingNormal("Autenticacion Exitosa",2);
                   this.global.IsLoggin=true;
+                  this.global.UserData=JSON.parse(data.data)[0];
+                  console.log(this.global.UserData);
+                  this.Noty.InsertClave(this.global.UserData.Id_User,this.global.UserData.Id_Company,this.global.UserData.Id_Role,this.global.UserToken,(err,data1)=>{
+                    if(err==null){
+                      console.log('Todo Bien')
+                    }else{
+                      console.log("ERR   =>   "+err)
+                    }
+                  });
                   this.navCtrl.navigateRoot('/home');
                 }else{
                   this.Loading.LoadingNormal("Error en la Autenticacion",2)

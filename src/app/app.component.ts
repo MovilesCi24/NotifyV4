@@ -4,6 +4,9 @@ import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { GlobalService } from './global.service';
+import { PopOverService } from './pop-over.service';
+import { PopComponent } from './pop/pop.component';
+import { PostService } from './post.service';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +14,16 @@ import { GlobalService } from './global.service';
 })
 export class AppComponent {
   pages=new Array();
+  query:any;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,    
     public navCtrl:NavController,
     private firebase: Firebase,
-    public global:GlobalService
+    public global:GlobalService,
+    public POP:PopOverService,
+    public Post:PostService
   ) {
     this.initializeApp();
     this.pages=[
@@ -34,7 +40,10 @@ export class AppComponent {
       this.statusBar.styleLightContent();
       this.statusBar.backgroundColorByHexString('434549');
       this.firebase.getToken()
-      .then(token => console.log(`The token is ${token}`)) // save the token server-side and use it to push notifications to this device
+      .then(token =>{ 
+        console.log(`The token is ${token}`);
+        this.global.UserToken=token;
+      }) // save the token server-side and use it to push notifications to this device
       .catch(error => console.error('Error getting token', error));
       this.firebase.onNotificationOpen()
       .subscribe(data =>{
@@ -42,7 +51,12 @@ export class AppComponent {
         console.log(data)
         if(data.alerta==true||data.alerta=="true"){
           this.global.AlertaData=data;
-          this.navCtrl.navigateForward('/alerta');
+          if(this.global.AlertaData.url=="null"||this.global.AlertaData.url==null){
+            this.POP.presentPopover(PopComponent);
+          }else{
+            this.navCtrl.navigateForward('/alerta');
+          }
+          
         }
       } );
     });
@@ -55,4 +69,9 @@ export class AppComponent {
   CerrarSesion(){
     this.navCtrl.navigateRoot('/login');
   }
+
+  
+  
+
+
 }

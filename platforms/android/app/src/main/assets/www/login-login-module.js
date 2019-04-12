@@ -92,6 +92,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _loading_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../loading.service */ "./src/app/loading.service.ts");
 /* harmony import */ var _alert_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../alert.service */ "./src/app/alert.service.ts");
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
+/* harmony import */ var _notify_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../notify.service */ "./src/app/notify.service.ts");
+
 
 
 
@@ -102,7 +104,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LoginPage = /** @class */ (function () {
-    function LoginPage(global, Post, storage, navCtrl, Loading, Alert, splashScreen) {
+    function LoginPage(global, Post, storage, navCtrl, Loading, Alert, splashScreen, Noty) {
         var _this = this;
         this.global = global;
         this.Post = Post;
@@ -111,6 +113,7 @@ var LoginPage = /** @class */ (function () {
         this.Loading = Loading;
         this.Alert = Alert;
         this.splashScreen = splashScreen;
+        this.Noty = Noty;
         this.storage.get('Usuario').then(function (val) {
             if (val == '' || val == ' ' || val == null) {
             }
@@ -156,6 +159,16 @@ var LoginPage = /** @class */ (function () {
                                 _this.storage.set('Contraseña', _this.Pass);
                                 _this.Loading.LoadingNormal("Autenticacion Exitosa", 2);
                                 _this.global.IsLoggin = true;
+                                _this.global.UserData = JSON.parse(data.data)[0];
+                                console.log(_this.global.UserData);
+                                _this.Noty.InsertClave(_this.global.UserData.Id_User, _this.global.UserData.Id_Company, _this.global.UserData.Id_Role, _this.global.UserToken, function (err, data1) {
+                                    if (err == null) {
+                                        console.log('Todo Bien');
+                                    }
+                                    else {
+                                        console.log("ERR   =>   " + err);
+                                    }
+                                });
                                 _this.navCtrl.navigateRoot('/home');
                             }
                             else {
@@ -202,7 +215,8 @@ var LoginPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["NavController"],
             _loading_service__WEBPACK_IMPORTED_MODULE_6__["LoadingService"],
             _alert_service__WEBPACK_IMPORTED_MODULE_7__["AlertService"],
-            _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_8__["SplashScreen"]])
+            _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_8__["SplashScreen"],
+            _notify_service__WEBPACK_IMPORTED_MODULE_9__["NotifyService"]])
     ], LoginPage);
     return LoginPage;
 }());

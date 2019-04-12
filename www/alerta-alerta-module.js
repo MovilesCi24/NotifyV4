@@ -58,7 +58,7 @@ var AlertaPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-button slot=start color=\"white\" fill=\"clear\"></ion-button>\n      <ion-title style=\"text-align: center\" color=danger text-uppercase>\n        Alerta \n      </ion-title>\n    <ion-button slot=end color=\"white\" fill=\"clear\"></ion-button>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"Contenido\">\n  <ion-list>\n      <ion-slides pager=\"true\" [options]=\"slideOpts\">\n          <ion-slide>\n            <ion-list>\n              <ion-item>\n                  <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n              </ion-item>\n            </ion-list>\n          </ion-slide>\n          <ion-slide>\n              <ion-list>\n                  <ion-item>\n                      <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n                  </ion-item>\n                </ion-list>\n          </ion-slide>\n          <ion-slide>\n              <ion-list>\n                  <ion-item>\n                      <ion-img src=\"./assets/imgs/Placas.png\" style=\"width:90%;margin: auto\"></ion-img>\n                  </ion-item>\n                </ion-list>\n          </ion-slide>\n        </ion-slides>\n        <div style=\"padding:0px 5%\">\n            <ion-button *ngFor=\"let button of Botones\" expand=\"block\" color=\"medium\" (click)=\"console.log(button.value)\">{{button.Text}}</ion-button>\n            <ion-button expand=\"block\" color=\"danger\" fill=\"outline\">Cancelar</ion-button>\n        </div>\n  </ion-list>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-button slot=start color=\"white\" fill=\"clear\"></ion-button>\n      <ion-title style=\"text-align: center\" color=danger text-uppercase>\n        Alerta \n      </ion-title>\n    <ion-button slot=end color=\"white\" fill=\"clear\"></ion-button>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"Contenido\">\n  <ion-list>\n      <ion-slides pager=\"true\" [options]=\"slideOpts\" *ngIf=\"Bimagen==true\">\n          <ion-slide *ngFor=\"let item of Imagenes\">\n            <ion-list>\n              <ion-item>\n                  <ion-img src=\"{{item}}\" style=\"width:90%;margin: auto\"></ion-img>\n              </ion-item>\n            </ion-list>\n          </ion-slide>\n         </ion-slides>\n        <div style=\"padding:0px 5%\">\n            <ion-item *ngIf=\"Blabel==true\">\n              <ion-label style=\"text-align:center\" text-uppercase>{{Texto}}</ion-label>\n            </ion-item>\n            <ion-item *ngIf=\"Binput==true\">\n                <ion-input placeholder=\"Respuesta\"></ion-input>\n              </ion-item>\n            <ion-button *ngIf=\"Binput==true\" expand=\"block\" color=\"medium\">Enviar Respuesta</ion-button>\n            <ion-button *ngFor=\"let button of Botones\" expand=\"block\" color=\"medium\" (click)=\"console.log(button.value)\">{{button.Text}}</ion-button>\n            <ion-button expand=\"block\" color=\"danger\" fill=\"outline\" (click)=\"Cancel()\">Cancelar</ion-button>\n        </div>\n  </ion-list>\n</ion-content>\n"
 
 /***/ }),
 
@@ -87,32 +87,63 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
 /* harmony import */ var _global_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../global.service */ "./src/app/global.service.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
 
 
 
 
 var AlertaPage = /** @class */ (function () {
-    function AlertaPage(global, splashScreen) {
+    function AlertaPage(global, splashScreen, viewCtrl, navCtrl) {
         this.global = global;
         this.splashScreen = splashScreen;
+        this.viewCtrl = viewCtrl;
+        this.navCtrl = navCtrl;
         this.slideOpts = {
             effect: 'flip'
         };
+        this.Imagenes = new Array();
+        this.Bimagen = false;
+        this.Binput = false;
+        this.Blabel = false;
+        this.Botones = new Array();
         this.splashScreen.hide();
     }
+    ;
     AlertaPage.prototype.ngOnInit = function () {
-        if (this.global.AlertaData.button.replace == "null" || this.global.AlertaData.button.replace == null) {
+        if (this.global.AlertaData.url == "null" || this.global.AlertaData.url == null) {
             this.Bimagen = false;
         }
         else {
             this.Bimagen = true;
         }
+        console.log(this.global.AlertaData.url);
+        this.Imagenes = JSON.parse(this.global.AlertaData.url.replace(/'/g, '"'));
+        console.log(this.Imagenes);
         //this.Botones=.split(';');
         console.log(this.Bimagen);
+        if (this.global.AlertaData.input == "true" || this.global.AlertaData.url == true) {
+            this.Binput = true;
+        }
+        else {
+            this.Binput = false;
+        }
+        console.log(this.Binput);
+        if (this.global.AlertaData.label == "null" || this.global.AlertaData.url == null) {
+            this.Blabel = false;
+        }
+        else {
+            this.Blabel = true;
+            this.Texto = this.global.AlertaData.label;
+        }
+        console.log(this.Blabel, this.Texto);
         var predata = this.global.AlertaData.button.replace(/'/g, '"');
         console.log(predata);
         this.Botones = JSON.parse(predata);
         console.log(this.Botones);
+    };
+    AlertaPage.prototype.Cancel = function () {
+        this.navCtrl.pop();
     };
     AlertaPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -121,7 +152,9 @@ var AlertaPage = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./alerta.page.scss */ "./src/app/alerta/alerta.page.scss")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_global_service__WEBPACK_IMPORTED_MODULE_3__["GlobalService"],
-            _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_2__["SplashScreen"]])
+            _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_2__["SplashScreen"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"]])
     ], AlertaPage);
     return AlertaPage;
 }());

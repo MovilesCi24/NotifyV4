@@ -38,6 +38,19 @@ ControllersAPI;
     })
  }
 
+ Prueba(Query,callback){
+  let data={
+    Query: Query,
+    };
+  this.http.post(this.ControllersAPI.Prueba,data).subscribe(res => {
+    callback(null,res)
+    console.log(res)
+  },(err) => {
+    callback(err)
+    console.log(err)
+  });
+}
+
   Refresh(cb){
     this.storage.get('Ruta').then((val) => {
       if(val==''||val==' '||val==null){
@@ -45,6 +58,7 @@ ControllersAPI;
       }else{
         this.global.Servidor=val;
         this.ControllersAPI={
+          Prueba:val+"/Prueba",
           Login:val+"/LoginController",
           Events:val+"/EventController",
         };

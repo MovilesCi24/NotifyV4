@@ -9,34 +9,18 @@
   </ion-header>
   
   <ion-content class="Contenido">
-    <ion-list>
-        <ion-slides pager="true" [options]="slideOpts">
-            <ion-slide>
-              <ion-list>
-                <ion-item>
-                    <ion-img src="./assets/imgs/Placas.png" style="width:90%;margin: auto"></ion-img>
+      <ion-list>
+            <div style="padding:0px 5%">
+                <ion-item *ngIf="Blabel==true">
+                  <ion-label style="text-align:center" text-uppercase>{{Texto}}</ion-label>
                 </ion-item>
-              </ion-list>
-            </ion-slide>
-            <ion-slide>
-                <ion-list>
-                    <ion-item>
-                        <ion-img src="./assets/imgs/Placas.png" style="width:90%;margin: auto"></ion-img>
-                    </ion-item>
-                  </ion-list>
-            </ion-slide>
-            <ion-slide>
-                <ion-list>
-                    <ion-item>
-                        <ion-img src="./assets/imgs/Placas.png" style="width:90%;margin: auto"></ion-img>
-                    </ion-item>
-                  </ion-list>
-            </ion-slide>
-          </ion-slides>
-          <div style="padding:0px 5%">
-              <ion-button expand="block" color="medium">Alerta Recibida</ion-button>
-              <ion-button expand="block" color="medium">Responder Alerta</ion-button>
-              <ion-button expand="block" color="danger" fill="outline" (click)="Cancel()">Cancelar</ion-button>
-          </div>
-    </ion-list>
-  </ion-content>
+                <ion-item *ngIf="Binput==true">
+                    <ion-input placeholder="Respuesta"></ion-input>
+                  </ion-item>
+                <ion-button *ngIf="Binput==true" expand="block" color="medium">Enviar Respuesta</ion-button>
+                <ion-button *ngFor="let button of Botones" expand="block" color="medium" (click)="console.log(button.value)">{{button.Text}}</ion-button>
+                <ion-button expand="block" color="danger" fill="outline" (click)="Cancel()">Cancelar</ion-button>
+            </div>
+      </ion-list>
+    </ion-content>
+    

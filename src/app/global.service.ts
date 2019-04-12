@@ -8,6 +8,9 @@ Servidor:any;
 User:string;
 Pass:string;
 AlertaData;
+Noti:any;
+UserData:any;
+UserToken;
 public IsLoggin:boolean=false;
 public RestDefinitions:any;
   constructor() {

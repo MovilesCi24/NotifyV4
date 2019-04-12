@@ -58,7 +58,7 @@ var SettingsPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-button slot=start color=\"danger\" fill=\"clear\" (click)=\"this.navCtrl.navigateRoot('/login');\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\n      <ion-title style=\"text-align: center\" text-uppercase>Ajustes</ion-title>\n      <ion-button slot=end color=\"white\" fill=\"clear\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\n    </ion-toolbar>\n  </ion-header>\n\n<ion-content class=\"Contenido\">\n<ion-list>\n  <div style=\"padding:0% 10px\">\n      <ion-item >\n          <ion-label position=\"fixed\">Url Servidor: </ion-label>\n          <ion-input type=\"text\" [(ngModel)]=\"Servidor\"></ion-input>\n        </ion-item>\n  </div>\n</ion-list>\n</ion-content>\n<ion-footer>\n    <ion-button expand=\"block\" fill=\"outline\" color=\"medium\" (click)=\"Guardar()\">\n     Guardar\n</ion-button>\n</ion-footer>"
+module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-button slot=start color=\"danger\" fill=\"clear\" (click)=\"this.navCtrl.navigateRoot('/login');\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\n      <ion-title style=\"text-align: center\" text-uppercase>Ajustes</ion-title>\n      <ion-button slot=end color=\"white\" fill=\"clear\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\n    </ion-toolbar>\n  </ion-header>\n\n<ion-content class=\"Contenido\">\n<ion-list>\n  <div style=\"padding:0% 10px\">\n      <ion-item >\n          <ion-label position=\"fixed\">Url Servidor: </ion-label>\n          <ion-input type=\"text\" [(ngModel)]=\"Servidor\"></ion-input>\n        </ion-item>\n  </div>\n  <div style=\"padding:0% 10px\">\n      <ion-item >\n          <ion-label position=\"fixed\">Url Notificaciones: </ion-label>\n          <ion-input type=\"text\" [(ngModel)]=\"Noti\"></ion-input>\n      </ion-item>\n  </div>\n</ion-list>\n</ion-content>\n<ion-footer>\n    <ion-button expand=\"block\" fill=\"outline\" color=\"medium\" (click)=\"Guardar()\">\n     Guardar\n</ion-button>\n</ion-footer>"
 
 /***/ }),
 
@@ -91,6 +91,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _loading_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../loading.service */ "./src/app/loading.service.ts");
 /* harmony import */ var _alert_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../alert.service */ "./src/app/alert.service.ts");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _notify_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../notify.service */ "./src/app/notify.service.ts");
+
 
 
 
@@ -100,13 +102,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SettingsPage = /** @class */ (function () {
-    function SettingsPage(global, Post, storage, navCtrl, Loading, Alert) {
+    function SettingsPage(global, Post, storage, navCtrl, Loading, Alert, Notify) {
         this.global = global;
         this.Post = Post;
         this.storage = storage;
         this.navCtrl = navCtrl;
         this.Loading = Loading;
         this.Alert = Alert;
+        this.Notify = Notify;
     }
     SettingsPage.prototype.ngOnInit = function () {
         var _this = this;
@@ -117,18 +120,29 @@ var SettingsPage = /** @class */ (function () {
                 _this.Servidor = _this.global.Servidor = val;
             }
         });
+        this.storage.get('Notificaciones').then(function (val) {
+            if (val == '' || val == ' ' || val == null) {
+            }
+            else {
+                _this.Noti = _this.global.Noti = val;
+            }
+        });
     };
     SettingsPage.prototype.Guardar = function () {
         var _this = this;
-        if (this.Servidor == '' || this.Servidor == ' ' || this.Servidor == null || this.Servidor == undefined) {
+        if (this.Servidor == '' || this.Servidor == ' ' || this.Servidor == null || this.Servidor == undefined || this.Noti == '' || this.Noti == ' ' || this.Noti == null || this.Noti == undefined) {
             this.Loading.LoadingNormal("Error, se encuentran campos vacios", 2);
         }
         else {
             this.Loading.LoadingNormal("Guardando Cambios", 3);
             this.storage.set('Ruta', this.Servidor);
+            this.storage.set('Notificaciones', this.Noti);
+            this.global.Noti = this.Noti;
             this.global.Servidor = this.Servidor;
             this.Post.Refresh(function (data) {
-                _this.navCtrl.navigateRoot('/login');
+                _this.Notify.Refresh(function (data) {
+                    _this.navCtrl.navigateRoot('/login');
+                });
             });
         }
     };
@@ -143,7 +157,8 @@ var SettingsPage = /** @class */ (function () {
             _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"],
             _loading_service__WEBPACK_IMPORTED_MODULE_5__["LoadingService"],
-            _alert_service__WEBPACK_IMPORTED_MODULE_6__["AlertService"]])
+            _alert_service__WEBPACK_IMPORTED_MODULE_6__["AlertService"],
+            _notify_service__WEBPACK_IMPORTED_MODULE_8__["NotifyService"]])
     ], SettingsPage);
     return SettingsPage;
 }());
