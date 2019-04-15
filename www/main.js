@@ -857,7 +857,6 @@ var map = {
 	],
 	"./login/login.module": [
 		"./src/app/login/login.module.ts",
-		"default~login-login-module~settings-settings-module",
 		"common",
 		"login-login-module"
 	],
@@ -887,7 +886,6 @@ var map = {
 	],
 	"./settings/settings.module": [
 		"./src/app/settings/settings.module.ts",
-		"default~login-login-module~settings-settings-module",
 		"common",
 		"settings-settings-module"
 	],
@@ -926,6 +924,166 @@ webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 };
 webpackAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 module.exports = webpackAsyncContext;
+
+/***/ }),
+
+/***/ "./src/app/alert.service.ts":
+/*!**********************************!*\
+  !*** ./src/app/alert.service.ts ***!
+  \**********************************/
+/*! exports provided: AlertService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AlertService", function() { return AlertService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
+
+var AlertService = /** @class */ (function () {
+    function AlertService(Alert) {
+        this.Alert = Alert;
+    }
+    AlertService.prototype.AlertOnebutton = function (tittle, message, textbutton) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var Popup;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (textbutton == undefined) {
+                            textbutton = "Aceptar";
+                        }
+                        return [4 /*yield*/, this.Alert.create({
+                                header: tittle,
+                                message: message,
+                                buttons: [{
+                                        text: textbutton,
+                                        handler: function () {
+                                            Popup.dismiss();
+                                        }
+                                    }]
+                            })];
+                    case 1:
+                        Popup = _a.sent();
+                        Popup.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    AlertService.prototype.AlertTwobutton = function (tittle, message, textbutton, textbutton1) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var Popup;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (textbutton == undefined) {
+                            textbutton = "Cancelar";
+                        }
+                        if (textbutton1 == undefined) {
+                            textbutton1 = "Aceptar";
+                        }
+                        return [4 /*yield*/, this.Alert.create({ header: tittle,
+                                message: message,
+                                buttons: [{
+                                        text: textbutton,
+                                        handler: function () {
+                                            Popup.dismiss();
+                                        }
+                                    }, {
+                                        text: textbutton1,
+                                        role: 'cancel',
+                                        handler: function () {
+                                            Popup.dismiss();
+                                        }
+                                    }]
+                            })];
+                    case 1:
+                        Popup = _a.sent();
+                        Popup.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    AlertService.prototype.AlertOneButton = function (title, template, buttonText, callback) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var textButton, alert;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        textButton = "OK";
+                        if (buttonText != undefined) {
+                            textButton = buttonText;
+                        }
+                        return [4 /*yield*/, this.Alert.create({
+                                header: title,
+                                message: template,
+                                buttons: [{
+                                        text: textButton,
+                                        role: 'cancel',
+                                        handler: function () {
+                                            if (callback !== undefined) {
+                                                callback();
+                                            }
+                                        }
+                                    }]
+                            })];
+                    case 1:
+                        alert = _a.sent();
+                        alert.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    AlertService.prototype.AlertTowButtons = function (title, template, buttonText, callback, fail) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.Alert.create({
+                            header: title,
+                            message: template,
+                            buttons: [
+                                {
+                                    text: 'Cancelar',
+                                    role: 'cancel',
+                                    handler: function () {
+                                        if (fail !== undefined) {
+                                            fail();
+                                        }
+                                    }
+                                },
+                                {
+                                    text: buttonText,
+                                    handler: function () {
+                                        callback();
+                                    }
+                                }
+                            ]
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        alert.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    AlertService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]])
+    ], AlertService);
+    return AlertService;
+}());
+
+
 
 /***/ }),
 
@@ -1011,6 +1169,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pop_over_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pop-over.service */ "./src/app/pop-over.service.ts");
 /* harmony import */ var _pop_pop_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pop/pop.component */ "./src/app/pop/pop.component.ts");
 /* harmony import */ var _post_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./post.service */ "./src/app/post.service.ts");
+/* harmony import */ var _alert_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./alert.service */ "./src/app/alert.service.ts");
+
 
 
 
@@ -1022,7 +1182,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, navCtrl, firebase, global, POP, Post) {
+    function AppComponent(platform, splashScreen, statusBar, navCtrl, firebase, global, POP, Post, toast, Alert) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
@@ -1031,6 +1191,8 @@ var AppComponent = /** @class */ (function () {
         this.global = global;
         this.POP = POP;
         this.Post = Post;
+        this.toast = toast;
+        this.Alert = Alert;
         this.pages = new Array();
         this.initializeApp();
         this.pages = [
@@ -1054,15 +1216,21 @@ var AppComponent = /** @class */ (function () {
                 .catch(function (error) { return console.error('Error getting token', error); });
             _this.firebase.onNotificationOpen()
                 .subscribe(function (data) {
-                console.log('User opened a notification' + JSON.stringify(data));
-                console.log(data);
-                if (data.alerta == true || data.alerta == "true") {
-                    _this.global.AlertaData = data;
-                    if (_this.global.AlertaData.url == "null" || _this.global.AlertaData.url == null) {
-                        _this.POP.presentPopover(_pop_pop_component__WEBPACK_IMPORTED_MODULE_8__["PopComponent"]);
+                if (_this.global.IsLoggin == true) {
+                    console.log('User opened a notification' + JSON.stringify(data));
+                    console.log(data);
+                    if (data.alerta == true || data.alerta == "true") {
+                        _this.global.AlertaData = data;
+                        if (_this.global.AlertaData.url == "null" || _this.global.AlertaData.url == null) {
+                            _this.POP.presentPopover(_pop_pop_component__WEBPACK_IMPORTED_MODULE_8__["PopComponent"]);
+                        }
+                        else {
+                            _this.navCtrl.navigateForward('/alerta');
+                        }
                     }
                     else {
-                        _this.navCtrl.navigateForward('/alerta');
+                        _this.global.AlertaData = data;
+                        _this.CraerToast(data.title + ': ' + data.label);
                     }
                 }
             });
@@ -1073,6 +1241,47 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.CerrarSesion = function () {
         this.navCtrl.navigateRoot('/login');
+    };
+    AppComponent.prototype.CraerToast = function (mess) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var toasty;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.toast.create({
+                            message: mess,
+                            showCloseButton: true,
+                            position: 'top',
+                            closeButtonText: 'Ver',
+                            translucent: true,
+                            color: 'blanco',
+                            cssClass: 'Notify',
+                            duration: 4000
+                        })];
+                    case 1:
+                        toasty = _a.sent();
+                        toasty.present();
+                        toasty.onDidDismiss().then(function () {
+                            var data = {
+                                Option: 'ReadNoty',
+                                Id_Unique: _this.global.AlertaData.Id_Unique,
+                                Id_User: _this.global.UserData.Id_User
+                            };
+                            _this.Post.Event(data, function (err, data) {
+                                console.log(data);
+                                if (err == null) {
+                                    console.log('Notificacion Leida');
+                                }
+                                else {
+                                    _this.Alert.AlertOnebutton('Error', JSON.stringify(err.message));
+                                }
+                            });
+                            console.log('Dismissed toast');
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1086,7 +1295,9 @@ var AppComponent = /** @class */ (function () {
             _ionic_native_firebase_ngx__WEBPACK_IMPORTED_MODULE_2__["Firebase"],
             _global_service__WEBPACK_IMPORTED_MODULE_6__["GlobalService"],
             _pop_over_service__WEBPACK_IMPORTED_MODULE_7__["PopOverService"],
-            _post_service__WEBPACK_IMPORTED_MODULE_9__["PostService"]])
+            _post_service__WEBPACK_IMPORTED_MODULE_9__["PostService"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"],
+            _alert_service__WEBPACK_IMPORTED_MODULE_10__["AlertService"]])
     ], AppComponent);
     return AppComponent;
 }());

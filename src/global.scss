@@ -43,6 +43,14 @@
         --ion-color-shade: var(--ion-color-white-shade) !important;
         --ion-color-tint: var(--ion-color-white-tint) !important;
         }
+        .ion-color-blanco {
+            --ion-color-base: var(--ion-color-blanco) !important;
+            --ion-color-base-rgb: var(--ion-color-blanco-rgb) !important;
+            --ion-color-contrast: var(--ion-color-blanco-contrast) !important;
+            --ion-color-contrast-rgb: var(--ion-color-blanco-contrast-rgb) !important;
+            --ion-color-shade: var(--ion-color-blanco-shade) !important;
+            --ion-color-tint: var(--ion-color-blanco-tint) !important;
+            }
         .item.sc-ion-label-md-h, .item .sc-ion-label-md-h {
             width: 100%;
         }
@@ -52,4 +60,13 @@
         .swiper-pagination-bullet-active {
             background: var(--ion-color-medium);
         }
+    .Notify {
+        --background:white;
+        --border-color:#434549;
+        --border-width:2px;
+        --border-style:solid;
+        --button-color:var(--ion-color-danger) !important;
+    }
+    
+
 }

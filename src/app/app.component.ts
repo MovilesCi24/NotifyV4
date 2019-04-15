@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { Firebase } from '@ionic-native/firebase/ngx';
-import { Platform, NavController } from '@ionic/angular';
+import { Platform, NavController, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { GlobalService } from './global.service';
 import { PopOverService } from './pop-over.service';
 import { PopComponent } from './pop/pop.component';
 import { PostService } from './post.service';
-
+import { AlertService } from './alert.service';
+import * as moment from 'moment';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
@@ -23,7 +24,9 @@ export class AppComponent {
     private firebase: Firebase,
     public global:GlobalService,
     public POP:PopOverService,
-    public Post:PostService
+    public Post:PostService,
+    public toast: ToastController,
+    public Alert:AlertService
   ) {
     this.initializeApp();
     this.pages=[
@@ -47,17 +50,22 @@ export class AppComponent {
       .catch(error => console.error('Error getting token', error));
       this.firebase.onNotificationOpen()
       .subscribe(data =>{
-        console.log('User opened a notification' +JSON.stringify(data));
-        console.log(data)
-        if(data.alerta==true||data.alerta=="true"){
-          this.global.AlertaData=data;
-          if(this.global.AlertaData.url=="null"||this.global.AlertaData.url==null){
-            this.POP.presentPopover(PopComponent);
+        if(this.global.IsLoggin==true){
+          console.log('User opened a notification' +JSON.stringify(data));
+          console.log(data)
+          if(data.alerta==true||data.alerta=="true"){
+            this.global.AlertaData=data;
+            if(this.global.AlertaData.url=="null"||this.global.AlertaData.url==null){
+              this.POP.presentPopover(PopComponent);
+            }else{
+              this.navCtrl.navigateForward('/alerta');
+            }
           }else{
-            this.navCtrl.navigateForward('/alerta');
+            this.global.AlertaData=data;
+            this.CraerToast(data.title+': '+data.label);
           }
-          
         }
+
       } );
     });
   }
@@ -69,9 +77,37 @@ export class AppComponent {
   CerrarSesion(){
     this.navCtrl.navigateRoot('/login');
   }
-
+ 
+ async CraerToast(mess){
+  const toasty = await this.toast.create({
+    message: mess,
+    showCloseButton: true,
+    position: 'top',
+    closeButtonText: 'Ver',
+    translucent:true,
+    color:'blanco',
+    cssClass:'Notify',
+    duration:4000
+  });
+  toasty.present();
+  toasty.onDidDismiss().then(()=>{
+    let data={
+      Option:'ReadNoty',
+      Id_Unique:this.global.AlertaData.Id_Unique,
+      Id_User:this.global.UserData.Id_User,
+      ReadDate:moment().format("YYYY-MM-DD HH:mm:ss")
+    };
+    this.Post.Event(data,(err,data)=>{
+      console.log(data) ;
+      if(err==null){
+        console.log('Notificacion Leida')
+      }else{
+        this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
+      }
+  });
+   console.log('Dismissed toast');
+  })
+ }
   
-  
-
 
 }
