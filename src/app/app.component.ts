@@ -9,6 +9,7 @@ import { PopComponent } from './pop/pop.component';
 import { PostService } from './post.service';
 import { AlertService } from './alert.service';
 import * as moment from 'moment';
+import { IfStmt } from '@angular/compiler';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
@@ -79,6 +80,7 @@ export class AppComponent {
   }
  
  async CraerToast(mess){
+   let bandera=1;
   const toasty = await this.toast.create({
     message: mess,
     showCloseButton: true,
@@ -90,22 +92,29 @@ export class AppComponent {
     duration:4000
   });
   toasty.present();
+  setTimeout(()=>{
+    bandera=0;
+  },3800);
   toasty.onDidDismiss().then(()=>{
-    let data={
-      Option:'ReadNoty',
-      Id_Unique:this.global.AlertaData.Id_Unique,
-      Id_User:this.global.UserData.Id_User,
-      ReadDate:moment().format("YYYY-MM-DD HH:mm:ss")
-    };
-    this.Post.Event(data,(err,data)=>{
-      console.log(data) ;
-      if(err==null){
-        console.log('Notificacion Leida')
-      }else{
-        this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
-      }
-  });
-   console.log('Dismissed toast');
+    if(bandera==1){
+      let data={
+        Option:'ReadNoty',
+        Id_Unique:this.global.AlertaData.Id_Unique,
+        Id_User:this.global.UserData.Id_User,
+        ReadDate:moment().format("YYYY-MM-DD HH:mm:ss")
+      };
+      this.Post.Event(data,(err,data)=>{
+        console.log(data) ;
+        if(err==null){
+          console.log('Notificacion Leida')
+        }else{
+          this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
+        }
+    });
+    }else{
+      console.log('Dismissed toast Auto');
+    }
+
   })
  }
   

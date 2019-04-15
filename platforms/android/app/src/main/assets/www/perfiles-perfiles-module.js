@@ -176,7 +176,6 @@ var PerfilesPage = /** @class */ (function () {
                     _this.PerfilesOri = _this.Perfiles = JSON.parse(data.data);
                     console.log('Async operation has ended');
                     event.target.complete();
-                    event;
                 }
                 else {
                     _this.Alert.AlertOnebutton('Error', JSON.stringify(err.message));

@@ -6,63 +6,41 @@
     <ion-title style="text-align: center" text-uppercase>
       Bandeja de Entrada
     </ion-title>
-    <ion-button slot=end color="white" fill="clear"></ion-button>
+    <ion-button slot=end color="tertiary" fill="clear"><ion-icon slot="icon-only" name="filing"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="Contenido">
-    <ion-refresher slot="fixed">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingIcon="md-arrow-dropdown"
         pullingText="Desliza para Actualizar"
         refreshingSpinner="lines"
         refreshingText="Actualizando..."></ion-refresher-content>
       </ion-refresher>
     <ion-list>
-        <ion-item-sliding #item>
-
+        <ion-item-sliding #item *ngFor="let Noty of Notificaciones;let i=index">
             <ion-item-options side="start">
-              <ion-item-option color="danger">Archivar</ion-item-option>
+              <ion-item-option color="danger"><ion-icon slot="top" size="large" name="archive"></ion-icon>Archivar</ion-item-option>
             </ion-item-options>
-        
             <ion-item>
-                <ion-icon slot="start" name="mail-unread" color="success"></ion-icon>
+                <ion-icon *ngIf="Noty.IsRead==false" slot="start" name="mail-unread" color="success"></ion-icon>
+                <ion-icon *ngIf="Noty.IsRead==true" slot="start" name="mail-open" color="primary"></ion-icon>
                 <ion-label>
-                    <h2>HubStruck Notifications</h2>
-                    <p>A new message in your network</p>
-                    <h3>Oceanic Next has joined your network</h3>
+                    <h2 text-wrap>{{Noty.Label}}</h2>
+                    <p text-wrap>{{Noty.Titulo}}</p>
+                    <h3 *ngIf="Noty.Id_Priority=='3'" style="color:red" text-uppercase>Error</h3>
+                    <h3 *ngIf="Noty.Id_Priority=='2'" style="color:#ffce00" text-uppercase>Warning</h3>
+                    <h3 *ngIf="Noty.Id_Priority=='1'" style="color:royalblue" text-uppercase>Information</h3>
                   </ion-label>
                   <ion-note slot="end">
-                    10:45 AM
+                    {{Noty.EventDate}}
                   </ion-note>
             </ion-item>
-        
             <ion-item-options side="end">
-              <ion-item-option >No Leido</ion-item-option>
+              <ion-item-option color="primary" *ngIf="Noty.IsRead==false"><ion-icon slot="top" size="large" name="mail-open"></ion-icon>Leido</ion-item-option>
+              <ion-item-option color="success" *ngIf="Noty.IsRead==true"><ion-icon slot="top" size="large" name="mail-unread"></ion-icon>No Leido</ion-item-option>
             </ion-item-options>
           </ion-item-sliding>
-        
-
-          <ion-item-sliding #item>
-
-              <ion-item-options side="start">
-                <ion-item-option color="danger">Archivar</ion-item-option>
-              </ion-item-options>
-          
-              <ion-item>
-                  <ion-icon slot="start" name="mail-open" color="blue"></ion-icon>
-                  <ion-label>
-                      <h2>HubStruck Notifications</h2>
-                      <p>A new message in your network</p>
-                      <h3>Oceanic Next has joined your network</h3>
-                    </ion-label>
-                    <ion-note slot="end">
-                      Ayer
-                    </ion-note>
-              </ion-item>
-          
-              <ion-item-options side="end">
-                <ion-item-option >No Leido</ion-item-option>
-              </ion-item-options>
-            </ion-item-sliding>
+      
     </ion-list>
 </ion-content>

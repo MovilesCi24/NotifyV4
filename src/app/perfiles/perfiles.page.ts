@@ -93,7 +93,6 @@ DataPerfil(i,name){
           this.PerfilesOri=this.Perfiles=JSON.parse(data.data);
           console.log('Async operation has ended');
           event.target.complete();
-          event
         }else{
           this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
           console.log('Async operation has ended');
