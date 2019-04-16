@@ -51,6 +51,15 @@
             --ion-color-shade: var(--ion-color-blanco-shade) !important;
             --ion-color-tint: var(--ion-color-blanco-tint) !important;
             }
+
+            .ion-color-medium2 {
+                --ion-color-base: var(--ion-color-medium2) !important;
+                --ion-color-base-rgb: var(--ion-color-medium2-rgb) !important;
+                --ion-color-contrast: var(--ion-color-medium2-contrast) !important;
+                --ion-color-contrast-rgb: var(--ion-color-medium2-contrast-rgb) !important;
+                --ion-color-shade: var(--ion-color-medium2-shade) !important;
+                --ion-color-tint: var(--ion-color-medium2-tint) !important;
+                }
         .item.sc-ion-label-md-h, .item .sc-ion-label-md-h {
             width: 100%;
         }

@@ -8,6 +8,7 @@
     </ion-title>
     <ion-button slot=end color="tertiary" fill="clear" (click)="this.navCtrl.navigateRoot('/archived')" ><ion-icon slot="icon-only" name="filing"></ion-icon></ion-button>
   </ion-toolbar>
+  <ion-searchbar style="padding-top: 0px" [(ngModel)]="searchQuery" placeholder="Buscar" (ionInput)="getItems($event)" animated="true" color="medium"></ion-searchbar>
 </ion-header>
 
 <ion-content class="Contenido">
@@ -43,4 +44,11 @@
           </ion-item-sliding>
       
     </ion-list>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Cargando Mensajes...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

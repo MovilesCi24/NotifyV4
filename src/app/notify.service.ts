@@ -44,7 +44,7 @@ SendNotification(data,callback){
 
 
 
-public InsertClave(Id_User,Id_Company,Id_Role,Clave,cb:Function){
+public InsertClave(Id_User,Id_Company,Id_Role,Clave,Logged,cb:Function){
   console.log('InsertClave')
   this.query="SELECT [Id_User] FROM [Tb_Notifications] where Id_User='"+Id_User+"'"
   console.log(this.query) 
@@ -52,7 +52,7 @@ public InsertClave(Id_User,Id_Company,Id_Role,Clave,cb:Function){
     if(err==null){
       if(JSON.parse(data.data).length==0){
         console.log("Usuario No registrado")
-        let query2="INSERT INTO [Tb_Notifications] ([Id_User],[Id_Role],[ClaveU],[Id_Company]) VALUES ('"+Id_User+"','"+Id_Role+"','"+Clave+"','"+Id_Company+"')"
+        let query2="INSERT INTO [Tb_Notifications] ([Id_User],[Id_Role],[ClaveU],[Id_Company],[Islogged]) VALUES ('"+Id_User+"','"+Id_Role+"','"+Clave+"','"+Id_Company+"',"+Logged+")"
         console.log(query2)
         this.Post.Prueba(query2,(err,data2)=>{
           if(err==null){
@@ -64,7 +64,7 @@ public InsertClave(Id_User,Id_Company,Id_Role,Clave,cb:Function){
       })
       }else{
         console.log("Datos:",JSON.stringify(data.data))
-        let query2="UPDATE [Tb_Notifications] SET [Id_Role] = '"+Id_Role+"' ,[ClaveU] = '"+Clave+"',[Id_Company] = '"+Id_Company+"' WHERE Id_User='"+Id_User+"'"
+        let query2="UPDATE [Tb_Notifications] SET [Islogged] = "+Logged+",[Id_Role] = '"+Id_Role+"' ,[ClaveU] = '"+Clave+"',[Id_Company] = '"+Id_Company+"' WHERE Id_User='"+Id_User+"'"
         console.log(query2)
         this.Post.Prueba(query2,(err,data2)=>{
           if(err==null){

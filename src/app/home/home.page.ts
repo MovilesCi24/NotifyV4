@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GlobalService } from '../global.service';
 import { PostService } from '../post.service';
-import { NavController } from '@ionic/angular';
+import { NavController, IonInfiniteScroll } from '@ionic/angular';
 import { LoadingService } from '../loading.service';
 import { AlertService } from '../alert.service';
 import * as moment from 'moment';
@@ -11,7 +11,9 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
 export class HomePage implements OnInit{
+@ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 Notificaciones=new Array();
   constructor(
     public global:GlobalService,
@@ -65,6 +67,19 @@ Notificaciones=new Array();
     });
       
     }, 1000);
+  }
+
+  loadData(event) {
+    setTimeout(() => {
+      console.log('Done');
+      event.target.complete();
+
+      // App logic to determine if all data is loaded
+      // and disable the infinite scroll
+      if (this.Notificaciones.length == 1000) {
+        event.target.disabled = true;
+      }
+    }, 500);
   }
 
 

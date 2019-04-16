@@ -190,7 +190,7 @@ var LoginPage = /** @class */ (function () {
                                 _this.global.IsLoggin = true;
                                 _this.global.UserData = JSON.parse(data.data)[0];
                                 console.log(_this.global.UserData);
-                                _this.Noty.InsertClave(_this.global.UserData.Id_User, _this.global.UserData.Id_Company, _this.global.UserData.Id_Role, _this.global.UserToken, function (err, data1) {
+                                _this.Noty.InsertClave(_this.global.UserData.Id_User, _this.global.UserData.Id_Company, _this.global.UserData.Id_Role, _this.global.UserToken, 1, function (err, data1) {
                                     if (err == null) {
                                         console.log('Todo Bien');
                                     }

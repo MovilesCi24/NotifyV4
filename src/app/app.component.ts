@@ -10,6 +10,7 @@ import { PostService } from './post.service';
 import { AlertService } from './alert.service';
 import * as moment from 'moment';
 import { Storage } from '@ionic/storage';
+import { NotifyService } from './notify.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
@@ -28,7 +29,8 @@ export class AppComponent {
     public POP:PopOverService,
     public Post:PostService,
     public toast: ToastController,
-    public Alert:AlertService
+    public Alert:AlertService,
+    public Noty:NotifyService
   ) {
     this.initializeApp();
     this.pages=[
@@ -80,6 +82,13 @@ export class AppComponent {
 
   CerrarSesion(){
     this.storage.set('Logged',false);
+    this.Noty.InsertClave(this.global.UserData.Id_User,this.global.UserData.Id_Company,this.global.UserData.Id_Role,this.global.UserToken,0,(err,data1)=>{
+      if(err==null){
+        console.log('Todo Bien')
+      }else{
+        console.log("ERR   =>   "+err)
+      }
+    });
     this.navCtrl.navigateRoot('/login');
   }
  

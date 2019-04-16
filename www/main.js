@@ -1471,6 +1471,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _notify_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./notify.service */ "./src/app/notify.service.ts");
+
 
 
 
@@ -1485,7 +1487,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, navCtrl, firebase, storage, global, POP, Post, toast, Alert) {
+    function AppComponent(platform, splashScreen, statusBar, navCtrl, firebase, storage, global, POP, Post, toast, Alert, Noty) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
@@ -1497,6 +1499,7 @@ var AppComponent = /** @class */ (function () {
         this.Post = Post;
         this.toast = toast;
         this.Alert = Alert;
+        this.Noty = Noty;
         this.pages = new Array();
         this.initializeApp();
         this.pages = [
@@ -1547,6 +1550,14 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.CerrarSesion = function () {
         this.storage.set('Logged', false);
+        this.Noty.InsertClave(this.global.UserData.Id_User, this.global.UserData.Id_Company, this.global.UserData.Id_Role, this.global.UserToken, 0, function (err, data1) {
+            if (err == null) {
+                console.log('Todo Bien');
+            }
+            else {
+                console.log("ERR   =>   " + err);
+            }
+        });
         this.navCtrl.navigateRoot('/login');
     };
     AppComponent.prototype.CraerToast = function (mess) {
@@ -1615,7 +1626,8 @@ var AppComponent = /** @class */ (function () {
             _pop_over_service__WEBPACK_IMPORTED_MODULE_7__["PopOverService"],
             _post_service__WEBPACK_IMPORTED_MODULE_9__["PostService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"],
-            _alert_service__WEBPACK_IMPORTED_MODULE_10__["AlertService"]])
+            _alert_service__WEBPACK_IMPORTED_MODULE_10__["AlertService"],
+            _notify_service__WEBPACK_IMPORTED_MODULE_13__["NotifyService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -1714,6 +1726,117 @@ var GlobalService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], GlobalService);
     return GlobalService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/notify.service.ts":
+/*!***********************************!*\
+  !*** ./src/app/notify.service.ts ***!
+  \***********************************/
+/*! exports provided: NotifyService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotifyService", function() { return NotifyService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _post_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./post.service */ "./src/app/post.service.ts");
+/* harmony import */ var _global_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./global.service */ "./src/app/global.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+
+
+
+
+
+
+var NotifyService = /** @class */ (function () {
+    function NotifyService(http, storage, global, Post) {
+        this.http = http;
+        this.storage = storage;
+        this.global = global;
+        this.Post = Post;
+        this.Refresh(function (data) {
+            console.log('Url Notificaciones actualizada', data);
+        });
+    }
+    NotifyService.prototype.Refresh = function (cb) {
+        var _this = this;
+        this.storage.get('Notificaciones').then(function (val) {
+            if (val == '' || val == ' ' || val == null) {
+            }
+            else {
+                _this.global.Noti = val;
+                cb(_this.global.Noti);
+            }
+        });
+    };
+    NotifyService.prototype.SendNotification = function (data, callback) {
+        var _this = this;
+        this.Refresh(function (datos) {
+            _this.http.post(_this.global.Noti, data).subscribe(function (res) {
+                callback(null, res);
+            }, function (err) {
+                callback(err);
+            });
+        });
+    };
+    NotifyService.prototype.InsertClave = function (Id_User, Id_Company, Id_Role, Clave, Logged, cb) {
+        var _this = this;
+        console.log('InsertClave');
+        this.query = "SELECT [Id_User] FROM [Tb_Notifications] where Id_User='" + Id_User + "'";
+        console.log(this.query);
+        this.Post.Prueba(this.query, function (err, data) {
+            if (err == null) {
+                if (JSON.parse(data.data).length == 0) {
+                    console.log("Usuario No registrado");
+                    var query2 = "INSERT INTO [Tb_Notifications] ([Id_User],[Id_Role],[ClaveU],[Id_Company],[Islogged]) VALUES ('" + Id_User + "','" + Id_Role + "','" + Clave + "','" + Id_Company + "'," + Logged + ")";
+                    console.log(query2);
+                    _this.Post.Prueba(query2, function (err, data2) {
+                        if (err == null) {
+                            cb(null, JSON.parse(data2.data));
+                        }
+                        else {
+                            console.log(err.message);
+                            cb(err);
+                        }
+                    });
+                }
+                else {
+                    console.log("Datos:", JSON.stringify(data.data));
+                    var query2 = "UPDATE [Tb_Notifications] SET [Islogged] = " + Logged + ",[Id_Role] = '" + Id_Role + "' ,[ClaveU] = '" + Clave + "',[Id_Company] = '" + Id_Company + "' WHERE Id_User='" + Id_User + "'";
+                    console.log(query2);
+                    _this.Post.Prueba(query2, function (err, data2) {
+                        if (err == null) {
+                            cb(null, JSON.parse(data2.data));
+                        }
+                        else {
+                            console.log(err.message);
+                            cb(err);
+                        }
+                    });
+                }
+            }
+            else {
+                console.log(err);
+                cb(err);
+            }
+        });
+    };
+    NotifyService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"],
+            _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"],
+            _global_service__WEBPACK_IMPORTED_MODULE_3__["GlobalService"],
+            _post_service__WEBPACK_IMPORTED_MODULE_2__["PostService"]])
+    ], NotifyService);
+    return NotifyService;
 }());
 
 

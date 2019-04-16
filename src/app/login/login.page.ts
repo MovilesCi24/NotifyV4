@@ -99,7 +99,7 @@ Pass:string;
                   this.global.IsLoggin=true;
                   this.global.UserData=JSON.parse(data.data)[0];
                   console.log(this.global.UserData);
-                  this.Noty.InsertClave(this.global.UserData.Id_User,this.global.UserData.Id_Company,this.global.UserData.Id_Role,this.global.UserToken,(err,data1)=>{
+                  this.Noty.InsertClave(this.global.UserData.Id_User,this.global.UserData.Id_Company,this.global.UserData.Id_Role,this.global.UserToken,1,(err,data1)=>{
                     if(err==null){
                       console.log('Todo Bien')
                     }else{
