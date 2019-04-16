@@ -116,6 +116,7 @@ var LoginPage = /** @class */ (function () {
         this.Noty = Noty;
         this.storage.get('Usuario').then(function (val) {
             if (val == '' || val == ' ' || val == null) {
+                _this.splashScreen.hide();
             }
             else {
                 _this.User = val;
@@ -124,6 +125,7 @@ var LoginPage = /** @class */ (function () {
         });
         this.storage.get('Contraseña').then(function (val) {
             if (val == '' || val == ' ' || val == null) {
+                _this.splashScreen.hide();
             }
             else {
                 _this.Pass = val;
@@ -135,11 +137,13 @@ var LoginPage = /** @class */ (function () {
         var _this = this;
         this.storage.get('Ruta').then(function (val) {
             if (val == '' || val == ' ' || val == null) {
+                _this.splashScreen.hide();
             }
             else {
                 _this.global.Servidor = val;
                 _this.storage.get('Logged').then(function (val1) {
                     if (val1 == '' || val1 == ' ' || val1 == null) {
+                        _this.splashScreen.hide();
                     }
                     else {
                         _this.global.IsLoggin = val1;

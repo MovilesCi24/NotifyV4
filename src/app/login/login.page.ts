@@ -27,7 +27,7 @@ Pass:string;
   ) { 
     this.storage.get('Usuario').then((val) => {
       if(val==''||val==' '||val==null){
-        
+        this.splashScreen.hide();
       }else{
         this.User=val;
       }
@@ -36,7 +36,7 @@ Pass:string;
     
     this.storage.get('Contraseña').then((val) => {
       if(val==''||val==' '||val==null){
-        
+        this.splashScreen.hide();
       }else{
         this.Pass=val;
       }
@@ -48,12 +48,12 @@ Pass:string;
   ngOnInit() {
     this.storage.get('Ruta').then((val) => {
       if(val==''||val==' '||val==null){
-        
+        this.splashScreen.hide();
       }else{
         this.global.Servidor=val;
         this.storage.get('Logged').then((val1) => {
           if(val1==''||val1==' '||val1==null){
-            
+            this.splashScreen.hide();
           }else{
             this.global.IsLoggin=val1;
             if(this.global.IsLoggin==true){
