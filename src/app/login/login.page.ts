@@ -33,6 +33,7 @@ Pass:string;
       }
       console.log('User',val)
     });
+    
     this.storage.get('Contraseña').then((val) => {
       if(val==''||val==' '||val==null){
         
@@ -41,16 +42,41 @@ Pass:string;
       }
       console.log('Pass',val)
     });
+    
   }
 
   ngOnInit() {
-    this.Loading.HideLoading();
-    this.splashScreen.hide();
+    this.storage.get('Ruta').then((val) => {
+      if(val==''||val==' '||val==null){
+        
+      }else{
+        this.global.Servidor=val;
+        this.storage.get('Logged').then((val1) => {
+          if(val1==''||val1==' '||val1==null){
+            
+          }else{
+            this.global.IsLoggin=val1;
+            if(this.global.IsLoggin==true){
+              console.log('Tengo que loggearme Solo')
+              this.Login();
+            }else{
+              console.log('No me loggeo')
+              this.Loading.HideLoading();
+              this.splashScreen.hide();
+            }
+          }
+          console.log('IsLoggin',val1)
+        });
+      }
+  });
+    
+
   }
 
   public Login(){
     if(this.global.Servidor==''||this.global.Servidor==' '||this.global.Servidor==null||this.global.Servidor==undefined){
       this.Loading.LoadingNormal("Dirigase al Boton de Ajustes para configurar la Url del servidor",4);
+      this.splashScreen.hide();
     }else{
       if(this.Pass!="" && this.User!=""){
         this.Loading.LoadingNormal("Autenticando",10);
@@ -68,6 +94,7 @@ Pass:string;
                   this.global.Pass=this.Pass;
                   this.storage.set('Usuario',this.User);
                   this.storage.set('Contraseña',this.Pass);
+                  this.storage.set('Logged',true);
                   this.Loading.LoadingNormal("Autenticacion Exitosa",2);
                   this.global.IsLoggin=true;
                   this.global.UserData=JSON.parse(data.data)[0];
@@ -84,6 +111,7 @@ Pass:string;
                   this.Loading.LoadingNormal("Error en la Autenticacion",2)
                 }
               }else{
+                this.splashScreen.hide();
                 if(data.message==900){
                   this.Loading.LoadingNormal("Contraseña Incorrecta",2)
                   console.error('Contraseña Incorrecta');
@@ -95,11 +123,13 @@ Pass:string;
                 }
               }
             }else{
+              this.splashScreen.hide();
               this.Loading.HideLoading();
               this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
             }
           })
        }else{
+        this.splashScreen.hide();
         this.Loading.LoadingNormal("Error se encuentran campos vacios",2);
       }
     }

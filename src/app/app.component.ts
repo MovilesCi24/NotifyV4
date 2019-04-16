@@ -9,7 +9,7 @@ import { PopComponent } from './pop/pop.component';
 import { PostService } from './post.service';
 import { AlertService } from './alert.service';
 import * as moment from 'moment';
-import { IfStmt } from '@angular/compiler';
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
@@ -23,6 +23,7 @@ export class AppComponent {
     private statusBar: StatusBar,    
     public navCtrl:NavController,
     private firebase: Firebase,
+    private storage: Storage,
     public global:GlobalService,
     public POP:PopOverService,
     public Post:PostService,
@@ -35,7 +36,7 @@ export class AppComponent {
       {title:'Perfiles de Notificación',ruta:'/perfiles'},
       {title:'Usuarios',ruta:'/usuarios'},
       {title:'Ajustes Visuales',ruta:'/ajustes-v'},
-      {title:'Prueba',ruta:'/prueba'}
+      //{title:'Prueba',ruta:'/prueba'}
     ]
   }
 
@@ -65,6 +66,8 @@ export class AppComponent {
             this.global.AlertaData=data;
             this.CraerToast(data.title+': '+data.label);
           }
+        }else{
+          console.log('User Is Logged out')
         }
 
       } );
@@ -76,6 +79,7 @@ export class AppComponent {
   }
 
   CerrarSesion(){
+    this.storage.set('Logged',false);
     this.navCtrl.navigateRoot('/login');
   }
  

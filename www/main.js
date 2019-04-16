@@ -1132,6 +1132,11 @@ var map = {
 		"./src/app/alerta/alerta.module.ts",
 		"alerta-alerta-module"
 	],
+	"./archived/archived.module": [
+		"./src/app/archived/archived.module.ts",
+		"common",
+		"archived-archived-module"
+	],
 	"./asociate-events/asociate-events.module": [
 		"./src/app/asociate-events/asociate-events.module.ts",
 		"common",
@@ -1185,6 +1190,10 @@ var map = {
 		"./src/app/usuarios/usuarios.module.ts",
 		"common",
 		"usuarios-usuarios-module"
+	],
+	"./ver-noty/ver-noty.module": [
+		"./src/app/ver-noty/ver-noty.module.ts",
+		"ver-noty-ver-noty-module"
 	],
 	"./vperfil-event/vperfil-event.module": [
 		"./src/app/vperfil-event/vperfil-event.module.ts",
@@ -1406,6 +1415,8 @@ var routes = [
     { path: 'asociate-events/:Id', loadChildren: './asociate-events/asociate-events.module#AsociateEventsPageModule' },
     { path: 'prueba', loadChildren: './prueba/prueba.module#PruebaPageModule' },
     { path: 'alerta', loadChildren: './alerta/alerta.module#AlertaPageModule' },
+    { path: 'ver-noty', loadChildren: './ver-noty/ver-noty.module#VerNotyPageModule' },
+    { path: 'archived', loadChildren: './archived/archived.module#ArchivedPageModule' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -1459,6 +1470,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _alert_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./alert.service */ "./src/app/alert.service.ts");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+
 
 
 
@@ -1472,12 +1485,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, navCtrl, firebase, global, POP, Post, toast, Alert) {
+    function AppComponent(platform, splashScreen, statusBar, navCtrl, firebase, storage, global, POP, Post, toast, Alert) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
         this.navCtrl = navCtrl;
         this.firebase = firebase;
+        this.storage = storage;
         this.global = global;
         this.POP = POP;
         this.Post = Post;
@@ -1490,7 +1504,6 @@ var AppComponent = /** @class */ (function () {
             { title: 'Perfiles de Notificación', ruta: '/perfiles' },
             { title: 'Usuarios', ruta: '/usuarios' },
             { title: 'Ajustes Visuales', ruta: '/ajustes-v' },
-            { title: 'Prueba', ruta: '/prueba' }
         ];
     }
     AppComponent.prototype.initializeApp = function () {
@@ -1523,6 +1536,9 @@ var AppComponent = /** @class */ (function () {
                         _this.CraerToast(data.title + ': ' + data.label);
                     }
                 }
+                else {
+                    console.log('User Is Logged out');
+                }
             });
         });
     };
@@ -1530,6 +1546,7 @@ var AppComponent = /** @class */ (function () {
         this.navCtrl.navigateRoot(ruta);
     };
     AppComponent.prototype.CerrarSesion = function () {
+        this.storage.set('Logged', false);
         this.navCtrl.navigateRoot('/login');
     };
     AppComponent.prototype.CraerToast = function (mess) {
@@ -1593,6 +1610,7 @@ var AppComponent = /** @class */ (function () {
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_5__["StatusBar"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"],
             _ionic_native_firebase_ngx__WEBPACK_IMPORTED_MODULE_2__["Firebase"],
+            _ionic_storage__WEBPACK_IMPORTED_MODULE_12__["Storage"],
             _global_service__WEBPACK_IMPORTED_MODULE_6__["GlobalService"],
             _pop_over_service__WEBPACK_IMPORTED_MODULE_7__["PopOverService"],
             _post_service__WEBPACK_IMPORTED_MODULE_9__["PostService"],

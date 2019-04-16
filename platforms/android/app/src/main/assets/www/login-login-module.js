@@ -132,13 +132,37 @@ var LoginPage = /** @class */ (function () {
         });
     }
     LoginPage.prototype.ngOnInit = function () {
-        this.Loading.HideLoading();
-        this.splashScreen.hide();
+        var _this = this;
+        this.storage.get('Ruta').then(function (val) {
+            if (val == '' || val == ' ' || val == null) {
+            }
+            else {
+                _this.global.Servidor = val;
+                _this.storage.get('Logged').then(function (val1) {
+                    if (val1 == '' || val1 == ' ' || val1 == null) {
+                    }
+                    else {
+                        _this.global.IsLoggin = val1;
+                        if (_this.global.IsLoggin == true) {
+                            console.log('Tengo que loggearme Solo');
+                            _this.Login();
+                        }
+                        else {
+                            console.log('No me loggeo');
+                            _this.Loading.HideLoading();
+                            _this.splashScreen.hide();
+                        }
+                    }
+                    console.log('IsLoggin', val1);
+                });
+            }
+        });
     };
     LoginPage.prototype.Login = function () {
         var _this = this;
         if (this.global.Servidor == '' || this.global.Servidor == ' ' || this.global.Servidor == null || this.global.Servidor == undefined) {
             this.Loading.LoadingNormal("Dirigase al Boton de Ajustes para configurar la Url del servidor", 4);
+            this.splashScreen.hide();
         }
         else {
             if (this.Pass != "" && this.User != "") {
@@ -157,6 +181,7 @@ var LoginPage = /** @class */ (function () {
                                 _this.global.Pass = _this.Pass;
                                 _this.storage.set('Usuario', _this.User);
                                 _this.storage.set('Contraseña', _this.Pass);
+                                _this.storage.set('Logged', true);
                                 _this.Loading.LoadingNormal("Autenticacion Exitosa", 2);
                                 _this.global.IsLoggin = true;
                                 _this.global.UserData = JSON.parse(data.data)[0];
@@ -176,6 +201,7 @@ var LoginPage = /** @class */ (function () {
                             }
                         }
                         else {
+                            _this.splashScreen.hide();
                             if (data.message == 900) {
                                 _this.Loading.LoadingNormal("Contraseña Incorrecta", 2);
                                 console.error('Contraseña Incorrecta');
@@ -190,12 +216,14 @@ var LoginPage = /** @class */ (function () {
                         }
                     }
                     else {
+                        _this.splashScreen.hide();
                         _this.Loading.HideLoading();
                         _this.Alert.AlertOnebutton('Error', JSON.stringify(err.message));
                     }
                 });
             }
             else {
+                this.splashScreen.hide();
                 this.Loading.LoadingNormal("Error se encuentran campos vacios", 2);
             }
         }

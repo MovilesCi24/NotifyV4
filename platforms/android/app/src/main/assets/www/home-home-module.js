@@ -57,7 +57,7 @@ var HomePageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n      <ion-menu-toggle menu=\"first\" slot=\"start\">\n        <ion-menu-button color=\"medium\" menumenu=\"first\"></ion-menu-button>\n      </ion-menu-toggle>\n    <ion-title style=\"text-align: center\" text-uppercase>\n      Bandeja de Entrada\n    </ion-title>\n    <ion-button slot=end color=\"tertiary\" fill=\"clear\"><ion-icon slot=\"icon-only\" name=\"filing\"></ion-icon></ion-button>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"Contenido\">\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n        <ion-refresher-content pullingIcon=\"md-arrow-dropdown\"\n        pullingText=\"Desliza para Actualizar\"\n        refreshingSpinner=\"lines\"\n        refreshingText=\"Actualizando...\"></ion-refresher-content>\n      </ion-refresher>\n    <ion-list>\n        <ion-item-sliding #item *ngFor=\"let Noty of Notificaciones;let i=index\">\n            <ion-item-options side=\"start\">\n              <ion-item-option color=\"danger\"><ion-icon slot=\"top\" size=\"large\" name=\"archive\"></ion-icon>Archivar</ion-item-option>\n            </ion-item-options>\n            <ion-item>\n                <ion-icon *ngIf=\"Noty.IsRead==false\" slot=\"start\" name=\"mail-unread\" color=\"success\"></ion-icon>\n                <ion-icon *ngIf=\"Noty.IsRead==true\" slot=\"start\" name=\"mail-open\" color=\"primary\"></ion-icon>\n                <ion-label>\n                    <h2 text-wrap>{{Noty.Label}}</h2>\n                    <p text-wrap>{{Noty.Titulo}}</p>\n                    <h3 *ngIf=\"Noty.Id_Priority=='3'\" style=\"color:red\" text-uppercase>Error</h3>\n                    <h3 *ngIf=\"Noty.Id_Priority=='2'\" style=\"color:#ffce00\" text-uppercase>Warning</h3>\n                    <h3 *ngIf=\"Noty.Id_Priority=='1'\" style=\"color:royalblue\" text-uppercase>Information</h3>\n                  </ion-label>\n                  <ion-note slot=\"end\">\n                    {{Noty.EventDate}}\n                  </ion-note>\n            </ion-item>\n            <ion-item-options side=\"end\">\n              <ion-item-option color=\"primary\" *ngIf=\"Noty.IsRead==false\"><ion-icon slot=\"top\" size=\"large\" name=\"mail-open\"></ion-icon>Leido</ion-item-option>\n              <ion-item-option color=\"success\" *ngIf=\"Noty.IsRead==true\"><ion-icon slot=\"top\" size=\"large\" name=\"mail-unread\"></ion-icon>No Leido</ion-item-option>\n            </ion-item-options>\n          </ion-item-sliding>\n      \n    </ion-list>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n      <ion-menu-toggle menu=\"first\" slot=\"start\">\n        <ion-menu-button color=\"medium\" menumenu=\"first\"></ion-menu-button>\n      </ion-menu-toggle>\n    <ion-title style=\"text-align: center\" text-uppercase>\n      Bandeja de Entrada\n    </ion-title>\n    <ion-button slot=end color=\"tertiary\" fill=\"clear\" (click)=\"this.navCtrl.navigateRoot('/archived')\" ><ion-icon slot=\"icon-only\" name=\"filing\"></ion-icon></ion-button>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"Contenido\">\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n        <ion-refresher-content pullingIcon=\"md-arrow-dropdown\"\n        pullingText=\"Desliza para Actualizar\"\n        refreshingSpinner=\"lines\"\n        refreshingText=\"Actualizando...\"></ion-refresher-content>\n      </ion-refresher>\n    <ion-list>\n        <ion-item-sliding #item *ngFor=\"let Noty of Notificaciones;let i=index\">\n            <ion-item-options side=\"start\">\n              <ion-item-option color=\"danger\" (click)=Archivar(1,Noty.Id_Unique)><ion-icon slot=\"top\" size=\"large\" name=\"archive\"></ion-icon>Archivar</ion-item-option>\n            </ion-item-options>\n            <ion-item>\n                <ion-icon *ngIf=\"Noty.IsRead==false\" slot=\"start\" name=\"mail-unread\" color=\"success\"></ion-icon>\n                <ion-icon *ngIf=\"Noty.IsRead==true\" slot=\"start\" name=\"mail-open\" color=\"primary\"></ion-icon>\n                <ion-label>\n                    <h2 text-wrap>{{Noty.Label}}</h2>\n                    <p text-wrap>{{Noty.Titulo}}</p>\n                    <h3 *ngIf=\"Noty.Id_Priority=='3'\" style=\"color:red\" text-uppercase>Error</h3>\n                    <h3 *ngIf=\"Noty.Id_Priority=='2'\" style=\"color:#ffce00\" text-uppercase>Warning</h3>\n                    <h3 *ngIf=\"Noty.Id_Priority=='1'\" style=\"color:royalblue\" text-uppercase>Information</h3>\n                  </ion-label>\n                  <ion-note slot=\"end\">\n                    {{Noty.EventDate}}\n                  </ion-note>\n            </ion-item>\n            <ion-item-options side=\"end\">\n              <ion-item-option color=\"primary\" *ngIf=\"Noty.IsRead==false\" (click)=Mleido(1,Noty.Id_Unique)><ion-icon slot=\"top\" size=\"large\" name=\"mail-open\"></ion-icon>Leido</ion-item-option>\n              <ion-item-option color=\"success\" *ngIf=\"Noty.IsRead==true\" (click)=Mleido(0,Noty.Id_Unique)><ion-icon slot=\"top\" size=\"large\" name=\"mail-unread\"></ion-icon>No Leido</ion-item-option>\n            </ion-item-options>\n          </ion-item-sliding>\n      \n    </ion-list>\n</ion-content>\n"
 
 /***/ }),
 
@@ -91,6 +91,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _alert_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../alert.service */ "./src/app/alert.service.ts");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
+
 
 
 
@@ -100,17 +102,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var HomePage = /** @class */ (function () {
-    function HomePage(global, Post, navCtrl, Loading, Alert) {
+    function HomePage(global, Post, navCtrl, Loading, Alert, splashScreen) {
         this.global = global;
         this.Post = Post;
         this.navCtrl = navCtrl;
         this.Loading = Loading;
         this.Alert = Alert;
+        this.splashScreen = splashScreen;
         this.Notificaciones = new Array();
     }
     HomePage.prototype.ngOnInit = function () {
         var _this = this;
-        this.Loading.HideLoading();
         var data = {
             Option: 'SelectNoty',
             Id_User: this.global.UserData.Id_User
@@ -118,12 +120,14 @@ var HomePage = /** @class */ (function () {
         this.Post.Event(data, function (err, data) {
             console.log(data);
             if (err == null) {
+                _this.splashScreen.hide();
                 _this.Notificaciones = JSON.parse(data.data);
                 for (var i = 0; i < _this.Notificaciones.length; i++) {
                     _this.Notificaciones[i].EventDate = moment__WEBPACK_IMPORTED_MODULE_7__(_this.Notificaciones[i].EventDate).fromNow();
                 }
             }
             else {
+                _this.splashScreen.hide();
                 _this.Alert.AlertOnebutton('Error', JSON.stringify(err.message));
             }
         });
@@ -153,6 +157,50 @@ var HomePage = /** @class */ (function () {
             });
         }, 1000);
     };
+    HomePage.prototype.Mleido = function (i, unique) {
+        var _this = this;
+        var data = {
+            Option: 'EventLeido',
+            Id_User: this.global.UserData.Id_User,
+            Id_Unique: unique,
+            Leido: i
+        };
+        this.Post.Event(data, function (err, data) {
+            console.log(data);
+            if (err == null) {
+                _this.Notificaciones = JSON.parse(data.data);
+                for (var i_1 = 0; i_1 < _this.Notificaciones.length; i_1++) {
+                    _this.Notificaciones[i_1].EventDate = moment__WEBPACK_IMPORTED_MODULE_7__(_this.Notificaciones[i_1].EventDate).fromNow();
+                }
+            }
+            else {
+                _this.Alert.AlertOnebutton('Error', JSON.stringify(err.message));
+                console.log('Async operation has ended');
+            }
+        });
+    };
+    HomePage.prototype.Archivar = function (i, unique) {
+        var _this = this;
+        var data = {
+            Option: 'EventArchivar',
+            Id_User: this.global.UserData.Id_User,
+            Id_Unique: unique,
+            Leido: i
+        };
+        this.Post.Event(data, function (err, data) {
+            console.log(data);
+            if (err == null) {
+                _this.Notificaciones = JSON.parse(data.data);
+                for (var i_2 = 0; i_2 < _this.Notificaciones.length; i_2++) {
+                    _this.Notificaciones[i_2].EventDate = moment__WEBPACK_IMPORTED_MODULE_7__(_this.Notificaciones[i_2].EventDate).fromNow();
+                }
+            }
+            else {
+                _this.Alert.AlertOnebutton('Error', JSON.stringify(err.message));
+                console.log('Async operation has ended');
+            }
+        });
+    };
     HomePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-home',
@@ -163,7 +211,8 @@ var HomePage = /** @class */ (function () {
             _post_service__WEBPACK_IMPORTED_MODULE_3__["PostService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"],
             _loading_service__WEBPACK_IMPORTED_MODULE_5__["LoadingService"],
-            _alert_service__WEBPACK_IMPORTED_MODULE_6__["AlertService"]])
+            _alert_service__WEBPACK_IMPORTED_MODULE_6__["AlertService"],
+            _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_8__["SplashScreen"]])
     ], HomePage);
     return HomePage;
 }());
