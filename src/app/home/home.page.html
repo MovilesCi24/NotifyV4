@@ -23,7 +23,7 @@
             <ion-item-options side="start">
               <ion-item-option color="danger" (click)=Archivar(1,Noty.Id_Unique)><ion-icon slot="top" size="large" name="archive"></ion-icon>Archivar</ion-item-option>
             </ion-item-options>
-            <ion-item>
+            <ion-item (click)="VerNotificacion(Noty.Id_Unique,Noty.Label)">
                 <ion-icon *ngIf="Noty.IsRead==false" slot="start" name="mail-unread" color="success"></ion-icon>
                 <ion-icon *ngIf="Noty.IsRead==true" slot="start" name="mail-open" color="primary"></ion-icon>
                 <ion-label>

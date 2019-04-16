@@ -1193,6 +1193,7 @@ var map = {
 	],
 	"./ver-noty/ver-noty.module": [
 		"./src/app/ver-noty/ver-noty.module.ts",
+		"common",
 		"ver-noty-ver-noty-module"
 	],
 	"./vperfil-event/vperfil-event.module": [
@@ -1415,7 +1416,7 @@ var routes = [
     { path: 'asociate-events/:Id', loadChildren: './asociate-events/asociate-events.module#AsociateEventsPageModule' },
     { path: 'prueba', loadChildren: './prueba/prueba.module#PruebaPageModule' },
     { path: 'alerta', loadChildren: './alerta/alerta.module#AlertaPageModule' },
-    { path: 'ver-noty', loadChildren: './ver-noty/ver-noty.module#VerNotyPageModule' },
+    { path: 'ver-noty/:Id', loadChildren: './ver-noty/ver-noty.module#VerNotyPageModule' },
     { path: 'archived', loadChildren: './archived/archived.module#ArchivedPageModule' },
 ];
 var AppRoutingModule = /** @class */ (function () {

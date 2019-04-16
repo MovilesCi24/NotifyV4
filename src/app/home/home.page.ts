@@ -83,6 +83,14 @@ Notificaciones=new Array();
   }
 
 
+
+  VerNotificacion(id,titulo){
+    console.log(titulo)
+    let lid=id+'.'+titulo;
+    this.navCtrl.navigateRoot('/ver-noty/'+lid); 
+  }
+
+
   Mleido(i,unique){
     let data={
       Option:'EventLeido',

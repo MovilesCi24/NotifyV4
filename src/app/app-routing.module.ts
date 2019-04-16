@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'asociate-events/:Id', loadChildren: './asociate-events/asociate-events.module#AsociateEventsPageModule' },
   { path: 'prueba', loadChildren: './prueba/prueba.module#PruebaPageModule' },
   { path: 'alerta', loadChildren: './alerta/alerta.module#AlertaPageModule' },
-  { path: 'ver-noty', loadChildren: './ver-noty/ver-noty.module#VerNotyPageModule' },
+  { path: 'ver-noty/:Id', loadChildren: './ver-noty/ver-noty.module#VerNotyPageModule' },
   { path: 'archived', loadChildren: './archived/archived.module#ArchivedPageModule' },
 ];
 
