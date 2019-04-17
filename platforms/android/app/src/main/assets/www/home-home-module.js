@@ -171,7 +171,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage.prototype.VerNotificacion = function (id, titulo) {
         console.log(titulo);
-        var lid = id + '.' + titulo;
+        var lid = id + '*' + titulo;
         this.navCtrl.navigateRoot('/ver-noty/' + lid);
     };
     HomePage.prototype.Mleido = function (i, unique) {
