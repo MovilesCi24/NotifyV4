@@ -27,16 +27,17 @@
                 <ion-icon *ngIf="Noty.IsRead==false" slot="start" name="mail-unread" color="success"></ion-icon>
                 <ion-icon *ngIf="Noty.IsRead==true" slot="start" name="mail-open" color="primary"></ion-icon>
                 <ion-label>
-                    <h2 text-wrap>{{Noty.Label}}</h2>
-                    <p text-wrap>{{Noty.Titulo}}</p>
-                    <h3 *ngIf="Noty.Id_Priority=='3'" style="color:red" text-uppercase>Error</h3>
-                    <h3 *ngIf="Noty.Id_Priority=='2'" style="color:#ffce00" text-uppercase>Warning</h3>
-                    <h3 *ngIf="Noty.Id_Priority=='1'" style="color:royalblue" text-uppercase>Information</h3>
+                    <h2 *ngIf="Noty.IsRead==false" style="font-weight: bold" text-wrap>{{Noty.Label}}</h2>
+                    <h2 *ngIf="Noty.IsRead==true" text-wrap>{{Noty.Label}}</h2>
+                    <p>{{Noty.Titulo}}</p>
+                    <ion-badge *ngIf="Noty.Id_Priority=='3'" slot=end color='danger' >Error</ion-badge>
+                    <ion-badge *ngIf="Noty.Id_Priority=='2'" slot=end color='warning' >Warning</ion-badge>
+                    <ion-badge *ngIf="Noty.Id_Priority=='1'" slot=end color='primary' >Information</ion-badge> 
                   </ion-label>
-                  <ion-note slot="end">
-                    {{Noty.EventDate}}
-                  </ion-note>
-            </ion-item>
+                      <ion-note slot=end>
+                          {{Noty.EventDate}}
+                      </ion-note>   
+              </ion-item>
             <ion-item-options side="end">
               <ion-item-option color="primary" *ngIf="Noty.IsRead==false" (click)=Mleido(1,Noty.Id_Unique)><ion-icon slot="top" size="large" name="mail-open"></ion-icon>Leido</ion-item-option>
               <ion-item-option color="success" *ngIf="Noty.IsRead==true" (click)=Mleido(0,Noty.Id_Unique)><ion-icon slot="top" size="large" name="mail-unread"></ion-icon>No Leido</ion-item-option>
