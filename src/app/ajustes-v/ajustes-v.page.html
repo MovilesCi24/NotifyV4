@@ -1,9 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>AjustesV</ion-title>
+      <ion-menu-toggle menu="first" slot="start">
+        <ion-menu-button color="medium" menumenu="first"></ion-menu-button>
+      </ion-menu-toggle>
+    <ion-title style="text-align: center" text-uppercase>
+      Ajustes Visuales
+    </ion-title>
+    <ion-button slot=end color="white" fill="clear" ><ion-icon slot="icon-only" name="filing"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-card color="medium">
+    <ion-card-header>
+      <ion-card-title>Items por Página</ion-card-title>
+      <ion-card-subtitle>Seleccionados: {{Item}}</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item>
+          <ion-range min="10" max="100" step="5" snaps="true" color="ligth" pin=true [(ngModel)]="Item" (ionChange)=ActItems()></ion-range>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  
 </ion-content>

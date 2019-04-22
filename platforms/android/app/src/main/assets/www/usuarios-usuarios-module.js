@@ -17,6 +17,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _usuarios_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./usuarios.page */ "./src/app/usuarios/usuarios.page.ts");
+/* harmony import */ var ngx_pagination__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-pagination */ "./node_modules/ngx-pagination/dist/ngx-pagination.js");
+
 
 
 
@@ -36,6 +38,7 @@ var UsuariosPageModule = /** @class */ (function () {
     UsuariosPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [
+                ngx_pagination__WEBPACK_IMPORTED_MODULE_7__["NgxPaginationModule"],
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
@@ -58,7 +61,7 @@ var UsuariosPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-menu-toggle menu=\"first\" slot=\"start\">\n          <ion-menu-button color=\"medium\" menumenu=\"first\"></ion-menu-button>\n        </ion-menu-toggle>\n      <ion-title style=\"text-align: center\" text-uppercase>\n        Usuarios \n      </ion-title>\n      <ion-button slot=end color=\"white\" fill=\"clear\"></ion-button>\n    </ion-toolbar>\n    <ion-searchbar  [(ngModel)]=\"searchQuery\" placeholder=\"Buscar\" (ionInput)=\"getItems($event)\" animated=\"true\" color=\"medium\"></ion-searchbar>\n  </ion-header>\n\n  <ion-content class=\"Contenido\">\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content pullingIcon=\"md-arrow-dropdown\"\n    pullingText=\"Desliza para Actualizar\"\n    refreshingSpinner=\"lines\"\n    refreshingText=\"Actualizando...\"></ion-refresher-content>\n  </ion-refresher>\n<ion-list>\n    <ion-item-sliding #item *ngFor=\"let User of Usuarios;let i=index\">\n        <ion-item-options side=\"start\">\n          <ion-item-option *ngIf=\"User.IsActive==1\" color=\"danger\" (click)=\"Inactive(User.Id_User)\">Desactivar</ion-item-option>\n          <ion-item-option *ngIf=\"User.IsActive==0\" color=\"success\" (click)=\"Active(User.Id_User)\">Activar</ion-item-option>\n        </ion-item-options>\n        <ion-item>\n            <ion-avatar slot=\"start\">\n                <img *ngIf=\"i%2==0\" src=\"./assets/imgs/People1.png\">\n                <img *ngIf=\"i%2!=0\" src=\"./assets/imgs/People2.png\">\n              </ion-avatar>\n            <ion-label>\n                <h2 text-uppercase>{{User.UserName}}</h2>\n                <p>{{User.Company}}</p>\n              </ion-label>\n              <ion-badge *ngIf=\"User.IsActive==1\" color=\"success\" slot=end>Activo</ion-badge>\n              <ion-badge *ngIf=\"User.IsActive==0\" color=\"danger\" slot=end>Inactivo</ion-badge>\n        </ion-item>\n        <ion-item-options side=\"end\">\n          <ion-item-option color=\"tertiary\"(click)=\"VerData(User.Id_User,User.UserName)\">Perfiles</ion-item-option>\n        </ion-item-options>\n      </ion-item-sliding>\n</ion-list>\n</ion-content>\n"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-menu-toggle menu=\"first\" slot=\"start\">\n          <ion-menu-button color=\"medium\" menumenu=\"first\"></ion-menu-button>\n        </ion-menu-toggle>\n      <ion-title style=\"text-align: center\" text-uppercase>\n        Usuarios \n      </ion-title>\n      <ion-button slot=end color=\"white\" fill=\"clear\"></ion-button>\n    </ion-toolbar>\n    <ion-searchbar  [(ngModel)]=\"searchQuery\" placeholder=\"Buscar\" (ionInput)=\"getItems($event)\" animated=\"true\" color=\"medium\"></ion-searchbar>\n  </ion-header>\n\n  <ion-content class=\"Contenido\">\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content pullingIcon=\"md-arrow-dropdown\"\n    pullingText=\"Desliza para Actualizar\"\n    refreshingSpinner=\"lines\"\n    refreshingText=\"Actualizando...\"></ion-refresher-content>\n  </ion-refresher>\n<ion-list>\n    <ion-item-sliding #item *ngFor=\"let User of Usuarios | paginate: { itemsPerPage: Items, currentPage: p };let i=index\">\n        <ion-item-options side=\"start\">\n          <ion-item-option *ngIf=\"User.IsActive==1\" color=\"danger\" (click)=\"Inactive(User.Id_User)\">Desactivar</ion-item-option>\n          <ion-item-option *ngIf=\"User.IsActive==0\" color=\"success\" (click)=\"Active(User.Id_User)\">Activar</ion-item-option>\n        </ion-item-options>\n        <ion-item>\n            <ion-avatar slot=\"start\">\n                <img *ngIf=\"i%2==0\" src=\"./assets/imgs/People1.png\">\n                <img *ngIf=\"i%2!=0\" src=\"./assets/imgs/People2.png\">\n              </ion-avatar>\n            <ion-label>\n                <h2 text-uppercase>{{User.UserName}}</h2>\n                <p>{{User.Company}}</p>\n              </ion-label>\n              <ion-badge *ngIf=\"User.IsActive==1\" color=\"success\" slot=end>Activo</ion-badge>\n              <ion-badge *ngIf=\"User.IsActive==0\" color=\"danger\" slot=end>Inactivo</ion-badge>\n        </ion-item>\n        <ion-item-options side=\"end\">\n          <ion-item-option color=\"tertiary\"(click)=\"VerData(User.Id_User,User.UserName)\">Perfiles</ion-item-option>\n        </ion-item-options>\n      </ion-item-sliding>\n</ion-list>\n</ion-content>\n<ion-footer>\n    <pagination-controls  (pageChange)=\"p = $event\"\n    maxSize=\"5\"\n    directionLinks=\"true\"\n    autoHide=\"true\"\n    responsive=\"true\"\n    previousLabel=\"Anterior\"\n    nextLabel=\"Siguiente\">\n</pagination-controls>\n</ion-footer>\n"
 
 /***/ }),
 
@@ -108,6 +111,7 @@ var UsuariosPage = /** @class */ (function () {
         this.UsuariosOri = new Array();
         this.searchQuery = '';
         this.p = 1;
+        this.Items = this.global.Item;
     }
     UsuariosPage.prototype.ngOnInit = function () {
         var _this = this;

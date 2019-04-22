@@ -22,6 +22,9 @@ export class PopComponent implements OnInit {
     public global:GlobalService) { }
 
     ngOnInit() {
+      setTimeout(()=>{
+        this.POP.Dismiss();
+      },this.global.AlertaData.Validity);
       if(this.global.AlertaData.url=="null"||this.global.AlertaData.url==null){
         this.Bimagen=false;
       }else{

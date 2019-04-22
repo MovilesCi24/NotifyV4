@@ -25,6 +25,15 @@ Pass:string;
     public splashScreen:SplashScreen,
     public Noty:NotifyService
   ) { 
+    this.storage.get('ITEM').then((val) => {
+      if(val==''||val==' '||val==null){
+        this.global.Item=10;
+        this.storage.set('ITEM',10);
+      }else{
+        this.global.Item=val;
+      }
+      console.log('ITEM',val)
+    });
     this.storage.get('Usuario').then((val) => {
       if(val==''||val==' '||val==null){
         this.splashScreen.hide();

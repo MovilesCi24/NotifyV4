@@ -11,6 +11,7 @@ import { AlertService } from './alert.service';
 import * as moment from 'moment';
 import { Storage } from '@ionic/storage';
 import { NotifyService } from './notify.service';
+import { Vibration } from '@ionic-native/vibration/ngx';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
@@ -30,7 +31,8 @@ export class AppComponent {
     public Post:PostService,
     public toast: ToastController,
     public Alert:AlertService,
-    public Noty:NotifyService
+    public Noty:NotifyService,
+    private vibration: Vibration
   ) {
     this.initializeApp();
     this.pages=[
@@ -55,8 +57,9 @@ export class AppComponent {
       this.firebase.onNotificationOpen()
       .subscribe(data =>{
         if(this.global.IsLoggin==true){
+          this.Actualizar();
           console.log('User opened a notification' +JSON.stringify(data));
-          console.log(data)
+          console.log(data);
           if(data.alerta==true||data.alerta=="true"){
             this.global.AlertaData=data;
             if(this.global.AlertaData.url=="null"||this.global.AlertaData.url==null){
@@ -66,7 +69,7 @@ export class AppComponent {
             }
           }else{
             this.global.AlertaData=data;
-            this.CraerToast(data.title+': '+data.label);
+            this.CraerToast();
           }
         }else{
           console.log('User Is Logged out')
@@ -92,10 +95,10 @@ export class AppComponent {
     this.navCtrl.navigateRoot('/login');
   }
  
- async CraerToast(mess){
+ async CraerToast(){
    let bandera=1;
   const toasty = await this.toast.create({
-    message: mess,
+    message: this.global.AlertaData.label,
     showCloseButton: true,
     position: 'top',
     closeButtonText: 'Ver',
@@ -108,6 +111,7 @@ export class AppComponent {
   setTimeout(()=>{
     bandera=0;
   },3800);
+  this.vibration.vibrate([300,400,300]);
   toasty.onDidDismiss().then(()=>{
     if(bandera==1){
       let data={
@@ -124,6 +128,10 @@ export class AppComponent {
           this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
         }
     });
+    console.log()
+    let lid=this.global.AlertaData.Id_Unique+'*'+this.global.AlertaData.Label;
+    this.navCtrl.navigateRoot('/ver-noty/'+lid); 
+
     }else{
       console.log('Dismissed toast Auto');
     }
@@ -131,5 +139,21 @@ export class AppComponent {
   })
  }
   
-
+Actualizar(){
+  let data1={
+    Option:'SelectNoty',
+    Id_User:this.global.UserData.Id_User
+  };
+  this.Post.Event(data1,(err,data)=>{
+    console.log(data) ;
+    if(err==null){
+      this.global.Historial=JSON.parse(data.data);
+      for(let i=0;i<this.global.Historial.length;i++){
+        this.global.Historial[i].EventDate=moment(this.global.Historial[i].EventDate).fromNow();
+      }
+    }else{
+      this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
+    }
+});
+}
 }

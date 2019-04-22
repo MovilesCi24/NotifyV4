@@ -5,9 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
+    NgxPaginationModule,
     CommonModule,
     FormsModule,
     IonicModule,

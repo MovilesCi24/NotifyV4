@@ -19,7 +19,7 @@
         refreshingText="Actualizando..."></ion-refresher-content>
       </ion-refresher>
     <ion-list>
-        <ion-item-sliding #item *ngFor="let Noty of Notificaciones;let i=index">
+        <ion-item-sliding #item *ngFor="let Noty of global.Historial | paginate: { itemsPerPage: Item, currentPage: p };let i=index ">
             <ion-item-options side="start">
               <ion-item-option color="danger" (click)=Archivar(1,Noty.Id_Unique)><ion-icon slot="top" size="large" name="archive"></ion-icon>Archivar</ion-item-option>
             </ion-item-options>
@@ -43,6 +43,15 @@
               <ion-item-option color="success" *ngIf="Noty.IsRead==true" (click)=Mleido(0,Noty.Id_Unique)><ion-icon slot="top" size="large" name="mail-unread"></ion-icon>No Leido</ion-item-option>
             </ion-item-options>
           </ion-item-sliding>
-      
     </ion-list>
 </ion-content>
+<ion-footer>
+    <pagination-controls  (pageChange)="p = $event"
+    maxSize="5"
+    directionLinks="true"
+    autoHide="true"
+    responsive="true"
+    previousLabel="Anterior"
+    nextLabel="Siguiente">
+</pagination-controls>
+</ion-footer>

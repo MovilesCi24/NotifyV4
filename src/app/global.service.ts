@@ -11,6 +11,8 @@ AlertaData;
 Noti:any;
 UserData:any;
 UserToken;
+Item;
+Historial=new Array();
 public IsLoggin:boolean=false;
 public RestDefinitions:any;
   constructor() {

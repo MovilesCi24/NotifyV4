@@ -114,6 +114,16 @@ var LoginPage = /** @class */ (function () {
         this.Alert = Alert;
         this.splashScreen = splashScreen;
         this.Noty = Noty;
+        this.storage.get('ITEM').then(function (val) {
+            if (val == '' || val == ' ' || val == null) {
+                _this.global.Item = 10;
+                _this.storage.set('ITEM', 10);
+            }
+            else {
+                _this.global.Item = val;
+            }
+            console.log('ITEM', val);
+        });
         this.storage.get('Usuario').then(function (val) {
             if (val == '' || val == ' ' || val == null) {
                 _this.splashScreen.hide();

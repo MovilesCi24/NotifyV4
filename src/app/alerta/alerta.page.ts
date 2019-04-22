@@ -30,6 +30,9 @@ export class AlertaPage implements OnInit {
    }
 
   ngOnInit() {
+    setTimeout(()=>{
+      this.navCtrl.pop();
+    },this.global.AlertaData.Validity);
     if(this.global.AlertaData.url=="null"||this.global.AlertaData.url==null){
       this.Bimagen=false;
     }else{

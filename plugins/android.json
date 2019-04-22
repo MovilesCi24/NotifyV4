@@ -34,6 +34,9 @@
     },
     "cordova-support-google-services": {
       "PACKAGE_NAME": "ci24.notify.ci24"
+    },
+    "cordova-plugin-vibration": {
+      "PACKAGE_NAME": "ci24.notify.ci24"
     }
   },
   "dependent_plugins": {}

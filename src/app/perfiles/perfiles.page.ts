@@ -22,7 +22,9 @@ p: number = 1;
     public navCtrl:NavController,
     public Loading:LoadingService,
     public Alert:AlertService
-  ) { }
+  ) { 
+    this.Items=this.global.Item;
+  }
 
   ngOnInit() {
     let data={

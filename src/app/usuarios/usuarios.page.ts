@@ -22,7 +22,9 @@ export class UsuariosPage implements OnInit {
     public navCtrl:NavController,
     public Loading:LoadingService,
     public Alert:AlertService
-  ) { }
+  ) { 
+    this.Items=this.global.Item;
+  }
 
   ngOnInit() {
     let data={

@@ -17,6 +17,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _perfiles_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./perfiles.page */ "./src/app/perfiles/perfiles.page.ts");
+/* harmony import */ var ngx_pagination__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-pagination */ "./node_modules/ngx-pagination/dist/ngx-pagination.js");
+
 
 
 
@@ -36,6 +38,7 @@ var PerfilesPageModule = /** @class */ (function () {
     PerfilesPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [
+                ngx_pagination__WEBPACK_IMPORTED_MODULE_7__["NgxPaginationModule"],
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
@@ -58,7 +61,7 @@ var PerfilesPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-menu-toggle menu=\"first\" slot=\"start\">\n          <ion-menu-button color=\"medium\" menumenu=\"first\"></ion-menu-button>\n        </ion-menu-toggle>\n      <ion-title style=\"text-align: center\" text-uppercase>\n        Perfiles \n      </ion-title>\n      <ion-button slot=end color=\"white\" fill=\"clear\"></ion-button>\n    </ion-toolbar>\n    <ion-searchbar  [(ngModel)]=\"searchQuery\" placeholder=\"Buscar\" (ionInput)=\"getItems($event)\" animated=\"true\" color=\"medium\"></ion-searchbar>\n  </ion-header>\n\n<ion-content class=\"Contenido\">\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content pullingIcon=\"md-arrow-dropdown\"\n    pullingText=\"Desliza para Actualizar\"\n    refreshingSpinner=\"lines\"\n    refreshingText=\"Actualizando...\"></ion-refresher-content>\n  </ion-refresher>\n<ion-list>\n    <ion-item-sliding #item *ngFor=\"let Per of Perfiles;let i=index\">\n        <ion-item-options side=\"start\">\n          <ion-item-option color=\"danger\" (click)=\"DeleteProfile(Per.Id_ProfileEvent)\">Eliminar</ion-item-option>\n        </ion-item-options>\n        <ion-item (click)=\"DataPerfil(Per.Id_ProfileEvent,Per.Name)\">\n            <ion-avatar slot=\"start\">\n                <img *ngIf=\"i%2==0\" src=\"./assets/imgs/Group.png\">\n                <img *ngIf=\"i%2!=0\" src=\"./assets/imgs/Group2.png\">\n              </ion-avatar>\n            <ion-label>\n                <h2>{{Per.Name}}</h2>\n              </ion-label>\n        </ion-item>\n      </ion-item-sliding>\n</ion-list>\n</ion-content>\n<ion-footer>\n    <ion-button expand=\"block\" fill=\"outline\" color=\"medium\" (click)=\"NewPerfil()\">\n       Crear perfil\n      </ion-button>\n</ion-footer>\n"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-menu-toggle menu=\"first\" slot=\"start\">\n          <ion-menu-button color=\"medium\" menumenu=\"first\"></ion-menu-button>\n        </ion-menu-toggle>\n      <ion-title style=\"text-align: center\" text-uppercase>\n        Perfiles \n      </ion-title>\n      <ion-button slot=end color=\"white\" fill=\"clear\"></ion-button>\n    </ion-toolbar>\n    <ion-searchbar  [(ngModel)]=\"searchQuery\" placeholder=\"Buscar\" (ionInput)=\"getItems($event)\" animated=\"true\" color=\"medium\"></ion-searchbar>\n  </ion-header>\n\n<ion-content class=\"Contenido\">\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content pullingIcon=\"md-arrow-dropdown\"\n    pullingText=\"Desliza para Actualizar\"\n    refreshingSpinner=\"lines\"\n    refreshingText=\"Actualizando...\"></ion-refresher-content>\n  </ion-refresher>\n<ion-list>\n    <ion-item-sliding #item *ngFor=\"let Per of Perfiles | paginate: { itemsPerPage: Items, currentPage: p };let i=index\">\n        <ion-item-options side=\"start\">\n          <ion-item-option color=\"danger\" (click)=\"DeleteProfile(Per.Id_ProfileEvent)\">Eliminar</ion-item-option>\n        </ion-item-options>\n        <ion-item (click)=\"DataPerfil(Per.Id_ProfileEvent,Per.Name)\">\n            <ion-avatar slot=\"start\">\n                <img *ngIf=\"i%2==0\" src=\"./assets/imgs/Group.png\">\n                <img *ngIf=\"i%2!=0\" src=\"./assets/imgs/Group2.png\">\n              </ion-avatar>\n            <ion-label>\n                <h2>{{Per.Name}}</h2>\n              </ion-label>\n        </ion-item>\n      </ion-item-sliding>\n</ion-list>\n</ion-content>\n<ion-footer> \n      <pagination-controls  (pageChange)=\"p = $event\"\n          maxSize=\"5\"\n          directionLinks=\"true\"\n          autoHide=\"true\"\n          responsive=\"true\"\n          previousLabel=\"Anterior\"\n          nextLabel=\"Siguiente\">\n      </pagination-controls>\n    <ion-button expand=\"block\" fill=\"outline\" color=\"medium\" (click)=\"NewPerfil()\">\n       Crear perfil\n    </ion-button>\n\n</ion-footer>\n"
 
 /***/ }),
 
@@ -108,6 +111,7 @@ var PerfilesPage = /** @class */ (function () {
         this.PerfilesOri = new Array();
         this.searchQuery = '';
         this.p = 1;
+        this.Items = this.global.Item;
     }
     PerfilesPage.prototype.ngOnInit = function () {
         var _this = this;

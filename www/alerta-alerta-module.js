@@ -111,6 +111,10 @@ var AlertaPage = /** @class */ (function () {
     }
     ;
     AlertaPage.prototype.ngOnInit = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.navCtrl.pop();
+        }, this.global.AlertaData.Validity);
         if (this.global.AlertaData.url == "null" || this.global.AlertaData.url == null) {
             this.Bimagen = false;
         }

@@ -25,6 +25,36 @@
     font-size:large;
   
 }
+.ngx-pagination .current {
+    padding: 0.25rem 0.625rem;
+    background: #434549;
+    color: #fefefe;
+    cursor: default;
+    border-radius: 5px;
+    border: 2px solid white;
+}
+.ngx-pagination.responsive .small-screen {
+    display: inline-block;
+    border: 2px solid #434549;
+    padding: 4px;
+    border-radius: 3px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.ngx-pagination a, .ngx-pagination button {
+    background: #434549;
+    color: white;
+    display: block;
+    padding: 0.1875rem 0.625rem;
+    border-radius: 3px;
+    /* border: 2px solid #434549; */
+}
+.ngx-pagination a:hover, .ngx-pagination button:hover {
+    background: white;
+    color: #434549;
+    border-radius: 3px;
+    border: 2px solid #434549;
+}
 
 .ion-color-blue {
     --ion-color-base: var(--ion-color-blue) !important;

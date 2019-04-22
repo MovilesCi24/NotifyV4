@@ -13,6 +13,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 })
 
 export class HomePage implements OnInit{
+p: number = 1;
+Item;
 @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 Notificaciones=new Array();
   constructor(
@@ -22,7 +24,9 @@ Notificaciones=new Array();
     public Loading:LoadingService,
     public Alert:AlertService,
     public splashScreen:SplashScreen,
-  ) {}
+  ) {
+    this.Item=this.global.Item;
+  }
 
   ngOnInit() {
     let data={
@@ -33,9 +37,9 @@ Notificaciones=new Array();
       console.log(data) ;
       if(err==null){
         this.splashScreen.hide();
-        this.Notificaciones=JSON.parse(data.data);
-        for(let i=0;i<this.Notificaciones.length;i++){
-          this.Notificaciones[i].EventDate=moment(this.Notificaciones[i].EventDate).fromNow();
+        this.global.Historial=JSON.parse(data.data);
+        for(let i=0;i<this.global.Historial.length;i++){
+          this.global.Historial[i].EventDate=moment(this.global.Historial[i].EventDate).fromNow();
         }
       }else{
         this.splashScreen.hide();
@@ -53,9 +57,9 @@ Notificaciones=new Array();
       this.Post.Event(data,(err,data)=>{
         console.log(data) ;
         if(err==null){
-          this.Notificaciones=JSON.parse(data.data);
-          for(let i=0;i<this.Notificaciones.length;i++){
-            this.Notificaciones[i].EventDate=moment(this.Notificaciones[i].EventDate).fromNow();
+          this.global.Historial=JSON.parse(data.data);
+          for(let i=0;i<this.global.Historial.length;i++){
+            this.global.Historial[i].EventDate=moment(this.global.Historial[i].EventDate).fromNow();
           }
           console.log('Async operation has ended');
           event.target.complete();
@@ -101,9 +105,9 @@ Notificaciones=new Array();
     this.Post.Event(data,(err,data)=>{
       console.log(data) ;
       if(err==null){
-        this.Notificaciones=JSON.parse(data.data);
-        for(let i=0;i<this.Notificaciones.length;i++){
-          this.Notificaciones[i].EventDate=moment(this.Notificaciones[i].EventDate).fromNow();
+        this.global.Historial=JSON.parse(data.data);
+        for(let i=0;i<this.global.Historial.length;i++){
+          this.global.Historial[i].EventDate=moment(this.global.Historial[i].EventDate).fromNow();
         }
       }else{
         this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
@@ -123,9 +127,9 @@ Notificaciones=new Array();
     this.Post.Event(data,(err,data)=>{
       console.log(data) ;
       if(err==null){
-        this.Notificaciones=JSON.parse(data.data);
-        for(let i=0;i<this.Notificaciones.length;i++){
-          this.Notificaciones[i].EventDate=moment(this.Notificaciones[i].EventDate).fromNow();
+        this.global.Historial=JSON.parse(data.data);
+        for(let i=0;i<this.global.Historial.length;i++){
+          this.global.Historial[i].EventDate=moment(this.global.Historial[i].EventDate).fromNow();
         }
       }else{
         this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));

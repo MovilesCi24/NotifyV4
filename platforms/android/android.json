@@ -68,6 +68,12 @@
               "xml": "<receiver android:name=\"org.apache.cordova.firebase.OnNotificationOpenReceiver\" />",
               "count": 1
             }
+          ],
+          "/manifest": [
+            {
+              "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
+              "count": 1
+            }
           ]
         }
       },
@@ -130,6 +136,9 @@
       "PACKAGE_NAME": "ci24.notify.ci24"
     },
     "cordova-support-google-services": {
+      "PACKAGE_NAME": "ci24.notify.ci24"
+    },
+    "cordova-plugin-vibration": {
       "PACKAGE_NAME": "ci24.notify.ci24"
     }
   },
@@ -201,6 +210,7 @@
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-whitelist": "1.3.3",
     "cordova-sqlite-storage": "3.2.0",
-    "cordova-support-google-services": "1.3.1"
+    "cordova-support-google-services": "1.3.1",
+    "cordova-plugin-vibration": "3.1.0"
   }
 }

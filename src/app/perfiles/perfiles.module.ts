@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { PerfilesPage } from './perfiles.page';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    NgxPaginationModule,
     CommonModule,
     FormsModule,
     IonicModule,

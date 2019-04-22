@@ -1126,6 +1126,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 var map = {
 	"./ajustes-v/ajustes-v.module": [
 		"./src/app/ajustes-v/ajustes-v.module.ts",
+		"common",
 		"ajustes-v-ajustes-v-module"
 	],
 	"./alerta/alerta.module": [
@@ -1473,6 +1474,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
 /* harmony import */ var _notify_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./notify.service */ "./src/app/notify.service.ts");
+/* harmony import */ var _ionic_native_vibration_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/vibration/ngx */ "./node_modules/@ionic-native/vibration/ngx/index.js");
+
 
 
 
@@ -1488,7 +1491,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, navCtrl, firebase, storage, global, POP, Post, toast, Alert, Noty) {
+    function AppComponent(platform, splashScreen, statusBar, navCtrl, firebase, storage, global, POP, Post, toast, Alert, Noty, vibration) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
@@ -1501,6 +1504,7 @@ var AppComponent = /** @class */ (function () {
         this.toast = toast;
         this.Alert = Alert;
         this.Noty = Noty;
+        this.vibration = vibration;
         this.pages = new Array();
         this.initializeApp();
         this.pages = [
@@ -1524,6 +1528,7 @@ var AppComponent = /** @class */ (function () {
             _this.firebase.onNotificationOpen()
                 .subscribe(function (data) {
                 if (_this.global.IsLoggin == true) {
+                    _this.Actualizar();
                     console.log('User opened a notification' + JSON.stringify(data));
                     console.log(data);
                     if (data.alerta == true || data.alerta == "true") {
@@ -1537,7 +1542,7 @@ var AppComponent = /** @class */ (function () {
                     }
                     else {
                         _this.global.AlertaData = data;
-                        _this.CraerToast(data.title + ': ' + data.label);
+                        _this.CraerToast();
                     }
                 }
                 else {
@@ -1561,7 +1566,7 @@ var AppComponent = /** @class */ (function () {
         });
         this.navCtrl.navigateRoot('/login');
     };
-    AppComponent.prototype.CraerToast = function (mess) {
+    AppComponent.prototype.CraerToast = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var bandera, toasty;
             var _this = this;
@@ -1570,7 +1575,7 @@ var AppComponent = /** @class */ (function () {
                     case 0:
                         bandera = 1;
                         return [4 /*yield*/, this.toast.create({
-                                message: mess,
+                                message: this.global.AlertaData.label,
                                 showCloseButton: true,
                                 position: 'top',
                                 closeButtonText: 'Ver',
@@ -1585,6 +1590,7 @@ var AppComponent = /** @class */ (function () {
                         setTimeout(function () {
                             bandera = 0;
                         }, 3800);
+                        this.vibration.vibrate([300, 400, 300]);
                         toasty.onDidDismiss().then(function () {
                             if (bandera == 1) {
                                 var data = {
@@ -1602,6 +1608,9 @@ var AppComponent = /** @class */ (function () {
                                         _this.Alert.AlertOnebutton('Error', JSON.stringify(err.message));
                                     }
                                 });
+                                console.log();
+                                var lid = _this.global.AlertaData.Id_Unique + '*' + _this.global.AlertaData.Label;
+                                _this.navCtrl.navigateRoot('/ver-noty/' + lid);
                             }
                             else {
                                 console.log('Dismissed toast Auto');
@@ -1610,6 +1619,25 @@ var AppComponent = /** @class */ (function () {
                         return [2 /*return*/];
                 }
             });
+        });
+    };
+    AppComponent.prototype.Actualizar = function () {
+        var _this = this;
+        var data1 = {
+            Option: 'SelectNoty',
+            Id_User: this.global.UserData.Id_User
+        };
+        this.Post.Event(data1, function (err, data) {
+            console.log(data);
+            if (err == null) {
+                _this.global.Historial = JSON.parse(data.data);
+                for (var i = 0; i < _this.global.Historial.length; i++) {
+                    _this.global.Historial[i].EventDate = moment__WEBPACK_IMPORTED_MODULE_11__(_this.global.Historial[i].EventDate).fromNow();
+                }
+            }
+            else {
+                _this.Alert.AlertOnebutton('Error', JSON.stringify(err.message));
+            }
         });
     };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1628,7 +1656,8 @@ var AppComponent = /** @class */ (function () {
             _post_service__WEBPACK_IMPORTED_MODULE_9__["PostService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"],
             _alert_service__WEBPACK_IMPORTED_MODULE_10__["AlertService"],
-            _notify_service__WEBPACK_IMPORTED_MODULE_13__["NotifyService"]])
+            _notify_service__WEBPACK_IMPORTED_MODULE_13__["NotifyService"],
+            _ionic_native_vibration_ngx__WEBPACK_IMPORTED_MODULE_14__["Vibration"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -1651,15 +1680,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
-/* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _pop_pop_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pop/pop.component */ "./src/app/pop/pop.component.ts");
-/* harmony import */ var _ionic_native_firebase_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/firebase/ngx */ "./node_modules/@ionic-native/firebase/ngx/index.js");
+/* harmony import */ var ngx_pagination__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-pagination */ "./node_modules/ngx-pagination/dist/ngx-pagination.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
+/* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _pop_pop_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pop/pop.component */ "./src/app/pop/pop.component.ts");
+/* harmony import */ var _ionic_native_firebase_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/firebase/ngx */ "./node_modules/@ionic-native/firebase/ngx/index.js");
+/* harmony import */ var _ionic_native_vibration_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/vibration/ngx */ "./node_modules/@ionic-native/vibration/ngx/index.js");
+
+
 
 
 
@@ -1678,18 +1711,19 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"], _pop_pop_component__WEBPACK_IMPORTED_MODULE_11__["PopComponent"]],
-            entryComponents: [_pop_pop_component__WEBPACK_IMPORTED_MODULE_11__["PopComponent"]],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"], _pop_pop_component__WEBPACK_IMPORTED_MODULE_12__["PopComponent"]],
+            entryComponents: [_pop_pop_component__WEBPACK_IMPORTED_MODULE_12__["PopComponent"]],
             imports: [
-                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_10__["HttpClientModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["IonicStorageModule"].forRoot()
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], ngx_pagination__WEBPACK_IMPORTED_MODULE_4__["NgxPaginationModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_10__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HttpClientModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["IonicStorageModule"].forRoot()
             ],
             providers: [
-                _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
-                _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
-                _ionic_native_firebase_ngx__WEBPACK_IMPORTED_MODULE_12__["Firebase"],
-                { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] }
+                _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"],
+                _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"],
+                _ionic_native_vibration_ngx__WEBPACK_IMPORTED_MODULE_14__["Vibration"],
+                _ionic_native_firebase_ngx__WEBPACK_IMPORTED_MODULE_13__["Firebase"],
+                { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] }
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]], exports: [_pop_pop_component__WEBPACK_IMPORTED_MODULE_11__["PopComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]], exports: [_pop_pop_component__WEBPACK_IMPORTED_MODULE_12__["PopComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -1715,6 +1749,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var GlobalService = /** @class */ (function () {
     function GlobalService() {
+        this.Historial = new Array();
         this.IsLoggin = false;
         this.RestDefinitions = {
             Success: 100
@@ -1964,6 +1999,10 @@ var PopComponent = /** @class */ (function () {
     }
     ;
     PopComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.POP.Dismiss();
+        }, this.global.AlertaData.Validity);
         if (this.global.AlertaData.url == "null" || this.global.AlertaData.url == null) {
             this.Bimagen = false;
         }
