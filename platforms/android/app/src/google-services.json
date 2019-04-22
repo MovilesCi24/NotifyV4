@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "878888968039",
+    "firebase_url": "https://notificaciones-dfcdd.firebaseio.com",
+    "project_id": "notificaciones-dfcdd",
+    "storage_bucket": "notificaciones-dfcdd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878888968039:android:3a5d861e7a182025",
+        "android_client_info": {
+          "package_name": "ci24.notify.ci24"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878888968039-ag663q770foe73qf6rsha9h27oa4a0ii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmvIPaJjVRE6WDtrsKvkmVOvwrCJx3qEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878888968039-ag663q770foe73qf6rsha9h27oa4a0ii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
