@@ -58,7 +58,7 @@ var PerfilEventsPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-button slot=start color=\"white\" fill=\"clear\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\n      <ion-title style=\"text-align: center\" text-uppercase>{{Data[1]}}</ion-title>\n      <ion-button slot=end color=\"white\" fill=\"clear\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\n    </ion-toolbar>\n  </ion-header>\n  \n<ion-content class=\"Contenido\">\n  <ion-list>\n      <ion-item-group style=\"width: 100%\" *ngFor=\"let item of Dispositivo;let i=index;\">\n          <ion-item-divider (click)=ToggleD(i)>\n            <ion-label color=\"danger\" text-uppercase>{{item.NameDevices}}</ion-label>\n            <ion-icon *ngIf=\"TDisp[i]==false\" slot=end name=\"arrow-dropdown\"></ion-icon>\n            <ion-icon *ngIf=\"TDisp[i]==true\" slot=end name=\"remove\"></ion-icon>\n          </ion-item-divider>\n          <div *ngIf=\"TDisp[i]==true\">\n          <ion-item *ngFor=\"let comp of Componentes[i];let j=index;\">\n              <ion-item-group style=\"width: 100%\">\n                  <ion-item-divider (click)=ToggleC(i,j)>\n                    <ion-label text-uppercase>{{comp.NameComponent}}</ion-label>\n                    <ion-icon *ngIf=\"Tcomp[i][j]==false\" slot=end name=\"arrow-dropdown\"></ion-icon>\n                    <ion-icon *ngIf=\"Tcomp[i][j]==true\" slot=end name=\"remove\"></ion-icon>\n                  </ion-item-divider>\n                  <div *ngIf=\"Tcomp[i][j]==true\">\n                      <ion-item *ngFor=\"let event of Eventos[i][j];let k=index;\">\n                      {{event.NameEvent}}\n                      <ion-toggle slot=end color=\"danger\" [(ngModel)]=\"Vevent[i][j][k]\"></ion-toggle>\n                    </ion-item>\n                  </div>\n                </ion-item-group>\n          </ion-item>\n          </div>\n        </ion-item-group>\n  </ion-list>\n</ion-content>\n<ion-footer>\n    <ion-button expand=\"block\" fill=\"outline\" color=\"medium\" (click)=\"Asociar()\">\n        Asociar Eventos\n    </ion-button>\n</ion-footer>"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n      <ion-button slot=start color=\"white\" fill=\"clear\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\r\n      <ion-title style=\"text-align: center\" text-uppercase>{{Data[1]}}</ion-title>\r\n      <ion-button slot=end color=\"white\" fill=\"clear\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\r\n    </ion-toolbar>\r\n    <ion-item>\r\n      <ion-label>Seleccionar Todos</ion-label>\r\n      <ion-toggle slot=end color=\"primary\" [(ngModel)]=\"SelectAll\" (ionChange)=\"Seleccionar()\"></ion-toggle>\r\n    </ion-item>\r\n  </ion-header>\r\n  \r\n<ion-content class=\"Contenido\">\r\n  <ion-list>\r\n      <ion-item-group style=\"width: 100%\" *ngFor=\"let item of Dispositivo;let i=index;\">\r\n          <ion-item-divider (click)=ToggleD(i)>\r\n            <ion-label color=\"danger\" text-uppercase>{{item.NameDevices}}</ion-label>\r\n            <ion-icon *ngIf=\"TDisp[i]==false\" slot=end name=\"arrow-dropdown\"></ion-icon>\r\n            <ion-icon *ngIf=\"TDisp[i]==true\" slot=end name=\"remove\"></ion-icon>\r\n          </ion-item-divider>\r\n          <div *ngIf=\"TDisp[i]==true\">\r\n          <ion-item *ngFor=\"let comp of Componentes[i];let j=index;\">\r\n              <ion-item-group style=\"width: 100%\">\r\n                  <ion-item-divider (click)=ToggleC(i,j)>\r\n                    <ion-label text-uppercase>{{comp.NameComponent}}</ion-label>\r\n                    <ion-icon *ngIf=\"Tcomp[i][j]==false\" slot=end name=\"arrow-dropdown\"></ion-icon>\r\n                    <ion-icon *ngIf=\"Tcomp[i][j]==true\" slot=end name=\"remove\"></ion-icon>\r\n                  </ion-item-divider>\r\n                  <div *ngIf=\"Tcomp[i][j]==true\">\r\n                      <ion-item *ngFor=\"let event of Eventos[i][j];let k=index;\">\r\n                      {{event.NameEvent}}\r\n                      <ion-toggle slot=end color=\"danger\" [(ngModel)]=\"Vevent[i][j][k]\"></ion-toggle>\r\n                    </ion-item>\r\n                  </div>\r\n                </ion-item-group>\r\n          </ion-item>\r\n          </div>\r\n        </ion-item-group>\r\n  </ion-list>\r\n</ion-content>\r\n<ion-footer>\r\n    <ion-button expand=\"block\" fill=\"outline\" color=\"medium\" (click)=\"Asociar()\">\r\n        Asociar Eventos\r\n    </ion-button>\r\n</ion-footer>"
 
 /***/ }),
 
@@ -69,7 +69,7 @@ module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-button slot=start 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".item.sc-ion-label-md-h, .item .sc-ion-label-md-h {\n  width: 100%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGVyZmlsLWV2ZW50cy9DOlxcSU9OSUNcXE5vdGlmeS9zcmNcXGFwcFxccGVyZmlsLWV2ZW50c1xccGVyZmlsLWV2ZW50cy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUNKLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9wZXJmaWwtZXZlbnRzL3BlcmZpbC1ldmVudHMucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLml0ZW0uc2MtaW9uLWxhYmVsLW1kLWgsIC5pdGVtIC5zYy1pb24tbGFiZWwtbWQtaCB7XHJcbiAgICB3aWR0aDogMTAwJVxyXG59Il19 */"
+module.exports = ".item.sc-ion-label-md-h, .item .sc-ion-label-md-h {\n  width: 100%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGVyZmlsLWV2ZW50cy9DOlxcSU9OSUNcXE5vdGlmeVY0L3NyY1xcYXBwXFxwZXJmaWwtZXZlbnRzXFxwZXJmaWwtZXZlbnRzLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFdBQ0osRUFBQSIsImZpbGUiOiJzcmMvYXBwL3BlcmZpbC1ldmVudHMvcGVyZmlsLWV2ZW50cy5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaXRlbS5zYy1pb24tbGFiZWwtbWQtaCwgLml0ZW0gLnNjLWlvbi1sYWJlbC1tZC1oIHtcclxuICAgIHdpZHRoOiAxMDAlXHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -107,6 +107,7 @@ var PerfilEventsPage = /** @class */ (function () {
         this.Loading = Loading;
         this.Alert = Alert;
         this.Aroute = Aroute;
+        this.SelectAll = false;
         this.Dispositivo = new Array();
         this.Componentes = new Array();
         this.Eventos = new Array();
@@ -141,7 +142,7 @@ var PerfilEventsPage = /** @class */ (function () {
         for (var _i = 0, Disp_1 = Disp; _i < Disp_1.length; _i++) {
             var item = Disp_1[_i];
             if (!map.has(item.Id_DeviceType)) {
-                map.set(item.Id_DeviceType, true); // set any value to Map
+                map.set(item.Id_DeviceType, true);
                 this.Dispositivo.push({
                     Id_DeviceType: item.Id_DeviceType,
                     NameDevices: item.NameDevices
@@ -158,7 +159,7 @@ var PerfilEventsPage = /** @class */ (function () {
             for (var _a = 0, Disp_2 = Disp; _a < Disp_2.length; _a++) {
                 var item = Disp_2[_a];
                 if ((!map2.has(item.Id_Component)) && (item.Id_DeviceType == this.Dispositivo[i].Id_DeviceType)) {
-                    map2.set(item.Id_Component, true); // set any value to Map
+                    map2.set(item.Id_Component, true);
                     this.Componentes[i].push({
                         Id_Component: item.Id_Component,
                         NameComponent: item.NameComponent
@@ -179,7 +180,7 @@ var PerfilEventsPage = /** @class */ (function () {
                 for (var _b = 0, Disp_3 = Disp; _b < Disp_3.length; _b++) {
                     var item = Disp_3[_b];
                     if ((!map3.has(item.Id_EventComponent)) && (item.Id_DeviceType == this.Dispositivo[i].Id_DeviceType) && (item.Id_Component == this.Componentes[i][j].Id_Component)) {
-                        map3.set(item.Id_EventComponent, true); // set any value to Map
+                        map3.set(item.Id_EventComponent, true);
                         this.Eventos[i][j].push({
                             Id_DeviceType: item.Id_DeviceType,
                             NameDevices: item.NameDevices,
@@ -263,6 +264,15 @@ var PerfilEventsPage = /** @class */ (function () {
                 _this.Loading.HideLoading();
                 _this.navCtrl.navigateRoot('/perfiles');
             }, 2000);
+        }
+    };
+    PerfilEventsPage.prototype.Seleccionar = function () {
+        for (var i = 0; i < this.Dispositivo.length; i++) {
+            for (var j = 0; j < this.Componentes[i].length; j++) {
+                for (var k = 0; k < this.Eventos[i][j].length; k++) {
+                    this.Vevent[i][j][k] = this.SelectAll;
+                }
+            }
         }
     };
     PerfilEventsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

@@ -11,9 +11,11 @@ import { AlertService } from '../alert.service';
   templateUrl: './perfil-events.page.html',
   styleUrls: ['./perfil-events.page.scss'],
 })
+
 export class PerfilEventsPage implements OnInit {
 Data;
 Devices;
+SelectAll=false;
 Events;
 Dispositivo=new Array();
 Componentes=new Array();
@@ -57,7 +59,7 @@ Id_Perfil;
     let map = new Map();
     for (let item of Disp) {
         if(!map.has(item.Id_DeviceType)){
-            map.set(item.Id_DeviceType, true);    // set any value to Map
+            map.set(item.Id_DeviceType, true);    
             this.Dispositivo.push({
               Id_DeviceType: item.Id_DeviceType,
               NameDevices: item.NameDevices
@@ -73,7 +75,7 @@ Id_Perfil;
       let map2 = new Map();
       for (let item of Disp) {
         if((!map2.has(item.Id_Component))&&(item.Id_DeviceType==this.Dispositivo[i].Id_DeviceType)){
-            map2.set(item.Id_Component, true);    // set any value to Map
+            map2.set(item.Id_Component, true);
             this.Componentes[i].push({
               Id_Component: item.Id_Component,
               NameComponent: item.NameComponent
@@ -93,7 +95,7 @@ Id_Perfil;
         let map3 = new Map();
         for (let item of Disp) {
           if((!map3.has(item.Id_EventComponent))&&(item.Id_DeviceType==this.Dispositivo[i].Id_DeviceType)&&(item.Id_Component==this.Componentes[i][j].Id_Component)){
-              map3.set(item.Id_EventComponent, true);    // set any value to Map
+              map3.set(item.Id_EventComponent, true);
               this.Eventos[i][j].push({
                 Id_DeviceType: item.Id_DeviceType,
                 NameDevices: item.NameDevices,
@@ -176,6 +178,18 @@ let v=0;
       this.Loading.HideLoading();
       this.navCtrl.navigateRoot('/perfiles');
     },2000);
+  }
+}
+
+
+
+Seleccionar(){
+  for(let i=0;i<this.Dispositivo.length;i++){
+    for(let j=0;j<this.Componentes[i].length;j++){
+      for(let k=0;k<this.Eventos[i][j].length;k++){
+        this.Vevent[i][j][k]=this.SelectAll;
+      }
+    }
   }
 }
 }

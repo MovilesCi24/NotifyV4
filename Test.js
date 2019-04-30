@@ -3,7 +3,7 @@ let Noti = new Notify(null);
     let EventData = {
 	"Option":"SendNotify",	
 	"data": {
-			"url":"null",
+				"url":"null",
 				"label": "Entrada 1",
 				"input": false,
 				"button": "null",

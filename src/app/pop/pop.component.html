@@ -15,10 +15,10 @@
                   <ion-label style="text-align:center" text-uppercase>{{Texto}}</ion-label>
                 </ion-item>
                 <ion-item *ngIf="Binput==true">
-                    <ion-input placeholder="Respuesta"></ion-input>
-                  </ion-item>
-                <ion-button *ngIf="Binput==true" expand="block" color="medium">Enviar Respuesta</ion-button>
-                <ion-button *ngFor="let button of Botones" expand="block" color="medium" (click)="console.log(button.value)">{{button.Text}}</ion-button>
+                <ion-input placeholder="Respuesta" value="Response"></ion-input>
+                </ion-item>
+              <ion-button *ngIf="Binput==true" expand="block" color="medium" (click)=Responder()>Enviar Respuesta</ion-button>
+              <ion-button *ngFor="let button of Botones" expand="block" color="medium" (click)=Responder(button.Text)>{{button.Text}}</ion-button>
                 <ion-button expand="block" color="danger" fill="outline" (click)="Cancel()">Cancelar</ion-button>
             </div>
       </ion-list>

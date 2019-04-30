@@ -15,8 +15,10 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 export class HomePage implements OnInit{
 p: number = 1;
 Item;
+searchQuery: string = '';
 @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 Notificaciones=new Array();
+NotificacionesOri=new Array();
   constructor(
     public global:GlobalService,
     public Post:PostService,
@@ -37,9 +39,9 @@ Notificaciones=new Array();
       console.log(data) ;
       if(err==null){
         this.splashScreen.hide();
-        this.global.Historial=JSON.parse(data.data);
+        this.NotificacionesOri=this.global.Historial=JSON.parse(data.data);
         for(let i=0;i<this.global.Historial.length;i++){
-          this.global.Historial[i].EventDate=moment(this.global.Historial[i].EventDate).fromNow();
+          this.NotificacionesOri[i].EventDate=this.global.Historial[i].EventDate=moment(this.global.Historial[i].EventDate).fromNow();
         }
       }else{
         this.splashScreen.hide();
@@ -57,9 +59,9 @@ Notificaciones=new Array();
       this.Post.Event(data,(err,data)=>{
         console.log(data) ;
         if(err==null){
-          this.global.Historial=JSON.parse(data.data);
+          this.NotificacionesOri=this.global.Historial=JSON.parse(data.data);
           for(let i=0;i<this.global.Historial.length;i++){
-            this.global.Historial[i].EventDate=moment(this.global.Historial[i].EventDate).fromNow();
+            this.NotificacionesOri[i].EventDate=this.global.Historial[i].EventDate=moment(this.global.Historial[i].EventDate).fromNow();
           }
           console.log('Async operation has ended');
           event.target.complete();
@@ -105,9 +107,9 @@ Notificaciones=new Array();
     this.Post.Event(data,(err,data)=>{
       console.log(data) ;
       if(err==null){
-        this.global.Historial=JSON.parse(data.data);
+        this.NotificacionesOri=this.global.Historial=JSON.parse(data.data);
         for(let i=0;i<this.global.Historial.length;i++){
-          this.global.Historial[i].EventDate=moment(this.global.Historial[i].EventDate).fromNow();
+          this.NotificacionesOri[i].EventDate=this.global.Historial[i].EventDate=moment(this.global.Historial[i].EventDate).fromNow();
         }
       }else{
         this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
@@ -127,9 +129,9 @@ Notificaciones=new Array();
     this.Post.Event(data,(err,data)=>{
       console.log(data) ;
       if(err==null){
-        this.global.Historial=JSON.parse(data.data);
+        this.NotificacionesOri=this.global.Historial=JSON.parse(data.data);
         for(let i=0;i<this.global.Historial.length;i++){
-          this.global.Historial[i].EventDate=moment(this.global.Historial[i].EventDate).fromNow();
+          this.NotificacionesOri[i].EventDate=this.global.Historial[i].EventDate=moment(this.global.Historial[i].EventDate).fromNow();
         }
       }else{
         this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
@@ -138,5 +140,24 @@ Notificaciones=new Array();
   });
     
   }
+
+
+  
+getItems(ev: any) {
+  this.initializeItems()
+  // set val to the value of the searchbar
+  const val = ev.target.value;
+
+  // if the value is an empty string don't filter the items
+  if (val && val.trim() != '') {
+    this.global.Historial = this.global.Historial.filter((item) => {
+      console.log(item)
+      return (item.Label.toLowerCase().indexOf(val.toLowerCase()) > -1||item.Titulo.toLowerCase().indexOf(val.toLowerCase()) > -1);
+    })
+  }
+}
+initializeItems() {
+  this.global.Historial=this.NotificacionesOri;
+}
 
 }

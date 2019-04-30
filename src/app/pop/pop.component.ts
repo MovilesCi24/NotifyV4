@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PopOverService } from '../pop-over.service';
 import { GlobalService } from '../global.service';
+import { PostService } from '../post.service';
+import { LoadingService } from '../loading.service';
+import { AlertService } from '../alert.service';
 
 @Component({
   selector: 'app-pop',
@@ -18,8 +21,12 @@ export class PopComponent implements OnInit {
   Botones=new Array();;
   Campos;
   Texto;
+  Response:string;
   constructor(public POP:PopOverService,
-    public global:GlobalService) { }
+    public global:GlobalService,
+    public Post:PostService,
+    public Loading:LoadingService,
+    public Alert:AlertService,) { }
 
     ngOnInit() {
       setTimeout(()=>{
@@ -57,4 +64,25 @@ export class PopComponent implements OnInit {
   Cancel(){
     this.POP.Dismiss();
   }
+
+  Responder(Mensaje?){
+    if(Mensaje==undefined||Mensaje==null){
+      
+    }else{
+      let data1={
+        Option:"AlertResponse",
+        Id_User:this.global.UserData.Id_User,
+        Id_Unique:this.global.AlertaData.Id_Unique,
+        Answer:Mensaje
+      };
+      this.Post.Event(data1,(err,data)=>{
+        //console.log(data) ;
+        if(err==null){
+        //  console.log('Respuesta enviada');
+        }else{
+          this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
+        }
+    });
+    }
+}
 }

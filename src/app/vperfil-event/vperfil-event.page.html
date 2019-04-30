@@ -6,6 +6,11 @@
       <ion-button *ngIf="Editar==true" slot=end color="blue" fill="clear" (click)="EditarActive()"> <ion-icon slot="icon-only" name="create"></ion-icon></ion-button>
     </ion-toolbar>
     <ion-button *ngIf="Editar==false" color=medium expand=block fill=outline>Editando...</ion-button>
+    <ion-item>
+      <ion-label>Seleccionar Todos</ion-label>
+      <ion-toggle *ngIf="Editar==true" slot=end color="primary" [(ngModel)]="SelectAll" disabled="true"></ion-toggle>
+      <ion-toggle *ngIf="Editar==false" slot=end color="primary" [(ngModel)]="SelectAll" disabled="false" (ionChange)="Seleccionar()"></ion-toggle>
+    </ion-item>
   </ion-header>
 
 <ion-content>

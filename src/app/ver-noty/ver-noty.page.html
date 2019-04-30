@@ -13,6 +13,24 @@
 
 <ion-content class="Contenido">
   <ion-list>
-    
-  </ion-list>
+    <ion-slides pager="true" [options]="slideOpts" *ngIf="Bimagen==true">
+        <ion-slide *ngFor="let item of Imagenes">
+          <ion-list>
+            <ion-item>
+                <ion-img src="{{item}}" style="width:90%;margin: auto"></ion-img>
+            </ion-item>
+          </ion-list>
+        </ion-slide>
+       </ion-slides>
+      <div style="padding:0px 5%">
+          <ion-item *ngIf="Blabel==true">
+            <ion-label style="text-align:center" text-uppercase text-wrap>{{Texto}}</ion-label>
+          </ion-item>
+          <ion-item *ngIf="Binput==true">
+              <ion-input placeholder="Respuesta" [(ngModel)]="Response"></ion-input>
+            </ion-item>
+          <ion-button *ngIf="Binput==true" expand="block" color="medium" (click)=Responder()>Enviar Respuesta</ion-button>
+          <ion-button *ngFor="let button of Botones" expand="block" color="medium" (click)=Responder(button.Text)>{{button.Text}}</ion-button>
+      </div>
+</ion-list>
 </ion-content>

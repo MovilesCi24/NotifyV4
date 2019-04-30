@@ -58,7 +58,7 @@ var PruebaPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n      <ion-menu-toggle menu=\"first\" slot=\"start\">\n        <ion-menu-button color=\"medium\" menumenu=\"first\"></ion-menu-button>\n      </ion-menu-toggle>\n    <ion-title style=\"text-align: center\" text-uppercase>\n      Prueba \n    </ion-title>\n    <ion-button slot=end color=\"white\" fill=\"clear\"></ion-button>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"Contenido\">\n<ion-button color=\"medium\" expand=\"block\" (click)=\"Mostrar()\">\n  PopOver\n</ion-button>\n<ion-button color=\"medium\" expand=\"block\" (click)=\"MostrarPag()\">\n    Página\n  </ion-button>\n</ion-content>\n"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n      <ion-menu-toggle menu=\"first\" slot=\"start\">\r\n        <ion-menu-button color=\"medium\" menumenu=\"first\"></ion-menu-button>\r\n      </ion-menu-toggle>\r\n    <ion-title style=\"text-align: center\" text-uppercase>\r\n      Prueba \r\n    </ion-title>\r\n    <ion-button slot=end color=\"white\" fill=\"clear\"></ion-button>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content class=\"Contenido\">\r\n<ion-button color=\"medium\" expand=\"block\" (click)=\"Mostrar()\">\r\n  PopOver\r\n</ion-button>\r\n<ion-button color=\"medium\" expand=\"block\" (click)=\"MostrarPag()\">\r\n    Página\r\n  </ion-button>\r\n</ion-content>\r\n"
 
 /***/ }),
 

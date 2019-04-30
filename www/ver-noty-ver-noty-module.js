@@ -58,7 +58,7 @@ var VerNotyPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-button slot=start color=\"danger\" fill=\"clear\" (click)=\"this.navCtrl.navigateRoot('/home')\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\n      <ion-title style=\"text-align: center\" text-uppercase>Notificación</ion-title>\n      <ion-button slot=end color=\"white\" fill=\"clear\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\n    </ion-toolbar>\n    <ion-item>\n      <ion-label style=\"text-align:center\" text-wrap>\n          {{Data[1]}}\n      </ion-label>\n    </ion-item>\n  </ion-header>\n\n<ion-content class=\"Contenido\">\n  <ion-list>\n    \n  </ion-list>\n</ion-content>\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n      <ion-button slot=start color=\"danger\" fill=\"clear\" (click)=\"this.navCtrl.navigateRoot('/home')\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\r\n      <ion-title style=\"text-align: center\" text-uppercase>Notificación</ion-title>\r\n      <ion-button slot=end color=\"white\" fill=\"clear\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\r\n    </ion-toolbar>\r\n    <ion-item>\r\n      <ion-label style=\"text-align:center\" text-wrap>\r\n          {{Data[1]}}\r\n      </ion-label>\r\n    </ion-item>\r\n  </ion-header>\r\n\r\n<ion-content class=\"Contenido\">\r\n  <ion-list>\r\n    <ion-slides pager=\"true\" [options]=\"slideOpts\" *ngIf=\"Bimagen==true\">\r\n        <ion-slide *ngFor=\"let item of Imagenes\">\r\n          <ion-list>\r\n            <ion-item>\r\n                <ion-img src=\"{{item}}\" style=\"width:90%;margin: auto\"></ion-img>\r\n            </ion-item>\r\n          </ion-list>\r\n        </ion-slide>\r\n       </ion-slides>\r\n      <div style=\"padding:0px 5%\">\r\n          <ion-item *ngIf=\"Blabel==true\">\r\n            <ion-label style=\"text-align:center\" text-uppercase text-wrap>{{Texto}}</ion-label>\r\n          </ion-item>\r\n          <ion-item *ngIf=\"Binput==true\">\r\n              <ion-input placeholder=\"Respuesta\" [(ngModel)]=\"Response\"></ion-input>\r\n            </ion-item>\r\n          <ion-button *ngIf=\"Binput==true\" expand=\"block\" color=\"medium\" (click)=Responder()>Enviar Respuesta</ion-button>\r\n          <ion-button *ngFor=\"let button of Botones\" expand=\"block\" color=\"medium\" (click)=Responder(button.Text)>{{button.Text}}</ion-button>\r\n      </div>\r\n</ion-list>\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -111,12 +111,18 @@ var VerNotyPage = /** @class */ (function () {
         this.Alert = Alert;
         this.Aroute = Aroute;
         this.Data = new Array();
+        this.Imagenes = new Array();
+        this.Bimagen = false;
+        this.Binput = false;
+        this.Blabel = false;
+        this.Botones = new Array();
         var Data1 = this.Aroute.snapshot.paramMap.get('Id');
         this.Data = Data1.split('*');
         console.log(this.Data);
         this.Id_unique = this.Data[0];
         console.log(this.Id_unique);
     }
+    ;
     VerNotyPage.prototype.ngOnInit = function () {
         var _this = this;
         var data = {
@@ -130,6 +136,38 @@ var VerNotyPage = /** @class */ (function () {
             if (err == null) {
                 _this.Notificacion = JSON.parse(data.data)[0];
                 console.log(_this.Notificacion);
+                _this.Response = _this.Notificacion.Answer;
+                console.log('Respuesta:', _this.Response);
+                if (_this.Notificacion.Url == "null" || _this.Notificacion.Url == null) {
+                    _this.Bimagen = false;
+                }
+                else {
+                    _this.Bimagen = true;
+                }
+                console.log(_this.Notificacion.Url);
+                _this.Imagenes = JSON.parse(_this.Notificacion.Url.replace(/'/g, '"'));
+                console.log(_this.Imagenes);
+                //this.Botones=.split(';');
+                console.log(_this.Bimagen);
+                if (_this.Notificacion.Input == "true" || _this.Notificacion.Input == true) {
+                    _this.Binput = true;
+                }
+                else {
+                    _this.Binput = false;
+                }
+                console.log(_this.Binput);
+                if (_this.Notificacion.Label == "null" || _this.Notificacion.Label == null) {
+                    _this.Blabel = false;
+                }
+                else {
+                    _this.Blabel = true;
+                    _this.Texto = _this.Notificacion.Label;
+                }
+                console.log(_this.Blabel, _this.Texto);
+                var predata = _this.Notificacion.Button.replace(/'/g, '"');
+                console.log(predata);
+                _this.Botones = JSON.parse(predata);
+                console.log(_this.Botones);
             }
             else {
                 _this.Alert.AlertOnebutton('Error', JSON.stringify(err.message));

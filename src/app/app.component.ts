@@ -62,11 +62,7 @@ export class AppComponent {
           console.log(data);
           if(data.alerta==true||data.alerta=="true"){
             this.global.AlertaData=data;
-            if(this.global.AlertaData.url=="null"||this.global.AlertaData.url==null){
-              this.POP.presentPopover(PopComponent);
-            }else{
               this.navCtrl.navigateForward('/alerta');
-            }
           }else{
             this.global.AlertaData=data;
             this.CraerToast();

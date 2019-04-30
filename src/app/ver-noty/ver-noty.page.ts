@@ -15,6 +15,14 @@ export class VerNotyPage implements OnInit {
 Data=new Array();
 Id_unique;
 Notificacion:any;
+Imagenes=new Array();
+Bimagen=false;
+Binput=false;
+Blabel=false;
+Botones=new Array();;
+Campos;
+Texto;
+Response:string;
   constructor(
     public global:GlobalService,
     public Post:PostService,
@@ -42,6 +50,36 @@ Notificacion:any;
       if(err==null){
         this.Notificacion=JSON.parse(data.data)[0];
         console.log(this.Notificacion);
+        this.Response=this.Notificacion.Answer;
+        console.log('Respuesta:',this.Response);
+        if(this.Notificacion.Url=="null"||this.Notificacion.Url==null){
+          this.Bimagen=false;
+        }else{
+          this.Bimagen=true;
+        }
+        console.log(this.Notificacion.Url);
+        this.Imagenes=JSON.parse(this.Notificacion.Url.replace(/'/g,'"'))
+        console.log(this.Imagenes);
+        //this.Botones=.split(';');
+        console.log(this.Bimagen);
+        if(this.Notificacion.Input=="true"||this.Notificacion.Input==true){
+          this.Binput=true;
+        }else{
+          this.Binput=false;
+        }
+        console.log(this.Binput);
+        if(this.Notificacion.Label=="null"||this.Notificacion.Label==null){
+          this.Blabel=false;
+        }else{
+          this.Blabel=true;
+          this.Texto=this.Notificacion.Label;
+        }
+        console.log(this.Blabel,this.Texto);
+        let predata=this.Notificacion.Button.replace(/'/g,'"');
+        console.log(predata)
+        this.Botones=JSON.parse(predata)
+        console.log(this.Botones);
+
       }else{
         this.Alert.AlertOnebutton('Error',JSON.stringify(err.message));
       }

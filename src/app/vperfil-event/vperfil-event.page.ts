@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./vperfil-event.page.scss'],
 })
 export class VperfilEventPage implements OnInit {
+  SelectAll=false;
   Data;
   Id_Perfil;
   Datos=new Array();
@@ -242,6 +243,14 @@ ToggleC(i,j){
 
 
 
-
+Seleccionar(){
+  for(let i=0;i<this.Dispositivo.length;i++){
+    for(let j=0;j<this.Componentes[i].length;j++){
+      for(let k=0;k<this.Eventos[i][j].length;k++){
+        this.Vevent[i][j][k]=this.SelectAll;
+      }
+    }
+  }
+}
 
 }
