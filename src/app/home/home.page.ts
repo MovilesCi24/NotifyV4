@@ -152,7 +152,7 @@ getItems(ev: any) {
   if (val && val.trim() != '') {
     this.global.Historial = this.global.Historial.filter((item) => {
       console.log(item)
-      return (item.Label.toLowerCase().indexOf(val.toLowerCase()) > -1||item.Titulo.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      return (item.Label.toLowerCase().indexOf(val.toLowerCase()) > -1||item.Titulo.toLowerCase().indexOf(val.toLowerCase()) > -1||item.Usuario.toLowerCase().indexOf(val.toLowerCase()) > -1||item.UID.toLowerCase().indexOf(val.toLowerCase()) > -1);
     })
   }
 }

@@ -23,6 +23,9 @@ Botones=new Array();;
 Campos;
 Texto;
 Response:string;
+Dispositivo:string="N/A";
+Usuario:string="N/A";
+Fecha:string;
   constructor(
     public global:GlobalService,
     public Post:PostService,
@@ -51,6 +54,9 @@ Response:string;
         this.Notificacion=JSON.parse(data.data)[0];
         console.log(this.Notificacion);
         this.Response=this.Notificacion.Answer;
+        this.Dispositivo=this.Notificacion.UID;
+        this.Usuario=this.Notificacion.Usuario;
+        this.Fecha=moment(this.Notificacion.EventDate).format("HH:mm:ss YYYY-MM-DD");
         console.log('Respuesta:',this.Response);
         if(this.Notificacion.Url=="null"||this.Notificacion.Url==null){
           this.Bimagen=false;
@@ -62,7 +68,8 @@ Response:string;
         console.log(this.Imagenes);
         //this.Botones=.split(';');
         console.log(this.Bimagen);
-        if(this.Notificacion.Input=="true"||this.Notificacion.Input==true){
+        console.log('Input',this.Notificacion.Input);
+        if(this.Notificacion.Input=="true"||this.Notificacion.Input==true||this.Notificacion.Input=="True"){
           this.Binput=true;
         }else{
           this.Binput=false;

@@ -58,7 +58,7 @@ var VerNotyPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n      <ion-button slot=start color=\"danger\" fill=\"clear\" (click)=\"this.navCtrl.navigateRoot('/home')\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\r\n      <ion-title style=\"text-align: center\" text-uppercase>Notificación</ion-title>\r\n      <ion-button slot=end color=\"white\" fill=\"clear\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\r\n    </ion-toolbar>\r\n    <ion-item>\r\n      <ion-label style=\"text-align:center\" text-wrap>\r\n          {{Data[1]}}\r\n      </ion-label>\r\n    </ion-item>\r\n  </ion-header>\r\n\r\n<ion-content class=\"Contenido\">\r\n  <ion-list>\r\n    <ion-slides pager=\"true\" [options]=\"slideOpts\" *ngIf=\"Bimagen==true\">\r\n        <ion-slide *ngFor=\"let item of Imagenes\">\r\n          <ion-list>\r\n            <ion-item>\r\n                <ion-img src=\"{{item}}\" style=\"width:90%;margin: auto\"></ion-img>\r\n            </ion-item>\r\n          </ion-list>\r\n        </ion-slide>\r\n       </ion-slides>\r\n      <div style=\"padding:0px 5%\">\r\n          <ion-item *ngIf=\"Blabel==true\">\r\n            <ion-label style=\"text-align:center\" text-uppercase text-wrap>{{Texto}}</ion-label>\r\n          </ion-item>\r\n          <ion-item *ngIf=\"Binput==true\">\r\n              <ion-input placeholder=\"Respuesta\" [(ngModel)]=\"Response\"></ion-input>\r\n            </ion-item>\r\n          <ion-button *ngIf=\"Binput==true\" expand=\"block\" color=\"medium\" (click)=Responder()>Enviar Respuesta</ion-button>\r\n          <ion-button *ngFor=\"let button of Botones\" expand=\"block\" color=\"medium\" (click)=Responder(button.Text)>{{button.Text}}</ion-button>\r\n      </div>\r\n</ion-list>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n      <ion-button slot=start color=\"danger\" fill=\"clear\" (click)=\"this.navCtrl.navigateRoot('/home')\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\r\n      <ion-title style=\"text-align: center\" text-uppercase>Notificación</ion-title>\r\n      <ion-button slot=end color=\"white\" fill=\"clear\"> <ion-icon slot=\"icon-only\" name=\"arrow-round-back\"></ion-icon></ion-button>\r\n    </ion-toolbar>\r\n    <ion-item>\r\n      <ion-label text-wrap>\r\n          {{Data[1]}}\r\n      </ion-label>\r\n      <ion-note slot=\"end\" color=danger>{{this.Fecha}}</ion-note>\r\n    </ion-item>\r\n  </ion-header>\r\n\r\n<ion-content class=\"Contenido\">\r\n  <ion-list>\r\n      <ion-item>\r\n          <ion-label color=\"danger\">Dispositivo:</ion-label>\r\n          <ion-note slot=\"end\">{{this.Dispositivo}}</ion-note>\r\n      </ion-item>\r\n      <ion-item>\r\n          <ion-label color=\"danger\">Usuario:</ion-label>\r\n          <ion-note slot=\"end\">{{this.Usuario}}</ion-note>\r\n      </ion-item>\r\n    <ion-slides pager=\"true\" [options]=\"slideOpts\" *ngIf=\"Bimagen==true\">\r\n        <ion-slide *ngFor=\"let item of Imagenes\">\r\n          <ion-list>\r\n            <ion-item>\r\n                <ion-img src=\"{{item}}\" style=\"width:90%;margin: auto\"></ion-img>\r\n            </ion-item>\r\n          </ion-list>\r\n        </ion-slide>\r\n       </ion-slides>\r\n      <div style=\"padding:0px 5%\">\r\n          <ion-item *ngIf=\"Blabel==true\">\r\n            <ion-label style=\"text-align:center\" text-uppercase text-wrap>{{Texto}}</ion-label>\r\n          </ion-item>\r\n              <ion-item *ngIf=\"Binput==true\">\r\n                  <ion-label color=\"danger\">Respuesta:</ion-label>\r\n                  <ion-note slot=\"end\">{{this.Response}}</ion-note>\r\n              </ion-item>\r\n         <ion-button *ngFor=\"let button of Botones\" expand=\"block\" color=\"medium\" disabled=\"true\">{{button.Text}}</ion-button>\r\n      </div>\r\n</ion-list>\r\n</ion-content>"
 
 /***/ }),
 
@@ -116,6 +116,8 @@ var VerNotyPage = /** @class */ (function () {
         this.Binput = false;
         this.Blabel = false;
         this.Botones = new Array();
+        this.Dispositivo = "N/A";
+        this.Usuario = "N/A";
         var Data1 = this.Aroute.snapshot.paramMap.get('Id');
         this.Data = Data1.split('*');
         console.log(this.Data);
@@ -137,6 +139,9 @@ var VerNotyPage = /** @class */ (function () {
                 _this.Notificacion = JSON.parse(data.data)[0];
                 console.log(_this.Notificacion);
                 _this.Response = _this.Notificacion.Answer;
+                _this.Dispositivo = _this.Notificacion.UID;
+                _this.Usuario = _this.Notificacion.Usuario;
+                _this.Fecha = moment__WEBPACK_IMPORTED_MODULE_8__(_this.Notificacion.EventDate).format("HH:mm:ss YYYY-MM-DD");
                 console.log('Respuesta:', _this.Response);
                 if (_this.Notificacion.Url == "null" || _this.Notificacion.Url == null) {
                     _this.Bimagen = false;
@@ -149,7 +154,8 @@ var VerNotyPage = /** @class */ (function () {
                 console.log(_this.Imagenes);
                 //this.Botones=.split(';');
                 console.log(_this.Bimagen);
-                if (_this.Notificacion.Input == "true" || _this.Notificacion.Input == true) {
+                console.log('Input', _this.Notificacion.Input);
+                if (_this.Notificacion.Input == "true" || _this.Notificacion.Input == true || _this.Notificacion.Input == "True") {
                     _this.Binput = true;
                 }
                 else {
